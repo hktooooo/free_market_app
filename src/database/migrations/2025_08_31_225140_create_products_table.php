@@ -15,7 +15,15 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('product_name');
+            $table->bigInteger('price');
+            $table->string('brand')->nullable();
+            $table->text('detail');
+            $table->string('img_url');
+            $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
+            $table->boolean('sold');
+            $table->timestamp('created_at')->useCurrent()->nullable();
+            $table->timestamp('updated_at')->useCurrent()->nullable();
         });
     }
 

@@ -15,7 +15,13 @@ class CreateProductUserTable extends Migration
     {
         Schema::create('product_user', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->boolean('favorite');
+            $table->text('comment')->nullable();
+            $table->string('method')->nullable();
+            $table->timestamp('created_at')->useCurrent()->nullable();
+            $table->timestamp('updated_at')->useCurrent()->nullable();
         });
     }
 

@@ -25,7 +25,6 @@ class User extends Authenticatable
         'address',
         'building',
         'img_url',
-        ''
     ];
 
     /**
