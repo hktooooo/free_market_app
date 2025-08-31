@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [ItemController::class, 'index']);
 
 Route::get('/login', function () {
     return view('auth.login');

@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'zipcode',
+        'address',
+        'building',
+        'img_url',
+        ''
     ];
 
     /**
@@ -41,4 +46,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)
+                    ->withPivot('favorite', 'comment')
+    }
 }
