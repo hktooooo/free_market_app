@@ -22,11 +22,11 @@
       <nav>
         <ul class="header-nav">
           <li class="header-nav__item">
-            <a class="header-nav__link-login" href="/login">login</a>
+            <a class="header-nav__link-login" href="/login">ログイン</a>
             {{-- @if (Auth::check()) --}}
             <form action="/logout" method="post">
               {{-- @csrf --}}
-              <button class="header-nav__link-logout">logout</button>
+              <button class="header-nav__link-logout">ログアウト</button>
             </form>
             {{--@endif --}}
           </li>

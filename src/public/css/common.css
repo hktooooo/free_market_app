@@ -4,6 +4,19 @@ body {
     background-color: #fff;
 }
 
+a {
+    text-decoration: none;
+    border: #fff 1px solid;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    list-style: none;
+}
+
 .header {
     height: 80px;
     background-color: #000;
@@ -49,6 +62,7 @@ body {
 .header nav {
     width: 463px;
     border: solid #fff 1px;
+    padding-left: 37px;
 }
 
 .header-nav {
@@ -56,4 +70,21 @@ body {
     justify-content: space-between;
     align-items: center;
     font-size: 24px;
+}
+
+.header-nav__item a {
+    color: #fff;
+}
+
+.header-nav__item__button {
+    width: 100px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.header-nav__item__button a {
+    color: #000;
 }
