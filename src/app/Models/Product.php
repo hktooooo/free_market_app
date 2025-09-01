@@ -21,8 +21,9 @@ class Product extends Model
 
     public function products()
     {
-        return $this->belongsToMany(User::class)
-                    ->withPivot('favorite', 'comment')
+        return $this->belongsToMany(User::class, 'purchases' )
+                    ->withPivot('favorite', 'comment', 'payments_id')
+                    ->withTimestamps();
     }
 
     public function category()
