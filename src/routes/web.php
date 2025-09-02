@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AuthController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [ItemController::class, 'index']);
@@ -20,3 +21,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/mypage', function () {
     return view('auth.mypage');
 });
+
+Route::post('/login', [AuthController::class, 'login']);

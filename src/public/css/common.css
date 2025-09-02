@@ -9,6 +9,10 @@ a {
     border: #fff 1px solid;
 }
 
+p {
+    margin: 0;
+}
+
 ul {
     padding-left: 0;
 }
