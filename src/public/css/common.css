@@ -72,6 +72,10 @@ li {
     font-size: 24px;
 }
 
+.header-nav__link-logout {
+    color: #fff;
+}
+
 .header-nav__item a {
     color: #fff;
 }
