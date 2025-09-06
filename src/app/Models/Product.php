@@ -40,10 +40,10 @@ class Product extends Model
                     ->withTimestamps();
     }
 
-    // カテゴリー
-    public function category()
+    // 商品の状態
+    public function condition()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Condition::class);
     }
 
     // 購入者

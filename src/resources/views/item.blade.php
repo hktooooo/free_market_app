@@ -8,18 +8,18 @@
 <div class="item__detail-content">
     <div class="item__detail-image-container">
         <div class="item__detail-image">
-            画像
+            <img src="{{ asset('storage/' . $product['img_url']) }}" alt="{{ $product['product_name'] }}">
         </div>
     </div>
     <div class="item__detail-text">
         <div class="item__detail-name">
-            商品名がここに入る
+            {{ $product['product_name'] }}
         </div>
         <div class="item__detail-brand">
-            ブランド名
+            {{ $product['brand'] }}
         </div>
         <div class="item__detail-price">
-            &yen;<span>47,000</span>(税込)
+            &yen;<span>{{ number_format($product['price']) }}</span>(税込)
         </div>
         <div class="item__detail-price">
         </div>
@@ -37,6 +37,7 @@
             <div>商品の情報</div>
             <div>カテゴリー</div>
             <div>商品の状態</div>
+            <div>{{ $product['condition']['content'] }}</div>
         </div>
         <div>
             <div>コメント(1)</div>

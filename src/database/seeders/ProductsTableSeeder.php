@@ -19,9 +19,10 @@ class ProductsTableSeeder extends Seeder
             'price' => 15000,
             'brand' => 'Rolax',
             'detail' => 'スタイリッシュ',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '1',
+            'img_url' => 'Armani+Mens+Clock.jpg',
+            'condition_id' => 1,
             'seller_id' => 1,
+            'buyer_id' => 2,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -29,8 +30,8 @@ class ProductsTableSeeder extends Seeder
             'price' => 5000,
             'brand' => '西芝',
             'detail' => '高速で信頼性の高い',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '2',
+            'img_url' => 'HDD+Hard+Disk.jpg',
+            'condition_id' => 2,
             'seller_id' => 1,
         ];
         DB::table('products')->insert($param);
@@ -39,9 +40,9 @@ class ProductsTableSeeder extends Seeder
             'price' => 300,
             'brand' => 'なし',
             'detail' => '新鮮な玉ねぎ',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '2',
-            'seller_id' => 1,
+            'img_url' => 'iLoveIMG+d.jpg',
+            'condition_id' => 2,
+            'seller_id' => 2,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -49,9 +50,9 @@ class ProductsTableSeeder extends Seeder
             'price' => 4000,
             'brand' => '',
             'detail' => 'クラシックなデザイン',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '3',
-            'seller_id' => 1,
+            'img_url' => 'Leather+Shoes+Product+Photo.jpg',
+            'condition_id' => 3,
+            'seller_id' => 2,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -59,9 +60,10 @@ class ProductsTableSeeder extends Seeder
             'price' => 45000,
             'brand' => '',
             'detail' => '高性能なノートパソコン',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '1',
-            'seller_id' => 1,
+            'img_url' => 'Living+Room+Laptop.jpg',
+            'condition_id' => 1,
+            'seller_id' => 2,
+            'buyer_id' => 1,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -69,9 +71,10 @@ class ProductsTableSeeder extends Seeder
             'price' => 8000,
             'brand' => '',
             'detail' => '高音質のレコーディングマイク用',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '2',
+            'img_url' => 'Music+Mic+4632231.jpg',
+            'condition_id' => 2,
             'seller_id' => 1,
+            'buyer_id' => 2,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -79,8 +82,8 @@ class ProductsTableSeeder extends Seeder
             'price' => 3500,
             'brand' => '',
             'detail' => 'おしゃれなショルダーバッグ',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '1',
+            'img_url' => 'Purse+fashion+pocket.jpg',
+            'condition_id' => 1,
             'seller_id' => 1,
         ];
         DB::table('products')->insert($param);
@@ -89,8 +92,8 @@ class ProductsTableSeeder extends Seeder
             'price' => 500,
             'brand' => '',
             'detail' => '使いやすいタンブラー',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '1',
+            'img_url' => 'Tumbler+souvenir.jpg',
+            'condition_id' => 1,
             'seller_id' => 1,
         ];
         DB::table('products')->insert($param);
@@ -99,8 +102,8 @@ class ProductsTableSeeder extends Seeder
             'price' => 4000,
             'brand' => 'Starbacks',
             'detail' => '手動のコーヒーミル',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '1',
+            'img_url' => 'Waitress+with+Coffee+Grinder.jpg',
+            'condition_id' => 1,
             'seller_id' => 1,
         ];
         DB::table('products')->insert($param);
@@ -109,9 +112,9 @@ class ProductsTableSeeder extends Seeder
             'price' => 2500,
             'brand' => '',
             'detail' => '便利なメイクアップセット',
-            'img_url' => 'xxxxxx',
-            'condition_id' => '1',
-            'seller_id' => 1,
+            'img_url' => 'makeup_sets.jpg',
+            'condition_id' => 1,
+            'seller_id' => 2,
         ];
         DB::table('products')->insert($param);
     }

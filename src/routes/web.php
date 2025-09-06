@@ -4,9 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthController;
 
-Route::middleware('auth')->group(function () {
-    Route::get('/', [ItemController::class, 'index']);
-});
+Route::get('/', [ItemController::class, 'index']);
+Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');;
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/', [ItemController::class, 'index']);
+// });
 
 // Route::get('/', [ItemController::class, 'index']);
 

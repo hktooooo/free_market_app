@@ -1,3 +1,5 @@
+{{ $userId }}
+
 @extends('layouts.app')
 
 @section('css')
@@ -11,62 +13,23 @@
         <a class="toppage__list__link-mylist" href="">マイリスト</a>
     </div>
     <div class="toppage__innner">
-        <div class="toppage__product-container">
-            <div class="toppage__product-image">
-                画像
+        @foreach ($products as $product)
+            @if ($userId === $product['seller_id'])     {{-- 出品した商品を非表示 --}}
+                @continue
+            @endif
+
+            <div class="toppage__product-container">
+                <a href="{{ route('item.show', $product['id']) }}" class="toppage__product-image">
+                    <img src="{{ asset('storage/' . $product['img_url']) }}" alt="{{ $product['product_name'] }}">
+                </a>
+                <p class="toppage__product-name">
+                    {{ $product['product_name'] }}
+                </p>
+                @if ($product['buyer_id'] !== null) 
+                    <p class="toppage__product-sold">Sold</p>
+                @endif
             </div>
-            <p class="toppage__product-name">
-                商品名
-            </p>
-        </div>
-        <div class="toppage__product-container">
-            <div class="toppage__product-image">
-                画像
-            </div>
-            <p class="toppage__product-name">
-                商品名
-            </p>
-        </div>
-        <div class="toppage__product-container">
-            <div class="toppage__product-image">
-                画像
-            </div>
-            <p class="toppage__product-name">
-                商品名
-            </p>
-        </div>
-        <div class="toppage__product-container">
-            <div class="toppage__product-image">
-                画像
-            </div>
-            <p class="toppage__product-name">
-                商品名
-            </p>
-        </div>
-        <div class="toppage__product-container">
-            <div class="toppage__product-image">
-                画像
-            </div>
-            <p class="toppage__product-name">
-                商品名
-            </p>
-        </div>
-        <div class="toppage__product-container">
-            <div class="toppage__product-image">
-                画像
-            </div>
-            <p class="toppage__product-name">
-                商品名
-            </p>
-        </div>
-        <div class="toppage__product-container">
-            <div class="toppage__product-image">
-                画像
-            </div>
-            <p class="toppage__product-name">
-                商品名
-            </p>
-        </div>
+        @endforeach
     </div>
 </div>
 @endsection('content')

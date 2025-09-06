@@ -25,6 +25,14 @@
     margin: 0 auto;
 }
 
+.item__detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background-color: #fff;
+}
+
 .item__detail-text {
     width: 690px;
     padding-top: 5px;
