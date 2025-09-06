@@ -16,18 +16,51 @@ class Product extends Model
         'detail',
         'img_url',
         'condition_id',
-        'sold',
+        'buyer_id',
+        'seller_id',
+        'payment_id',
+        'zipcode_purchase',
+        'address_purchase',
+        'building_purchase',
     ];
 
-    public function products()
+    // お気に入りされたユーザー
+    public function favoritedByUsers()
     {
-        return $this->belongsToMany(User::class, 'purchases' )
-                    ->withPivot('favorite', 'comment', 'payments_id')
+        return $this->belongsToMany(User::class, 'favorites')
+                    ->withPivot('favorite')
                     ->withTimestamps();
     }
 
+    // コメントしたユーザー
+    public function commentedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'comments')
+                    ->withPivot('comment')
+                    ->withTimestamps();
+    }
+
+    // カテゴリー
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    // 購入者
+    public function buyer()
+    {
+        return $this->belongsTo(User::class, 'buyer_id'); 
+    }
+
+    // 販売者
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'seller_id'); 
+    }
+
+    // 支払い方法
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 }

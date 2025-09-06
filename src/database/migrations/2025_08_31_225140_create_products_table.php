@@ -21,7 +21,12 @@ class CreateProductsTable extends Migration
             $table->text('detail');
             $table->string('img_url');
             $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
-            $table->boolean('sold');
+            $table->foreignId('buyer_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('seller_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('payments_id')->nullable()->constrained()->onDelete('set null');
+            $table->string('zipcode_purchase')->nullable();
+            $table->string('address_purchase')->nullable();
+            $table->string('building_purchase')->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });
