@@ -22,4 +22,10 @@ Route::get('/mypage', function () {
     return view('auth.mypage');
 });
 
+Route::get('/item', function () {
+    return view('item');
+});
+
+
 Route::post('/login', [AuthController::class, 'login']);
+
