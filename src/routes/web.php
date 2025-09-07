@@ -1,22 +1,36 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AuthController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/', [ItemController::class, 'index']);
+Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/register', [AuthController::class, 'show_register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth')->group(function () {
+    Route::post('/register', [AuthController::class, 'store_user']);
+    Route::post('/', [ItemController::class, 'index']);
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
+// Route::get('/', [ItemController::class, 'index']);
+
+// Route::get('/login', function () {
+//     return view('auth.login');
+// });
+
+// Route::get('/register', function () {
+//     return view('auth.register');
+// });
+
+// Route::get('/mypage', function () {
+//     return view('auth.mypage');
+// });
+
+Route::get('/item', function () {
+    return view('item');
 });
+
+
+
