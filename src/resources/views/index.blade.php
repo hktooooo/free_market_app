@@ -9,10 +9,10 @@
 @section('content')
 <div class="toppage-content">
     <div class="toppage__list">
-        <a class="toppage__list__link-favorite {{ $tab === '' ? 'active' : '' }}" href="{{ route('index.show', ['q' => $q ?? '']) }}">
+        <a class="toppage__list__link {{ $tab === 'recommend' ? 'active' : '' }}" href="{{ route('index.show', ['tab' => 'recommend','q' => $q ?? '']) }}">
             おすすめ
         </a>
-        <a class="toppage__list__link-mylist {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ route('index.show', ['tab' => 'mylist', 'q' => $q ?? '']) }}">
+        <a class="toppage__list__link {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ route('index.show', ['tab' => 'mylist', 'q' => $q ?? '']) }}">
             マイリスト
         </a>
     </div>

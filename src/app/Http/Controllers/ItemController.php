@@ -11,7 +11,7 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $tab = $request->query('tab', '');
+        $tab = $request->query('tab', 'recommend');
         $userId = Auth::id();
         $conditions = Condition::all();
         $q = $request->input('q');
