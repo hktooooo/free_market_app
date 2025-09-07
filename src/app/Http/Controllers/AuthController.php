@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Condition;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,11 @@ class AuthController extends Controller
     
     public function mypage()
     {
-        return view('auth.mypage');
+        $products = Product::with('condition')->get();
+        $conditions = Condition::all();
+        $userId = Auth::id();
+
+        return view('auth.mypage', compact('products', 'conditions', 'userId'));
     }
 
     public function mypage_edit()

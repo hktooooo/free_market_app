@@ -9,12 +9,12 @@
 @section('content')
 <div class="toppage-content">
     <div class="toppage__list">
-        <a class="toppage__list__link-favorite" href="">おすすめ</a>
-        <form action="/mypage" method="GET" style="display: inline;">
-            <button type="submit" class="toppage__list__link-mylist">
-                マイリスト
-            </button>
-        </form>
+        <a class="toppage__list__link-favorite {{ $tab === '' ? 'active' : '' }}" href="{{ route('index.show', ['q' => $q ?? '']) }}">
+            おすすめ
+        </a>
+        <a class="toppage__list__link-mylist {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ route('index.show', ['tab' => 'mylist', 'q' => $q ?? '']) }}">
+            マイリスト
+        </a>
     </div>
     <div class="toppage__innner">
         @foreach ($products as $product)

@@ -84,6 +84,14 @@ li {
     color: #fff;
 }
 
+.header-nav__item form {
+    display: inline;
+}
+
+.header-nav__link-mypage {
+    color: #fff;
+}
+
 .header-nav__item__button {
     width: 100px;
     height: 50px;

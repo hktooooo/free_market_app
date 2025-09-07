@@ -16,8 +16,9 @@
       <h1 class="header__heading">
         <img src="{{ asset('storage/logo.svg') }}" alt="COACHTECH">
       </h1>
-      <form class="search-form" action="" method="get">
-        <input class="search-form__input" type="text" name="" id="" placeholder="なにをお探しですか？">
+      <form class="search-form" action="{{ route('index.show') }}" method="get">
+        <input class="search-form__input" type="text" name="q" id="" value="{{ $q ?? '' }}" placeholder="なにをお探しですか？">
+        <input type="hidden" name="tab" value="{{ $tab ?? '' }}">
       </form>
       <nav>
         <ul class="header-nav">
@@ -32,7 +33,11 @@
             @endif
           </li>
           <li class="header-nav__item">
-            <a class="" href="">マイページ</a>
+            <form action="{{ route('mypage') }}" method="get">
+              <button type="submit" class="header-nav__link-mypage">
+                マイページ
+              </button>
+            </form>
           </li>
           <li class="header-nav__item__button">
             <a class="" href="">出品</a>
