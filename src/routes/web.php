@@ -8,9 +8,10 @@ Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');;
 
 Route::get('/register', [AuthController::class, 'show_register']);
+Route::post('/register', [AuthController::class, 'store_user']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth')->group(function () {
-    Route::post('/register', [AuthController::class, 'store_user']);
+    Route::get('/mypage/profile', [AuthController::class, 'mypage_edit'])->name('mypage_edit');
     Route::post('/', [ItemController::class, 'index']);
 });
 
