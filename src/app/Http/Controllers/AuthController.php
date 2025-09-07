@@ -16,6 +16,11 @@ class AuthController extends Controller
         return view('auth.register');  
     }
     
+    public function mypage()
+    {
+        return view('auth.mypage');
+    }
+
     public function mypage_edit()
     {
         return view('auth.mypage_edit');

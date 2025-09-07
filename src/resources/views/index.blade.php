@@ -10,7 +10,11 @@
 <div class="toppage-content">
     <div class="toppage__list">
         <a class="toppage__list__link-favorite" href="">おすすめ</a>
-        <a class="toppage__list__link-mylist" href="">マイリスト</a>
+        <form action="/mypage" method="GET" style="display: inline;">
+            <button type="submit" class="toppage__list__link-mylist">
+                マイリスト
+            </button>
+        </form>
     </div>
     <div class="toppage__innner">
         @foreach ($products as $product)

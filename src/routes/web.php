@@ -11,6 +11,7 @@ Route::get('/register', [AuthController::class, 'show_register']);
 Route::post('/register', [AuthController::class, 'store_user']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth')->group(function () {
+    Route::get('/mypage', [AuthController::class, 'mypage']);
     Route::get('/mypage/profile', [AuthController::class, 'mypage_edit'])->name('mypage_edit');
     Route::post('/', [ItemController::class, 'index']);
 });
@@ -29,9 +30,9 @@ Route::middleware('auth')->group(function () {
 //     return view('auth.mypage');
 // });
 
-Route::get('/item', function () {
-    return view('item');
-});
+// Route::get('/item', function () {
+//     return view('item');
+// });
 
 
 
