@@ -20,4 +20,14 @@ class AuthController extends Controller
             'email' => 'ログイン情報が登録されていません',
         ]);
     }
+
+    public function show_register()
+    {
+        return view('auth.register');  
+    }
+    
+    public function store_user()
+    {
+        return view('auth.mypage');
+    }
 }
