@@ -51,4 +51,13 @@ class ItemController extends Controller
 
         return view('item', compact('product'));
     }
+
+    // 商品詳細ページ表示
+    public function purchase_confirm($id)
+    {
+        // id指定で1件取得
+        $product = Product::with('condition')->findOrFail($id);
+
+        return view('auth.purchase', compact('product'));
+    }
 }

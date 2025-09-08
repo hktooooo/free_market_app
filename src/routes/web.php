@@ -13,21 +13,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth')->group(function () {
     Route::get('/mypage', [AuthController::class, 'mypage'])->name('mypage');
     Route::get('/mypage/profile', [AuthController::class, 'mypage_edit'])->name('mypage_edit');
+    Route::get('/purchase/{id}', [ItemController::class, 'purchase_confirm'])->name('purchase.confirm');
 });
 
-// Route::get('/', [ItemController::class, 'index']);
-
-// Route::get('/login', function () {
-//     return view('auth.login');
-// });
-
-// Route::get('/register', function () {
-//     return view('auth.register');
-// });
-
-// Route::get('/mypage', function () {
-//     return view('auth.mypage');
-// });
+Route::get('/purchase', function () {
+    return view('auth.purchase');
+});
 
 // Route::get('/item', function () {
 //     return view('item');

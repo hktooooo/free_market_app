@@ -12,20 +12,19 @@
         </div>
     </div>
     <div class="item__detail-text">
-        <div class="item__detail-name">
-            {{ $product['product_name'] }}
-        </div>
-        <div class="item__detail-brand">
-            {{ $product['brand'] }}
-        </div>
-        <div class="item__detail-price">
-            &yen;<span>{{ number_format($product['price']) }}</span>(税込)
-        </div>
-        <div class="item__detail-price">
-        </div>
-        <div>
-            <input class="item__detail-purchase__btn btn" type="submit" value="購入手続きへ">
-        </div>
+            <div class="item__detail-name">
+                {{ $product['product_name'] }}
+            </div>
+            <div class="item__detail-brand">
+                {{ $product['brand'] }}
+            </div>
+            <div class="item__detail-price">
+                &yen;<span>{{ number_format($product['price']) }}</span>(税込)
+            </div>
+            <div class="item__detail-favorites-comments">
+            </div>
+            <button class="item__detail-purchase__btn btn" type="submit">購入手続きへ</button>
+            <a href="{{ route('purchase.confirm', $product['id']) }}">purchaseへ</a>
         <div>
             <div>商品説明</div>
             <div>カラー：グレー</div>
