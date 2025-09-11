@@ -61,6 +61,6 @@ class Product extends Model
     // 支払い方法
     public function paymentMethod()
     {
-        return $this->belongsTo(PaymentMethod::class);
+        return $this->belongsTo(Payment::class);
     }
 }

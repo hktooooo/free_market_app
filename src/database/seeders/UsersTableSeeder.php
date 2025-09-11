@@ -18,6 +18,9 @@ class UsersTableSeeder extends Seeder
             'name' => 'aaa',
             'email' => 'test@test.com',
             'password' => bcrypt('12345678'),
+            'zipcode' => '12345678',
+            'address' => '東京都',
+            'building' => '東京タワー'
         ];
         DB::table('users')->insert($param);
         $param = [

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Condition;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,8 +57,48 @@ class ItemController extends Controller
     public function purchase_confirm($id)
     {
         // id指定で1件取得
+        $product = Product::with('condition', 'paymentMethod')->findOrFail($id);
+        $paymentMethods = Payment::all();
+
+        if($product->zipcode_purchase === null){
+            $product->zipcode_purchase = Auth::user()->zipcode;
+        }
+
+        if($product->address_purchase === null){
+            $product->address_purchase = Auth::user()->address;
+        }
+        
+        if($product->building_purchase === null){
+            $product->building_purchase = Auth::user()->building;
+        }
+        
+        return view('auth.purchase', compact('product', 'paymentMethods'));
+    }
+
+    // 住所変更ページ表示
+    public function purchase_address($id)
+    {
+        // id指定で1件取得
         $product = Product::with('condition')->findOrFail($id);
 
-        return view('auth.purchase', compact('product'));
+        if($product->zipcode_purchase === null){
+            $product->zipcode_purchase = Auth::user()->zipcode;
+        }
+
+        if($product->address_purchase === null){
+            $product->address_purchase = Auth::user()->address;
+        }
+        
+        if($product->building_purchase === null){
+            $product->building_purchase = Auth::user()->building;
+        }
+        
+        return view('auth.address', compact('product'));
     }
+
+    public function purchase_address($id)
+    {
+        
+    }
+
 }

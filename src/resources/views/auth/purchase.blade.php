@@ -1,5 +1,6 @@
 {{ $product['id'] }}
 {{ $product['product_name'] }}
+{{ $product->address_purchase }}
 
 @extends('layouts.app')
 
@@ -11,19 +12,21 @@
 <div class="purchase-container">
     <div class="purchase-left">
         <div class="item-info">
-            <div class="item-image">商品画像</div>
+            <div class="item-image">
+                <img src="{{ asset('storage/' . $product->img_url) }}" alt="{{ $product->product_name }}">
+            </div>
             <div class="item-detail">
-                <h2 class="item-name">商品名</h2>
-                <p class="item-price"><span>&yen;</span>47,000</p>
+                <h2 class="item-name">{{ $product->product_name }}</h2>
+                <p class="item-price"><span>&yen;</span>{{ number_format($product->price) }}</p>
             </div>
         </div>
         <div class="payment-section">
             <h3>支払い方法</h3>
             <select name="payment" class="payment-select">
                 <option value="">選択してください</option>
-                <option value="convenience">コンビニ払い</option>
-                <option value="credit">クレジットカード</option>
-                <option value="bank">銀行振込</option>
+                @foreach($paymentMethods as $paymentMethod)
+                <option value="{{ $paymentMethod->id }}"> {{ $paymentMethod->content }} </option>
+                @endforeach
             </select>
         </div>
 
@@ -32,10 +35,11 @@
         <div class="address-section">
             <h3>配送先</h3>
             <p>
-                〒 XXX-YYYY <br>
-                ここには住所と建物が入ります
+                〒 {{ $product->zipcode_purchase }}<br>
+                {{ $product->address_purchase }}<br>
+                {{ $product->building_purchase }}
             </p>
-            <a href="#" class="change-link">変更する</a>
+            <a href="{{ route('purchase.address', $product['id']) }}" class="change-link">変更する</a>
         </div>
 
         <hr>
@@ -45,7 +49,7 @@
         <div class="summary-box">
             <div class="summary-row">
                 <span>商品代金</span>
-                <span>¥47,000</span>
+                <span><span>&yen;</span>{{ number_format($product->price) }}</span>
             </div>
             <div class="summary-row">
                 <span>支払い方法</span>
