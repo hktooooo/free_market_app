@@ -15,7 +15,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [AuthController::class, 'mypage_edit'])->name('mypage_edit');
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_confirm'])->name('purchase.confirm');
     Route::get('/purchase/address/{item_id}', [ItemController::class, 'purchase_address'])->name('purchase.address');
-    Route::get('/address_update', [ItemController::class, 'address_update'])->name('address.update');
+    Route::post('/address_update', [ItemController::class, 'address_update'])->name('address.update');
 });
 
 // Route::get('/purchase', function () {

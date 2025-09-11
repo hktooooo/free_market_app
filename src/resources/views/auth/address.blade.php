@@ -10,6 +10,7 @@
   <div class="address-form__inner">
     <form class="address-form__form" action="{{ route('address.update') }}" method="post">
       @csrf
+      <input type="hidden" name="item_id" value="{{ $product->id }}">
       <div class="address-form__group">
         <label class="address-form__label" for="zipcode">郵便番号</label>
         <input class="address-form__input" type="text" name="zipcode" id="zipcode" value="{{ $product->zipcode_purchase }}">

@@ -96,9 +96,24 @@ class ItemController extends Controller
         return view('auth.address', compact('product'));
     }
 
-    public function purchase_address($id)
+    // 住所変更の更新、データベースへの保存
+    public function address_update(Request $request)
     {
-        
+        $id = $request->get('item_id');
+
+        // id指定で1件取得
+        $product = Product::with('condition', 'paymentMethod')->findOrFail($id);
+        $paymentMethods = Payment::all();
+
+        // リクエストの値で上書き
+        $product->zipcode_purchase = $request->get('zipcode');
+        $product->address_purchase = $request->get('address');
+        $product->building_purchase = $request->get('building');
+
+        // DBに保存
+        $product->save();
+
+        return view('auth.purchase', compact('product', 'paymentMethods'));
     }
 
 }
