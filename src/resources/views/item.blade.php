@@ -8,37 +8,57 @@
 <div class="item__detail-content">
     <div class="item__detail-image-container">
         <div class="item__detail-image">
-            <img src="{{ asset('storage/' . $product['img_url']) }}" alt="{{ $product['product_name'] }}">
+            <img src="{{ asset('storage/' . $product->img_url) }}" alt="{{ $product->product_name }}">
         </div>
     </div>
     <div class="item__detail-text">
-            <div class="item__detail-name">
-                {{ $product['product_name'] }}
-            </div>
+            <h2 class="item__detail-name">
+                {{ $product->product_name }}
+            </h2>
             <div class="item__detail-brand">
-                {{ $product['brand'] }}
+                {{ $product->brand }}
             </div>
             <div class="item__detail-price">
-                &yen;<span>{{ number_format($product['price']) }}</span>(税込)
+                &yen;<span>{{ number_format($product->price) }}</span>(税込)
             </div>
             <div class="item__detail-favorites-comments">
+                  <!-- 星マーク -->
+                <div class="wrap">
+                    <div class="icon star"></div>
+                    <span>3</span>
+                </div>
+                <!-- 吹き出しマーク -->
+                <div class="wrap">
+                    <div class="icon balloon"></div>
+                    <span>1</span>
+                </div>
             </div>
-            <button class="item__detail-purchase__btn btn" type="submit">購入手続きへ</button>
-            <a href="{{ route('purchase.confirm', $product['id']) }}">purchaseへ</a>
-        <div>
-            <div>商品説明</div>
-            <div>カラー：グレー</div>
-            <div>新品</div>
-            <div>商品の状態は良好です。傷もありません。</div>
-            <div>購入後、即発送いたします。</div>
-        </div>
-        <div>
-            <div>商品の情報</div>
-            <div>カテゴリー</div>
-            <div>商品の状態</div>
-            <div>{{ $product['condition']['content'] }}</div>
-        </div>
-        <div>
+            <a href="{{ route('purchase.confirm', $product->id) }}" class="item__detail-purchase__btn btn">購入手続きへ</a>
+        <div class="item__detail-inner">
+            <h3 class="item__detail-inner-title">商品説明</h3>
+            <div class="item__detail-inner-text">
+                カラー：グレー</br>
+                </br>
+                新品</br>
+                商品の状態は良好です。傷もありません。</br>
+                </br>
+                購入後、即発送いたします。</br>
+            </div>
+            <h3 class="item__detail-inner-title">商品の情報</h3>
+            <div class="item__detail-inner-category">
+                <h4 class="item__detail-inner-category-title">カテゴリー</h4>
+                    <ul class="item__detail-inner-category-contents">
+                        @foreach ($categories as $category)
+                        <li>{{ $category }}</li>
+                        @endforeach
+                    </ul>
+            </div>
+            <div class="item__detail-inner-condition">
+                <h4 class="item__detail-inner-condition-title">商品の状態</h4>
+                <div class="item__detail-inner-condition-contents">
+                    {{ $product->condition->content }}
+                </div>
+            </div>
             <div>コメント(1)</div>
             <div>admin</div>
             <div>こちらにコメントが入ります。</div>

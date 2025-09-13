@@ -1,8 +1,24 @@
+h2 {
+    font-size: 45px;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
 .btn {
     background-color: #FF5555;
     border-radius: 4px;
     color: #fff;
     font-weight: bold;
+    text-align: center;
 }
 
 .item__detail-content {
@@ -40,11 +56,6 @@
     border: blue solid 1px;
 }
 
-.item__detail-name {
-    font-size: 45px;
-    font-weight: 700;
-}
-
 .item__detail-brand {
     font-size: 20px;
 }
@@ -57,13 +68,132 @@
     font-size: 45px;
 }
 
+.item__detail-favorites-comments {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: start;
+    height: 100px;
+    border: red 1px solid;
+}
+
+.wrap {
+    text-align: center;
+}
+
+.wrap span {
+    display: block;
+    margin-top: 5px;
+    font-size: 18px;
+    color: #000;
+}
+
+/* 共通 */
+.icon {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+/* ⭐ 星 */
+.star {
+    background: white;
+    border: 3px solid #555;
+    clip-path: polygon(50% 0%,
+            61% 35%,
+            98% 35%,
+            68% 57%,
+            79% 91%,
+            50% 70%,
+            21% 91%,
+            32% 57%,
+            2% 35%,
+            39% 35%);
+}
+
+/* 💬 吹き出し */
+.balloon {
+    position: relative;
+    width: 50px;
+    height: 40px;
+    background: white;
+    border: 3px solid #555;
+    border-radius: 50%;
+}
+
+.balloon::before {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 16px;
+    border: 8px solid transparent;
+    border-top: 8px solid #555;
+    /* 枠線 */
+}
+
+.balloon::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 16px;
+    border: 7px solid transparent;
+    border-top: 7px solid white;
+    /* 中身 */
+}
+
+
 .item__detail-purchase__btn {
+    display: block;
     margin-top: 22px;
     width: 570px;
     height: 56px;
     font-size: 30px;
 }
 
+.item__detail-inner {
+    margin-top: 22px;
+}
+
+.item__detail-inner-text {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 24px;
+    color: #000;
+}
+
+.item__detail-inner-category,
+.item__detail-inner-condition {
+    width: 570px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    border: green 1px solid;
+}
+
+.item__detail-inner-category-contents {
+    display: flex;
+    align-items: center;
+    gap: 22px
+}
+
+.item__detail-inner-category-contents li {
+    min-width: 102px;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 15px;
+    background-color: #D9D9D9;
+    color: #000;
+    padding: 0 16px;
+}
+
+.item__detail-inner-condition-contents {
+    padding-left: 26px;
+    font-size: 20px;
+    color: #000;
+}
 
 
 

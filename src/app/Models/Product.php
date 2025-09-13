@@ -40,6 +40,12 @@ class Product extends Model
                     ->withTimestamps();
     }
 
+    // 商品のカテゴリー
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categories_products', 'product_id', 'category_id');
+    }
+
     // 商品の状態
     public function condition()
     {

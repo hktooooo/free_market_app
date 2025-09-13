@@ -50,10 +50,13 @@ class ItemController extends Controller
         // id指定で1件取得
         $product = Product::with('condition')->findOrFail($id);
 
-        return view('item', compact('product'));
+        // カテゴリ名の配列を取得
+        $categories = $product->categories->pluck('content')->toArray();
+
+        return view('item', compact('product', 'categories'));
     }
 
-    // 商品詳細ページ表示
+    // 商品購入ページ表示
     public function purchase_confirm($id)
     {
         // id指定で1件取得
