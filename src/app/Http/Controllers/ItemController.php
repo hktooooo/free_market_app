@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Condition;
 use App\Models\Payment;
+use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,7 +55,28 @@ class ItemController extends Controller
         // カテゴリ名の配列を取得
         $categories = $product->categories->pluck('content')->toArray();
 
-        return view('item', compact('product', 'categories'));
+        // コメント一覧を取得（商品IDで絞り込み）
+        $comments = Comment::with('user')
+            ->where('product_id', $id)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // コメント総数
+        $comments_count = $comments->count();
+
+        return view('item', compact('product', 'categories', 'comments', 'comments_count'));
+    }
+
+    // 商品詳細ページ表示 コメント投稿
+    public function comments_store(CommentRequest $request)
+    {
+        Comment::create([
+            'comment' => $request->comment,
+            'product_id' => $request->product_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        return redirect()->back();
     }
 
     // 商品購入ページ表示

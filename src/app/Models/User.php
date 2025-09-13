@@ -53,11 +53,10 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
-    public function commentedProducts()
+    // ユーザーが書いたコメント一覧
+    public function comments()
     {
-        return $this->belongsToMany(Product::class, 'comments')
-            ->withPivot('comment')
-            ->withTimestamps();
+        return $this->hasMany(Comment::class);
     }
 
     // 購入した商品

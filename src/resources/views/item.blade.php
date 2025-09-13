@@ -59,12 +59,23 @@
                     {{ $product->condition->content }}
                 </div>
             </div>
-            <div>コメント(1)</div>
-            <div>admin</div>
-            <div>こちらにコメントが入ります。</div>
-            <form>
+            <div>コメント( {{ $comments_count }} )</div>
+                @foreach ($comments as $comment)
+                    <img src="{{ asset('storage/' . $comment->user->img_url) }}" alt="{{ $comment->user->name }}">
+                    {{ $comment->user->name }}
+                    {{ $comment->comment }}
+                @endforeach
+            <form action="{{ route('comments.store') }}" method="POST">
+                @csrf
                 <div>商品へのコメント</div>
-                <textarea></textarea>
+                <textarea name="comment" rows="4" cols="50"></textarea>
+                <p class="comment__error-message">
+                    @error('comment')
+                    {{ $message }}
+                    @enderror
+                </p>
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 <input class="item__detail-comment__btn btn" type="submit" value="コメントを送信する">
             </form>
         </div>

@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_confirm'])->name('purchase.confirm');
     Route::get('/purchase/address/{item_id}', [ItemController::class, 'purchase_address'])->name('purchase.address');
     Route::post('/address_update', [ItemController::class, 'address_update'])->name('address.update');
+    Route::post('/item/comments', [ItemController::class, 'comments_store'])->name('comments.store');
 });
 
 // Route::get('/purchase', function () {

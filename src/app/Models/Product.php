@@ -32,12 +32,10 @@ class Product extends Model
                     ->withTimestamps();
     }
 
-    // コメントしたユーザー
-    public function commentedByUsers()
+    // 商品に付いたコメント一覧
+    public function comments()
     {
-        return $this->belongsToMany(User::class, 'comments')
-                    ->withPivot('comment')
-                    ->withTimestamps();
+        return $this->hasMany(Comment::class);
     }
 
     // 商品のカテゴリー
