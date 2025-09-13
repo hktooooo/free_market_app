@@ -14,29 +14,13 @@ class FavoritesTableSeeder extends Seeder
      */
     public function run()
     {
-        $param = [
-            'user_id' => 3,
-            'product_id' => 1,
-            'favorite' => true,
-        ];
-        DB::table('favorites')->insert($param);
-        $param = [
-            'user_id' => 3,
-            'product_id' => 2,
-            'favorite' => true,
-        ];
-        DB::table('favorites')->insert($param);
-        $param = [
-            'user_id' => 3,
-            'product_id' => 5,
-            'favorite' => true,
-        ];
-        DB::table('favorites')->insert($param);
-        $param = [
-            'user_id' => 3,
-            'product_id' => 6,
-            'favorite' => true,
-        ];
-        DB::table('favorites')->insert($param);
+        DB::table('favorites')->insert([
+            ['user_id' => 3, 'product_id' => 1, 'favorite' => true],
+            ['user_id' => 3, 'product_id' => 2, 'favorite' => true],
+            ['user_id' => 3, 'product_id' => 5, 'favorite' => true],
+            ['user_id' => 3, 'product_id' => 6, 'favorite' => true],
+            ['user_id' => 1, 'product_id' => 4, 'favorite' => true],
+            ['user_id' => 2, 'product_id' => 4, 'favorite' => true],        
+        ]);
     }
 }

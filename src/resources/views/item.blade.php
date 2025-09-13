@@ -22,27 +22,21 @@
                 &yen;<span>{{ number_format($product->price) }}</span>(税込)
             </div>
             <div class="item__detail-favorites-comments">
-                  <!-- 星マーク -->
-                <div class="wrap">
-                    <div class="icon star"></div>
-                    <span>3</span>
+                <div class="item__detail-favorites-comments__icon-box">
+                    <img src="{{ asset('storage/star.png') }}" alt="star">
+                    <p>{{ $favorite_count }}</p>
                 </div>
                 <!-- 吹き出しマーク -->
-                <div class="wrap">
-                    <div class="icon balloon"></div>
-                    <span>1</span>
+                <div class="item__detail-favorites-comments__icon-box">
+                    <img src="{{ asset('storage/comment.png') }}" alt="star">
+                    <p>{{ $comments_count }}</p>
                 </div>
             </div>
             <a href="{{ route('purchase.confirm', $product->id) }}" class="item__detail-purchase__btn btn">購入手続きへ</a>
         <div class="item__detail-inner">
             <h3 class="item__detail-inner-title">商品説明</h3>
             <div class="item__detail-inner-text">
-                カラー：グレー</br>
-                </br>
-                新品</br>
-                商品の状態は良好です。傷もありません。</br>
-                </br>
-                購入後、即発送いたします。</br>
+                {{ $product->detail }}
             </div>
             <h3 class="item__detail-inner-title">商品の情報</h3>
             <div class="item__detail-inner-category">

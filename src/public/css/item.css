@@ -73,75 +73,28 @@ h4 {
     gap: 50px;
     align-items: center;
     justify-content: start;
-    height: 100px;
     border: red 1px solid;
+    margin-top: 28px;
+    padding-left: 40px;
 }
 
-.wrap {
+.item__detail-favorites-comments__icon-box {
     text-align: center;
+    width: 42px;
+    border: gold 1px solid;
 }
 
-.wrap span {
-    display: block;
-    margin-top: 5px;
+.item__detail-favorites-comments__icon-box img {
+    width: 100%;
+}
+
+.item__detail-favorites-comments__icon-box p {
+    margin-top: 2px;
     font-size: 18px;
+    font-weight: bold;
     color: #000;
+    border: green 1px solid;
 }
-
-/* 共通 */
-.icon {
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    box-sizing: border-box;
-}
-
-/* ⭐ 星 */
-.star {
-    background: white;
-    border: 3px solid #555;
-    clip-path: polygon(50% 0%,
-            61% 35%,
-            98% 35%,
-            68% 57%,
-            79% 91%,
-            50% 70%,
-            21% 91%,
-            32% 57%,
-            2% 35%,
-            39% 35%);
-}
-
-/* 💬 吹き出し */
-.balloon {
-    position: relative;
-    width: 50px;
-    height: 40px;
-    background: white;
-    border: 3px solid #555;
-    border-radius: 50%;
-}
-
-.balloon::before {
-    content: "";
-    position: absolute;
-    bottom: -12px;
-    left: 16px;
-    border: 8px solid transparent;
-    border-top: 8px solid #555;
-    /* 枠線 */
-}
-
-.balloon::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 16px;
-    border: 7px solid transparent;
-    border-top: 7px solid white;
-    /* 中身 */
-}
-
 
 .item__detail-purchase__btn {
     display: block;
