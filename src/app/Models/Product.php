@@ -18,10 +18,10 @@ class Product extends Model
         'condition_id',
         'buyer_id',
         'seller_id',
+        'buyer_zipcode',
+        'buyer_address',
+        'buyer_building',
         'payment_id',
-        'zipcode_purchase',
-        'address_purchase',
-        'building_purchase',
     ];
 
     // お気に入りされたユーザー
@@ -50,20 +50,26 @@ class Product extends Model
         return $this->belongsTo(Condition::class);
     }
 
+    // 購入時の情報
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     // 購入者
     public function buyer()
     {
-        return $this->belongsTo(User::class, 'buyer_id'); 
+        return $this->belongsTo(User::class); 
     }
 
     // 販売者
     public function seller()
     {
-        return $this->belongsTo(User::class, 'seller_id'); 
+        return $this->belongsTo(User::class); 
     }
 
-    // 支払い方法
-    public function paymentMethod()
+    // 購入者の支払い方法
+    public function buyer_paymentMethod()
     {
         return $this->belongsTo(Payment::class);
     }

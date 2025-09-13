@@ -35,9 +35,9 @@
         <div class="address-section">
             <h3>配送先</h3>
             <p>
-                〒 {{ $product->zipcode_purchase }}<br>
-                {{ $product->address_purchase }}<br>
-                {{ $product->building_purchase }}
+                〒 {{ $purchase->zipcode_purchase }}<br>
+                {{ $purchase->address_purchase }}<br>
+                {{ $purchase->building_purchase }}
             </p>
             <a href="{{ route('purchase.address', $product['id']) }}" class="change-link">変更する</a>
         </div>

@@ -59,6 +59,12 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    // 購入時の情報
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     // 購入した商品
     public function purchasedProducts()
     {

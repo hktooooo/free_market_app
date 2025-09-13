@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Condition;
+use App\Models\Purchase;
 use App\Models\Payment;
 use App\Models\Comment;
 use App\Http\Requests\CommentRequest;
+use App\Http\Requests\AddressRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,64 +87,116 @@ class ItemController extends Controller
     // 商品購入ページ表示
     public function purchase_confirm($id)
     {
-        // id指定で1件取得
-        $product = Product::with('condition', 'paymentMethod')->findOrFail($id);
+        $user = Auth::user(); // ログインユーザー
+
+        // 商品とログインユーザーの購入情報を取得
+        $product = Product::with(['condition', 'purchases' => function($query) use ($user) {
+                            $query->where('user_id', $user->id);
+                            }])->findOrFail($id);
         $paymentMethods = Payment::all();
 
-        if($product->zipcode_purchase === null){
-            $product->zipcode_purchase = Auth::user()->zipcode;
-        }
+        // ログインユーザーの purchase があるかチェック
+        $purchase = $product->purchases->first();
 
-        if($product->address_purchase === null){
-            $product->address_purchase = Auth::user()->address;
+        if (!$purchase) {
+            // purchase がない場合はユーザーの住所情報をもとにダミー purchase を作成
+            $purchase = new Purchase([
+                'zipcode_purchase'  => $user->zipcode,
+                'address_purchase'  => $user->address,
+                'building_purchase' => $user->building,
+                'user_id'           => $user->id,
+                'product_id'        => $product->id,
+            ]);
+        } else {
+            // purchase が存在する場合、住所が null ならユーザー情報で補完
+            if ($purchase->zipcode_purchase === null) {
+                $purchase->zipcode_purchase = $user->zipcode;
+            }
+            if ($purchase->address_purchase === null) {
+                $purchase->address_purchase = $user->address;
+            }
+            if ($purchase->building_purchase === null) {
+                $purchase->building_purchase = $user->building;
+            }
         }
-        
-        if($product->building_purchase === null){
-            $product->building_purchase = Auth::user()->building;
-        }
-        
-        return view('auth.purchase', compact('product', 'paymentMethods'));
+            
+        return view('auth.purchase', compact('product', 'paymentMethods', 'purchase'));
     }
 
     // 住所変更ページ表示
     public function purchase_address($id)
     {
-        // id指定で1件取得
-        $product = Product::with('condition')->findOrFail($id);
+        $user = Auth::user(); // ログインユーザー
 
-        if($product->zipcode_purchase === null){
-            $product->zipcode_purchase = Auth::user()->zipcode;
-        }
+        // 商品とログインユーザーの購入情報を取得
+        $product = Product::with(['condition', 'purchases' => function($query) use ($user) {
+                            $query->where('user_id', $user->id);
+                            }])->findOrFail($id);
 
-        if($product->address_purchase === null){
-            $product->address_purchase = Auth::user()->address;
+        // ログインユーザーの purchase があるかチェック
+        $purchase = $product->purchases->first();
+
+        if (!$purchase) {
+            // purchase がない場合はユーザーの住所情報をもとにダミー purchase を作成
+            $purchase = new Purchase([
+                'zipcode_purchase'  => $user->zipcode,
+                'address_purchase'  => $user->address,
+                'building_purchase' => $user->building,
+                'user_id'           => $user->id,
+                'product_id'        => $product->id,
+            ]);
+        } else {
+            // purchase が存在する場合、住所が null ならユーザー情報で補完
+            if ($purchase->zipcode_purchase === null) {
+                $purchase->zipcode_purchase = $user->zipcode;
+            }
+            if ($purchase->address_purchase === null) {
+                $purchase->address_purchase = $user->address;
+            }
+            if ($purchase->building_purchase === null) {
+                $purchase->building_purchase = $user->building;
+            }
         }
         
-        if($product->building_purchase === null){
-            $product->building_purchase = Auth::user()->building;
-        }
-        
-        return view('auth.address', compact('product'));
+        return view('auth.address', compact('product', 'purchase'));
     }
 
     // 住所変更の更新、データベースへの保存
-    public function address_update(Request $request)
+    public function address_update(AddressRequest $request)
     {
-        $id = $request->get('item_id');
+        $purchaseId = $request->get('purchase_id'); // nullの場合もある
+        $productId  = $request->get('product_id');  // 商品のID
+        $userId = Auth::id(); // ログインユーザーID
 
-        // id指定で1件取得
-        $product = Product::with('condition', 'paymentMethod')->findOrFail($id);
-        $paymentMethods = Payment::all();
+        $data = [
+            'zipcode_purchase'  => $request->get('zipcode'),
+            'address_purchase'  => $request->get('address'),
+            'building_purchase' => $request->get('building'),
+        ];
+        
+        if ($purchaseId) {
+            // 既存 purchase を更新
+            $purchase = Purchase::where('id', $purchaseId)
+                                ->where('user_id', $userId)
+                                ->first();
 
-        // リクエストの値で上書き
-        $product->zipcode_purchase = $request->get('zipcode');
-        $product->address_purchase = $request->get('address');
-        $product->building_purchase = $request->get('building');
+            if ($purchase) {
+                $purchase->update($data);
+            } else {
+                // ID が存在しない場合は updateOrCreate で新規作成
+                $purchase = Purchase::updateOrCreate(
+                    ['user_id' => $userId, 'product_id' => $productId], // 条件
+                    $data                                               // 更新/作成する値
+                );
+            }
+        } else {
+            // 新規作成
+            $purchase = Purchase::updateOrCreate(
+                ['user_id' => $userId, 'product_id' => $productId], // 条件
+                $data                                               // 更新/作成する値
+            );
+        }
 
-        // DBに保存
-        $product->save();
-
-        return view('auth.purchase', compact('product', 'paymentMethods'));
+        return redirect()->route('purchase.confirm', ['item_id' => $productId]);
     }
-
 }

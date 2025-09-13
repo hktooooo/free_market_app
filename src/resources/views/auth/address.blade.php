@@ -10,10 +10,10 @@
   <div class="address-form__inner">
     <form class="address-form__form" action="{{ route('address.update') }}" method="post">
       @csrf
-      <input type="hidden" name="item_id" value="{{ $product->id }}">
+      <input type="hidden" name="product_id" value="{{ $product->id }}">
       <div class="address-form__group">
         <label class="address-form__label" for="zipcode">郵便番号</label>
-        <input class="address-form__input" type="text" name="zipcode" id="zipcode" value="{{ $product->zipcode_purchase }}">
+        <input class="address-form__input" type="text" name="zipcode" id="zipcode" value="{{ $purchase->zipcode_purchase }}">
         <p class="address-form__error-message">
           @error('zipcode')
           {{ $message }}
@@ -22,7 +22,7 @@
       </div>
       <div class="address-form__group">
         <label class="address-form__label" for="address">住所</label>
-        <input class="address-form__input" type="text" name="address" id="address" value="{{ $product->address_purchase }}">
+        <input class="address-form__input" type="text" name="address" id="address" value="{{ $purchase->address_purchase }}">
         <p class="address-form__error-message">
           @error('address')
           {{ $message }}
@@ -31,7 +31,7 @@
       </div>
       <div class="address-form__group">
         <label class="address-form__label" for="building">建物名</label>
-        <input class="address-form__input" type="text" name="building" id="building" value="{{ $product->building_purchase }}">
+        <input class="address-form__input" type="text" name="building" id="building" value="{{ $purchase->building_purchase }}">
         <p class="address-form__error-message">
           @error('building')
           {{ $message }}
