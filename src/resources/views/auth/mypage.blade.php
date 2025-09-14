@@ -6,7 +6,7 @@
         <div class="profile-icon"></div>
         <div class="profile-info">
             <h2 class="username">ユーザー名</h2>
-            <a href="#" class="edit-profile-btn">プロフィールを編集</a>
+            <a href="{{ route('mypage.edit') }}" class="edit-profile-btn">プロフィールを編集</a>
         </div>
     </div>
 
