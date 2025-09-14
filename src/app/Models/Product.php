@@ -21,7 +21,7 @@ class Product extends Model
         'buyer_zipcode',
         'buyer_address',
         'buyer_building',
-        'payment_id',
+        'buyer_payment_method',
     ];
 
     // お気に入りされたユーザー
@@ -66,11 +66,5 @@ class Product extends Model
     public function seller()
     {
         return $this->belongsTo(User::class); 
-    }
-
-    // 購入者の支払い方法
-    public function buyer_paymentMethod()
-    {
-        return $this->belongsTo(Payment::class);
     }
 }
