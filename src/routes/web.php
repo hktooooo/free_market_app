@@ -4,33 +4,34 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthController;
 
-Route::get('/', [ItemController::class, 'index']);
-Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');;
+Route::get('/', [ItemController::class, 'index'])->name('index.show');
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show');
 
 Route::get('/register', [AuthController::class, 'show_register']);
+Route::post('/register', [AuthController::class, 'store_user']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth')->group(function () {
-    Route::post('/register', [AuthController::class, 'store_user']);
-    Route::post('/', [ItemController::class, 'index']);
+    Route::get('/mypage', [AuthController::class, 'mypage'])->name('mypage');
+    Route::get('/mypage/profile', [AuthController::class, 'mypage_edit'])->name('mypage_edit');
+    Route::post('/item/comments', [ItemController::class, 'comments_store'])->name('comments.store');
+    Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_confirm'])->name('purchase.confirm');
+    Route::get('/purchase/address/{item_id}', [ItemController::class, 'purchase_address'])->name('purchase.address');
+    Route::post('/purchase/exec', [ItemController::class, 'purchase_exec'])->name('purchase.exec');
+    Route::post('/address_update', [ItemController::class, 'address_update'])->name('address.update');
 });
 
-// Route::get('/', [ItemController::class, 'index']);
 
-// Route::get('/login', function () {
-//     return view('auth.login');
+// Route::get('/purchase', function () {
+//     return view('auth.purchase');
 // });
 
-// Route::get('/register', function () {
-//     return view('auth.register');
+// Route::get('/purchase/address', function () {
+//     return view('auth.address');
 // });
 
-// Route::get('/mypage', function () {
-//     return view('auth.mypage');
+// Route::get('/item', function () {
+//     return view('item');
 // });
-
-Route::get('/item', function () {
-    return view('item');
-});
 
 
 

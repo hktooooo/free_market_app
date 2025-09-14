@@ -30,7 +30,7 @@
 }
 
 .login-form__group {
-    margin-bottom: 38px;
+    height: 128px;
 }
 
 .login-form__label {
@@ -63,4 +63,10 @@
     color: #0073CC;
     font-size: 20px;
     text-align: center;
+}
+
+.login-form__error-message {
+    margin-top: 2px;
+    font-size: 16px;
+    color: #000;
 }

@@ -23,10 +23,10 @@ class CreateProductsTable extends Migration
             $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
             $table->foreignId('buyer_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('seller_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('payments_id')->nullable()->constrained()->onDelete('set null');
-            $table->string('zipcode_purchase')->nullable();
-            $table->string('address_purchase')->nullable();
-            $table->string('building_purchase')->nullable();
+            $table->string('buyer_zipcode')->nullable();
+            $table->string('buyer_address')->nullable();
+            $table->string('buyer_building')->nullable();
+            $table->string('buyer_payment_method')->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

@@ -1,57 +1,36 @@
 @extends('layouts.app')
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/auth/mypage.css')}}">
-@endsection
-
 @section('content')
-<div class="mypage-form">
-  <h2 class="mypage-form__heading content__heading">プロフィール設定</h2>
-  <div class="mypage-form__inner">
-    <form class="register-form__form" action="/" method="post">
-      @csrf
-      <!-- <input type="hidden" name="id"> ユーザIDが必要 あとで直す -->
-      <div>
-        <div>
-          画像
+<div class="mypage-container">
+    <div class="profile-section">
+        <div class="profile-icon"></div>
+        <div class="profile-info">
+            <h2 class="username">ユーザー名</h2>
+            <a href="#" class="edit-profile-btn">プロフィールを編集</a>
         </div>
-        <div>
-          <button class="">画像を選択する</button>
-        </div>    
-      </div>
-      <div class="register-form__group">
-        <label class="register-form__label" for="name">ユーザ名</label>
-        <input class="register-form__input" type="text" name="name" id="name">
-        <p class="register-form__error-message">
-          @error('name')
-          {{ $message }}
-          @enderror
-        </p>
-      </div>
-      <div class="register-form__group">
-        <label class="register-form__label" for="zipcode">郵便番号</label>
-        <input class="register-form__input" type="text" name="zipcode" id="zipcode">
-        <p class="register-form__error-message">
-          @error('zipcode')
-          {{ $message }}
-          @enderror
-        </p>
-      </div>
-      <div class="register-form__group">
-        <label class="register-form__label" for="address">住所</label>
-        <input class="register-form__input" type="text" name="address" id="address">
-      </div>
-      <div class="register-form__group">
-        <label class="register-form__label" for="building">建物名</label>
-        <input class="register-form__input" type="text" name="building" id="building">
-        <p class="register-form__error-message">
-          @error('building')
-          {{ $message }}
-          @enderror
-        </p>
-      </div>
-      <input class="register-form__btn btn" type="submit" value="更新する">
-    </form>
-  </div>
+    </div>
+
+    <div class="tab-section">
+        <a href="#" class="tab active">出品した商品</a>
+        <a href="#" class="tab">購入した商品</a>
+    </div>
+
+    @foreach ($products as $product)
+        @if ($userId === $product['seller_id'])     {{-- 出品した商品を非表示 --}}
+            @continue
+        @endif
+
+        <div class="toppage__product-container">
+            <a href="{{ route('item.show', $product['id']) }}" class="toppage__product-image">
+                <img src="{{ asset('storage/' . $product['img_url']) }}" alt="{{ $product['product_name'] }}">
+            </a>
+            <p class="toppage__product-name">
+                {{ $product['product_name'] }}
+            </p>
+            @if ($product['buyer_id'] !== null) 
+                <p class="toppage__product-sold">Sold</p>
+            @endif
+        </div>
+    @endforeach
 </div>
-@endsection('content')
+@endsection

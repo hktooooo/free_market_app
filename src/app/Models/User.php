@@ -48,16 +48,21 @@ class User extends Authenticatable
 
     public function favoriteProducts()
     {
-        return $this->belongsToMany(Product::class, 'favorites')
+        return $this->belongsToMany(Product::class, 'favorites', 'user_id', 'product_id')
                     ->withPivot('favorite')
                     ->withTimestamps();
     }
 
-    public function commentedProducts()
+    // ユーザーが書いたコメント一覧
+    public function comments()
     {
-        return $this->belongsToMany(Product::class, 'comments')
-            ->withPivot('comment')
-            ->withTimestamps();
+        return $this->hasMany(Comment::class);
+    }
+
+    // 購入時の情報
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
     }
 
     // 購入した商品

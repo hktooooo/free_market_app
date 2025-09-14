@@ -18,26 +18,30 @@ class Product extends Model
         'condition_id',
         'buyer_id',
         'seller_id',
-        'payment_id',
-        'zipcode_purchase',
-        'address_purchase',
-        'building_purchase',
+        'buyer_zipcode',
+        'buyer_address',
+        'buyer_building',
+        'buyer_payment_method',
     ];
 
     // お気に入りされたユーザー
     public function favoritedByUsers()
     {
-        return $this->belongsToMany(User::class, 'favorites')
+        return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id')
                     ->withPivot('favorite')
                     ->withTimestamps();
     }
 
-    // コメントしたユーザー
-    public function commentedByUsers()
+    // 商品に付いたコメント一覧
+    public function comments()
     {
-        return $this->belongsToMany(User::class, 'comments')
-                    ->withPivot('comment')
-                    ->withTimestamps();
+        return $this->hasMany(Comment::class);
+    }
+
+    // 商品のカテゴリー
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categories_products', 'product_id', 'category_id');
     }
 
     // 商品の状態
@@ -46,21 +50,21 @@ class Product extends Model
         return $this->belongsTo(Condition::class);
     }
 
+    // 購入時の情報
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     // 購入者
     public function buyer()
     {
-        return $this->belongsTo(User::class, 'buyer_id'); 
+        return $this->belongsTo(User::class); 
     }
 
     // 販売者
     public function seller()
     {
-        return $this->belongsTo(User::class, 'seller_id'); 
-    }
-
-    // 支払い方法
-    public function paymentMethod()
-    {
-        return $this->belongsTo(PaymentMethod::class);
+        return $this->belongsTo(User::class); 
     }
 }

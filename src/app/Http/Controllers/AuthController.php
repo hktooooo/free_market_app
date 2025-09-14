@@ -2,11 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Product;
+use App\Models\Condition;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    //登録時の処理
+    public function show_register()
+    {
+        return view('auth.register');  
+    }
+    
+    public function mypage()
+    {
+        $products = Product::with('condition')->get();
+        $conditions = Condition::all();
+        $userId = Auth::id();
+
+        return view('auth.mypage', compact('products', 'conditions', 'userId'));
+    }
+
+    public function mypage_edit()
+    {
+        return view('auth.mypage_edit');
+    }
+
+    public function store_user(RegisterRequest $request)
+    {
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        Auth::login($user); 
+
+        return redirect()->route('mypage_edit');
+    }
+
     //ログイン時の処理
     public function login(LoginRequest $request)
     {
@@ -19,15 +57,5 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'ログイン情報が登録されていません',
         ]);
-    }
-
-    public function show_register()
-    {
-        return view('auth.register');  
-    }
-    
-    public function store_user()
-    {
-        return view('auth.mypage');
     }
 }
