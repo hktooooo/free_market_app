@@ -11,7 +11,7 @@ Route::get('/register', [AuthController::class, 'show_register']);
 Route::post('/register', [AuthController::class, 'store_user']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth')->group(function () {
-    Route::get('/mypage', [AuthController::class, 'mypage'])->name('mypage');
+    Route::get('/mypage', [AuthController::class, 'mypage'])->name('mypage.show');
     Route::get('/mypage/profile', [AuthController::class, 'mypage_edit'])->name('mypage.edit');
     Route::post('/mypage/profile/update', [AuthController::class, 'mypage_update'])->name('mypage.update');
     Route::post('/item/comments', [ItemController::class, 'comments_store'])->name('comments.store');

@@ -16,7 +16,7 @@
             マイリスト
         </a>
     </div>
-    <div class="toppage__innner">
+    <div class="toppage__inner">
         @foreach ($products as $product)
             @if ($userId === $product['seller_id'])     {{-- 出品した商品を非表示 --}}
                 @continue

@@ -68,13 +68,23 @@ class AuthController extends Controller
     }
 
     // プロフィール画面表示
-    public function mypage()
+    public function mypage(Request $request)
     {
-        $products = Product::with('condition')->get();
-        $conditions = Condition::all();
+        $page = $request->query('page', 'sell');
         $userId = Auth::id();
+        $auth_user = Auth::user();
 
-        return view('auth.mypage', compact('products', 'conditions', 'userId'));
+        if ($page === 'sell') {
+            // 出品した商品
+            $products = Product::with('condition')
+                ->where('seller_id', $userId)->get();
+        } else {
+            // 購入した商品
+            $products = Product::with('condition')
+                ->where('buyer_id', $userId)->get();
+        }
+
+        return view('auth.mypage', compact('products', 'page', 'auth_user'));
     }
 
     // ログイン時の処理

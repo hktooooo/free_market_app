@@ -33,7 +33,7 @@
             @endif
           </li>
           <li class="header-nav__item">
-            <form action="{{ route('mypage') }}" method="get">
+            <form action="{{ route('mypage.show') }}" method="get">
               <button type="submit" class="header-nav__link-mypage">
                 マイページ
               </button>
