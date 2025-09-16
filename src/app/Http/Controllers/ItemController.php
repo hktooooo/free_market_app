@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Purchase;
 use App\Models\Payment;
@@ -219,4 +220,15 @@ class ItemController extends Controller
 
         return redirect('/');
     }
+
+    // 商品出品時のページ表示
+    public function sell_show(){
+    
+        $categories = Category::all();
+        $conditions = Condition::all();
+    
+        return view('auth.sell', compact('categories', 'conditions'));
+    }
+
+    // 商品出品時のデータ登録
 }

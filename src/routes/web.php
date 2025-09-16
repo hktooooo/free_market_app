@@ -19,11 +19,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase/address/{item_id}', [ItemController::class, 'purchase_address'])->name('purchase.address');
     Route::post('/purchase/exec', [ItemController::class, 'purchase_exec'])->name('purchase.exec');
     Route::post('/address_update', [ItemController::class, 'address_update'])->name('address.update');
+    Route::get('/sell', [ItemController::class, 'sell_show'])->name('sell.show');    
 });
 
 
-// Route::get('/purchase', function () {
-//     return view('auth.purchase');
+// Route::get('/sell', function () {
+//      return view('auth.sell');
 // });
 
 // Route::get('/purchase/address', function () {
