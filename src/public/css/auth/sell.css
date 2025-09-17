@@ -8,18 +8,27 @@ input[type="checkbox"]:checked+.category-label {
 }
 
 h2 {
-    font-size: 45px;
+    font-size: 36px;
     font-weight: 700;
+    text-align: center;
 }
 
 h3 {
-    font-size: 36px;
+    font-size: 24px;
     font-weight: bold;
 }
 
 h4 {
     font-size: 24px;
     font-weight: bold;
+}
+
+p {
+    font-size: 30px;
+    font-weight: bold;
+    color: #5F5F5F;
+    padding-bottom: 12px;
+    border-bottom: #5F5F5F solid 1px;
 }
 
 .btn {
@@ -29,6 +38,17 @@ h4 {
     font-weight: bold;
     text-align: center;
 }
+
+.sell-form-content {
+    width: 680px;
+    margin: 0 auto;
+}
+
+.sell-form__heading {
+    margin-top: 51px;
+    margin-bottom: 43px;
+}
+
 
 .item__detail-content {
     display: flex;

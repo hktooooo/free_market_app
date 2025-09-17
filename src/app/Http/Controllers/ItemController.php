@@ -231,4 +231,31 @@ class ItemController extends Controller
     }
 
     // 商品出品時のデータ登録
+    public function sell_exec(Request $request){
+    
+        $userId = Auth::id(); // ログインユーザーID
+
+        // 画像アップロード処理
+        $file     = $request->file('img_url');
+        $filename = $file->hashName();    // 自動的にユニークなファイル名を生成
+        $path     = $file->storeAs('product_images', $filename, 'public');
+
+        // 商品を作成
+        $product = Product::create([
+            'product_name'         => $request->product_name,
+            'price'                => $request->price,
+            'brand'                => $request->brand,
+            'detail'               => $request->detail,
+            'img_url'              => $path,
+            'condition_id'         => $request->condition_id,
+            'seller_id'            => $userId,
+        ]);
+
+        // チェックボックスで選ばれた categories_id を中間テーブルに保存
+        if ($request->has('categories')) {
+            $product->categories()->attach($request->categories);
+        }
+
+        return redirect('/');
+    }
 }

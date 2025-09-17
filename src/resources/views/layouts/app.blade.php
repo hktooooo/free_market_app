@@ -40,7 +40,7 @@
             </form>
           </li>
           <li class="header-nav__item__button">
-            <a class="" href="">出品</a>
+            <a class="" href="{{ route('sell.show') }}">出品</a>
           </li>
         </ul>
       </nav>
