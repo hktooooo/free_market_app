@@ -18,12 +18,17 @@
                 <img src="{{ asset('storage/' . $product->img_url) }}" alt="{{ $product->product_name }}">
             </div>
             <div class="item-detail">
-                <h2 class="item-name">{{ $product->product_name }}</h2>
-                <p class="item-price"><span>&yen;</span>{{ number_format($product->price) }}</p>
+                <h2 class="item-name">
+                    {{ $product->product_name }}
+                </h2>
+                <p class="item-price">
+                    <span>&yen;</span>
+                    {{ number_format($product->price) }}
+                </p>
             </div>
         </div>
         <div class="payment-section">
-            <h3>支払い方法</h3>
+            <h3 class="payment-section-title">支払い方法</h3>
             <select name="payment_method" class="payment-select" id="paymentSelect">
                 <option value="">選択してください</option>
                 @foreach($paymentMethods as $paymentMethod)
@@ -31,17 +36,24 @@
                 @endforeach
             </select>
         </div>
-
-        <hr>
-
         <div class="address-section">
-            <h3>配送先</h3>
-            <p>
-                〒 {{ $purchase->zipcode_purchase }}<br>
-                {{ $purchase->address_purchase }}<br>
-                {{ $purchase->building_purchase }}
-            </p>
-            <a href="{{ route('purchase.address', $product['id']) }}" class="change-link">変更する</a>
+            <div class="address-section-left">
+                <h3 class="addredd-section-title">配送先</h3>
+                <p>
+                    〒{{ $purchase->zipcode_purchase }}
+                </p>
+                <p>
+                    {{ $purchase->address_purchase }}
+                </p>
+                <p>
+                    {{ $purchase->building_purchase }}
+                </p>
+            </div>
+            <div class="address-section-right">
+                <a href="{{ route('purchase.address', $product['id']) }}" class="change-link">
+                    変更する
+                </a>
+            </div>
         </div>
 
         <hr>

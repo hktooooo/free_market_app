@@ -57,19 +57,23 @@
         <div class="item__comment">
             <div class="item__comment-title" >コメント({{ $comments_count }})</div>
             <div class="item__comment-contents" >
-            @foreach ($comments as $comment)
-                <div class="item__comment__user-info">
-                    <div class="item__comment__user-img">
+                @foreach ($comments as $comment)
+                <div class="item__comment__users-info">
+                    <div class="item__comment__users-img">
                         @if($comment->user->img_url === null)
-                        <div class="item__comment__user-img-default"> </div>
+                        <div class="item__comment__users-img-default"> </div>
                         @else
                         <img src="{{ asset('storage/' . $comment->user->img_url) }}" alt="{{ $comment->user->name }}">
                         @endif
                     </div>
-                    <div class="item__comment__user-name">{{ $comment->user->name }}</div>
+                    <div class="item__comment__users-name">
+                        {{ $comment->user->name }}
+                    </div>
                 </div>
-                {{ $comment->comment }}
-            @endforeach
+                <p class="item__comment__users-comement">
+                    {{ $comment->comment }}
+                </p>
+                @endforeach
             </div>
             <form class="item__comment-form" action="{{ route('comments.store') }}" method="POST">
                 @csrf
