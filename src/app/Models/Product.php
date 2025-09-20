@@ -27,9 +27,7 @@ class Product extends Model
     // お気に入りされたユーザー
     public function favoritedByUsers()
     {
-        return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id')
-                    ->withPivot('favorite')
-                    ->withTimestamps();
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
 
     // 商品に付いたコメント一覧

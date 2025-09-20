@@ -48,9 +48,7 @@ class User extends Authenticatable
 
     public function favoriteProducts()
     {
-        return $this->belongsToMany(Product::class, 'favorites', 'user_id', 'product_id')
-                    ->withPivot('favorite')
-                    ->withTimestamps();
+        return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
     }
 
     // ユーザーが書いたコメント一覧

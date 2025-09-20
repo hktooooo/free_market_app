@@ -59,9 +59,6 @@ class ItemController extends Controller
         // カテゴリ名の配列を取得
         $categories = $product->categories->pluck('content')->toArray();
 
-        // いいねの数をカウント
-        $favorite_count = $product->favoritedByUsers()->count();
-
         // コメント一覧を取得（商品IDで絞り込み）
         $comments = Comment::with('user')
             ->where('product_id', $id)
@@ -71,7 +68,30 @@ class ItemController extends Controller
         // コメント総数
         $comments_count = $comments->count();
 
-        return view('item', compact('product', 'categories', 'favorite_count', 'comments', 'comments_count'));
+        return view('item', compact('product', 'categories', 'comments', 'comments_count'));
+    }
+
+    // いいね機能
+    public function favorite_toggle($item_id)
+    {
+        $user = Auth::user();
+        $product = Product::findOrFail($item_id);
+
+        $isFavorited = $user->favoriteProducts()->where('product_id', $item_id)->exists();
+
+        if ($isFavorited) {
+            $user->favoriteProducts()->detach($item_id);
+        } else {
+            $user->favoriteProducts()->attach($item_id);
+        }
+
+        // 最新のいいね数を返す
+        $favoriteCount = $product->favoritedByUsers()->count();
+
+        return response()->json([
+            'favorited' => !$isFavorited,
+            'count' => $favoriteCount,
+        ]);
     }
 
     // 商品詳細ページ表示 コメント投稿

@@ -15,6 +15,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [AuthController::class, 'mypage_edit'])->name('mypage.edit');
     Route::post('/mypage/profile/update', [AuthController::class, 'mypage_update'])->name('mypage.update');
     Route::post('/item/comments', [ItemController::class, 'comments_store'])->name('comments.store');
+    Route::post('/item/toggle/{item_id}', [ItemController::class, 'favorite_toggle'])->name('favorite.toggle');
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_confirm'])->name('purchase.confirm');
     Route::get('/purchase/address/{item_id}', [ItemController::class, 'purchase_address'])->name('purchase.address');
     Route::post('/purchase/exec', [ItemController::class, 'purchase_exec'])->name('purchase.exec');

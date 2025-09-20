@@ -22,13 +22,20 @@
             &yen;<span>{{ number_format($product->price) }}</span>(税込)
         </div>
         <div class="item__detail-favorites-comments">
+            <!-- 星マーク -->
             <div class="item__detail-favorites-comments__icon-box">
-                <img src="{{ asset('storage/star.png') }}" alt="star">
-                <p>{{ $favorite_count }}</p>
+                <button id="favorite-btn" data-product-id="{{ $product->id }}">
+                    @if(Auth::check() && Auth::user()->favoriteProducts->contains($product->id))
+                        <img id="favorite-icon" src="{{ asset('images/like_on.png') }}" alt="liked" width="32">
+                    @else
+                        <img id="favorite-icon" src="{{ asset('images/like_off.png') }}" alt="not liked" width="32">
+                    @endif
+                </button>
+                <p id="favorite-count">{{ $product->favoritedByUsers->count() }}</p>
             </div>
             <!-- 吹き出しマーク -->
             <div class="item__detail-favorites-comments__icon-box">
-                <img src="{{ asset('storage/comment.png') }}" alt="star">
+                <img src="{{ asset('images/comment.png') }}" alt="comment">
                 <p>{{ $comments_count }}</p>
             </div>
         </div>
@@ -94,4 +101,49 @@
     </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const button = document.getElementById('favorite-btn');
+    if (!button) return;
+
+    button.addEventListener('click', function () {
+        const item_id = this.dataset.productId;
+        const img = document.getElementById('favorite-icon');
+        const countSpan = document.getElementById('favorite-count');
+
+        fetch(`/item/toggle/${item_id}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({})
+        })
+        .then(res => {
+            if (res.redirected) {
+                window.location.href = res.url;
+                return;
+            }
+            return res.json();
+        })
+        .then(data => {
+            if (!data) return;
+
+            if (data.favorited) {
+                img.src = '{{ asset("images/like_on.png") }}';
+                img.alt = 'liked';
+            } else {
+                img.src = '{{ asset("images/like_off.png") }}';
+                img.alt = 'not liked';
+            }
+
+            // いいね数を更新
+            countSpan.textContent = data.count;
+        })
+        .catch(err => console.error(err));
+    });
+});
+</script>
 @endsection('content')

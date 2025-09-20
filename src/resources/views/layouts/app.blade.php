@@ -14,7 +14,7 @@
   <div class="app">
     <header class="header">
       <h1 class="header__heading">
-        <img src="{{ asset('storage/logo.svg') }}" alt="COACHTECH">
+        <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
       </h1>
       <form class="search-form" action="{{ route('index.show') }}" method="get">
         <input class="search-form__input" type="text" name="q" id="" value="{{ $q ?? '' }}" placeholder="なにをお探しですか？">
