@@ -10,7 +10,12 @@ Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show'
 Route::get('/register', [AuthController::class, 'show_register']);
 Route::post('/register', [AuthController::class, 'store_user']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::middleware('auth')->group(function () {
+
+Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->middleware(['auth', 'signed'])->name('verification.verify');
+Route::post('/email/resend', [AuthController::class, 'resendVerification'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [AuthController::class, 'mypage'])->name('mypage.show');
     Route::get('/mypage/profile', [AuthController::class, 'mypage_edit'])->name('mypage.edit');
     Route::post('/mypage/profile/update', [AuthController::class, 'mypage_update'])->name('mypage.update');
