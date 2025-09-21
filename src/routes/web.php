@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PurchaseProductController;
 
 Route::get('/', [ItemController::class, 'index'])->name('index.show');
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show');
@@ -23,12 +24,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/item/toggle/{item_id}', [ItemController::class, 'favorite_toggle'])->name('favorite.toggle');
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_confirm'])->name('purchase.confirm');
     Route::get('/purchase/address/{item_id}', [ItemController::class, 'purchase_address'])->name('purchase.address');
-    Route::post('/purchase/exec', [ItemController::class, 'purchase_exec'])->name('purchase.exec');
     Route::post('/address_update', [ItemController::class, 'address_update'])->name('address.update');
     Route::get('/sell', [ItemController::class, 'sell_show'])->name('sell.show');
     Route::post('/sell/exec', [ItemController::class, 'sell_exec'])->name('sell.exec');
+
+    Route::post('/purchase/exec', [PurchaseProductController::class, 'purchase_exec'])->name('purchase.exec');
+    Route::get('/success/{item_id}', [PurchaseProductController::class, 'success'])->name('product.success');
+    Route::get('/cancel', [PurchaseProductController::class, 'cancel'])->name('product.cancel');
 });
 
+Route::post('/webhook/stripe', [PurchaseProductController::class, 'webhook'])
+     ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class])
+     ->name('stripe.webhook');
 
 // Route::get('/sell', function () {
 //      return view('auth.sell');

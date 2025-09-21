@@ -22,6 +22,7 @@ class Product extends Model
         'buyer_address',
         'buyer_building',
         'buyer_payment_method',
+        'buyer_payment_status',
     ];
 
     // お気に入りされたユーザー

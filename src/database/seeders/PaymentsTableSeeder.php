@@ -16,10 +16,12 @@ class PaymentsTableSeeder extends Seeder
     {
         $param = [
             'content' => 'コンビニ払い',
+            'content_name' => 'konbini',
         ];
         DB::table('payments')->insert($param);
         $param = [
             'content' => 'カード払い',
+            'content_name' => 'card',
         ];
         DB::table('payments')->insert($param);
     }

@@ -32,7 +32,7 @@
             <select name="payment_method" class="payment-select" id="paymentSelect">
                 <option value="">選択してください</option>
                 @foreach($paymentMethods as $paymentMethod)
-                <option value="{{ $paymentMethod->content }}"> {{ $paymentMethod->content }} </option>
+                <option value="{{ $paymentMethod->content_name }}"> {{ $paymentMethod->content }} </option>
                 @endforeach
             </select>
         </div>
@@ -66,8 +66,7 @@
             <input type="hidden" name="address" value="{{ $purchase->address_purchase }}">
             <input type="hidden" name="building" value="{{ $purchase->building_purchase }}">
             <div class="summary-row">
-                <span>商品代金</span>
-                <span><span>&yen;</span>{{ number_format($product->price) }}</span>
+                <span>商品代金</span> {{ number_format($product->price) }}
             </div>
             <div class="summary-row">
                 <span>支払い方法</span>
@@ -101,7 +100,14 @@
     // selectが変わったときに文字を更新
     select.addEventListener('change', (e) => {
         const value = e.target.value;
-        selectedText.textContent = value;
+
+        if (value === 'konbini') {
+            selectedText.textContent = 'コンビニ払い';
+        } else if (value === 'card') {
+            selectedText.textContent = 'カード払い';
+        } else {
+            selectedText.textContent = ' ';
+        }
     });
 </script>
 

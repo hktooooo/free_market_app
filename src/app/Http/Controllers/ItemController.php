@@ -10,7 +10,6 @@ use App\Models\Payment;
 use App\Models\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\AddressRequest;
-use App\Http\Requests\PurchaseRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -220,25 +219,6 @@ class ItemController extends Controller
         }
 
         return redirect()->route('purchase.confirm', ['item_id' => $productId]);
-    }
-
-    // 商品購入時のデータ登録    
-    public function purchase_exec(PurchaseRequest $request){
-
-        $productId = $request->input('product_id');  // 商品のID
-        $userId = Auth::id(); // ログインユーザーID
-
-        $product = Product::with('condition')->findOrFail($productId);
-
-        $product->buyer_id = $userId;
-        $product->buyer_zipcode = $request->input('zipcode');
-        $product->buyer_address = $request->input('address');
-        $product->buyer_building = $request->input('building');
-        $product->buyer_payment_method = $request->input('payment_method');
-
-        $product->save();
-
-        return redirect('/');
     }
 
     // 商品出品時のページ表示
