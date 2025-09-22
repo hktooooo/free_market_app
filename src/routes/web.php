@@ -21,7 +21,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage/profile', [AuthController::class, 'mypage_edit'])->name('mypage.edit');
     Route::post('/mypage/profile/update', [AuthController::class, 'mypage_update'])->name('mypage.update');
     Route::post('/item/comments', [ItemController::class, 'comments_store'])->name('comments.store');
-    Route::post('/item/toggle/{item_id}', [ItemController::class, 'favorite_toggle'])->name('favorite.toggle');
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_confirm'])->name('purchase.confirm');
     Route::get('/purchase/address/{item_id}', [ItemController::class, 'purchase_address'])->name('purchase.address');
     Route::post('/address_update', [ItemController::class, 'address_update'])->name('address.update');
@@ -33,9 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/cancel', [PurchaseProductController::class, 'cancel'])->name('product.cancel');
 });
 
-Route::post('/webhook/stripe', [PurchaseProductController::class, 'webhook'])
-     ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class])
-     ->name('stripe.webhook');
+Route::post('/item/toggle/{item_id}', [ItemController::class, 'favorite_toggle'])->name('favorite.toggle');
+
 
 // Route::get('/sell', function () {
 //      return view('auth.sell');

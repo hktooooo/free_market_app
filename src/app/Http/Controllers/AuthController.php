@@ -59,7 +59,7 @@ class AuthController extends Controller
             event(new Verified($user));
         }
 
-        return redirect('/')->with('verified', true);
+        return redirect('/mypage/profile')->with('verified', true);
     }
 
     // 確認メール再送信

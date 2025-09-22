@@ -24,13 +24,26 @@
         <div class="item__detail-favorites-comments">
             <!-- 星マーク -->
             <div class="item__detail-favorites-comments__icon-box">
-                <button id="favorite-btn" data-product-id="{{ $product->id }}">
-                    @if(Auth::check() && Auth::user()->favoriteProducts->contains($product->id))
-                        <img id="favorite-icon" src="{{ asset('images/like_on.png') }}" alt="liked" width="32">
+                @if(Auth::check())
+                    @if(Auth::user()->hasVerifiedEmail())
+                        {{-- 認証済みユーザー用：Ajaxボタン --}}
+                        <button id="favorite-btn" data-product-id="{{ $product->id }}">
+                            <img id="favorite-icon"
+                                src="{{ Auth::user()->favoriteProducts->contains($product->id) ? asset('images/like_on.png') : asset('images/like_off.png') }}"
+                                alt="favorite" width="32">
+                        </button>
                     @else
-                        <img id="favorite-icon" src="{{ asset('images/like_off.png') }}" alt="not liked" width="32">
+                        {{-- ログイン済みだが未認証の場合 --}}
+                        <a href="{{ route('verification.notice') }}">
+                            <img src="{{ asset('images/like_off.png') }}" alt="verify first" width="32">
+                        </a>
                     @endif
-                </button>
+                @else
+                    {{-- 未ログイン --}}
+                    <a href="{{ route('login') }}">
+                        <img src="{{ asset('images/like_off.png') }}" alt="login first" width="32">
+                    </a>
+                @endif
                 <p id="favorite-count">{{ $product->favoritedByUsers->count() }}</p>
             </div>
             <!-- 吹き出しマーク -->
