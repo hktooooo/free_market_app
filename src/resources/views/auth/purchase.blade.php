@@ -39,15 +39,17 @@
         <div class="address-section">
             <div class="address-section-left">
                 <h3 class="addredd-section-title">配送先</h3>
-                <p>
-                    〒{{ $purchase->zipcode_purchase }}
-                </p>
-                <p>
-                    {{ $purchase->address_purchase }}
-                </p>
-                <p>
-                    {{ $purchase->building_purchase }}
-                </p>
+                <div class="address-section-left__text-container">
+                    <p class="address-section-left__text">
+                        〒 {{ $purchase->zipcode_purchase }}
+                    </p>
+                    <p class="address-section-left__text">
+                        {{ $purchase->address_purchase }}
+                    </p>
+                    <p class="address-section-left__text">
+                        {{ $purchase->building_purchase }}
+                    </p>
+                </div>
             </div>
             <div class="address-section-right">
                 <a href="{{ route('purchase.address', $product['id']) }}" class="change-link">
@@ -55,8 +57,6 @@
                 </a>
             </div>
         </div>
-
-        <hr>
     </div>
 
     <div class="purchase-right">
@@ -66,11 +66,12 @@
             <input type="hidden" name="address" value="{{ $purchase->address_purchase }}">
             <input type="hidden" name="building" value="{{ $purchase->building_purchase }}">
             <div class="summary-row">
-                <span>商品代金</span> {{ number_format($product->price) }}
+                <div class="summary-title">商品代金</div>
+                <div class="summary-value"><span>&yen; </span>{{ number_format($product->price) }}</div>
             </div>
             <div class="summary-row">
-                <span>支払い方法</span>
-                <span id="selectedText"></span>
+                <div class="summary-title">支払い方法</div>
+                <div id="selectedText" class="summary-value"></div>
             </div>
         </div>
         <button class="purchase-button">購入する</button>
