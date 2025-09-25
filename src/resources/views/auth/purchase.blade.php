@@ -29,12 +29,14 @@
         </div>
         <div class="payment-section">
             <h3 class="payment-section-title">支払い方法</h3>
-            <select name="payment_method" class="payment-select" id="paymentSelect">
-                <option value="">選択してください</option>
-                @foreach($paymentMethods as $paymentMethod)
-                <option value="{{ $paymentMethod->content_name }}"> {{ $paymentMethod->content }} </option>
-                @endforeach
-            </select>
+            <div class="payment-select-wrap">
+                <select name="payment_method" class="payment-select" id="paymentSelect">
+                    <option value="" disabled selected hidden>選択してください</option>
+                    @foreach($paymentMethods as $paymentMethod)
+                    <option value="{{ $paymentMethod->content_name }}"> {{ $paymentMethod->content }} </option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         <div class="address-section">
             <div class="address-section-left">

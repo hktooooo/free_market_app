@@ -17,17 +17,20 @@
             </div>
             <h2 class="mypage__profile-name">{{ $auth_user->name }}</h2>
         </div>
+        <div>
             <a href="{{ route('mypage.edit') }}" class="mypage__edit-profile-btn">プロフィールを編集</a>
         </div>
     </div>
 
     <div class="mypage__list">
-        <a class="mypage__list__link {{ $page === 'sell' ? 'active' : '' }}" href="{{ route('mypage.show', ['page' => 'sell']) }}">
-            出品した商品
-        </a>
-        <a class="mypage__list__link {{ $page === 'buy' ? 'active' : '' }}" href="{{ route('mypage.show', ['page' => 'buy']) }}">
-            購入した商品
-        </a>
+        <div class="mypage__list__inner">
+            <a class="mypage__list__link {{ $page === 'sell' ? 'active' : '' }}" href="{{ route('mypage.show', ['page' => 'sell']) }}">
+                出品した商品
+            </a>
+            <a class="mypage__list__link {{ $page === 'buy' ? 'active' : '' }}" href="{{ route('mypage.show', ['page' => 'buy']) }}">
+                購入した商品
+            </a>
+        </div>
     </div>
 
     <div class="mypage__inner">
@@ -45,4 +48,5 @@
             </div>
          @endforeach
     </div>
+</div>
 @endsection
