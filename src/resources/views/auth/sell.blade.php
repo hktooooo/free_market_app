@@ -33,7 +33,7 @@
                     @endforeach
                 </div>
 
-                <label class="sell-form__detail-title__condition">商品の状態</label>
+                <h3 class="sell-form__detail-title__condition">商品の状態</h3>
                 <div class="sell-form__detail__condition-selects">
                     <select name="condition_id" class="condition" id="conditionSelect">
                         <option value="">選択してください</option>
@@ -49,17 +49,25 @@
                     商品名と説明
                 </p>
 
-                <label>商品名</label>
-                <input class="sell-form__input" type="text" name="product_name" id="product_name">
+                <h3>商品名</h3>
+                <div class="sell-form__detail__input">
+                    <input class="sell-form__input" type="text" name="product_name" id="product_name">
+                </div>
 
-                <label>ブランド名</label>
-                <input class="sell-form__input" type="text" name="brand" id="brand">
+                <h3>ブランド名</h3>
+                <div class="sell-form__detail__input">
+                    <input class="sell-form__input" type="text" name="brand" id="brand">
+                </div>
 
-                <label>商品の説明</label>
-                <textarea name="detail" rows="4" cols="50"></textarea>
+                <h3>商品の説明</h3>
+                <div class="sell-form__detail__input">
+                    <textarea name="detail" rows="4" cols="50"></textarea>
+                </div>
 
-                <label>販売価格</label>
-                <input class="sell-form__input" type="text" name="price" id="price">
+                <h3>販売価格</h3>
+                <div class="sell-form__detail__input input__price-wrap">
+                    <input class="sell-form__input" type="text" name="price" id="price">
+                </div>
             </div>
 
             <button class="sell-form__button btn">出品する</button>
