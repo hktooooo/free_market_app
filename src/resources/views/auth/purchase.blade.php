@@ -1,7 +1,3 @@
-{{ $product['id'] }}
-{{ $product['product_name'] }}
-{{ $product->address_purchase }}
-
 @extends('layouts.app')
 
 @section('css')

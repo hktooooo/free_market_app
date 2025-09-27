@@ -70,8 +70,9 @@ h2 {
     align-items: center;
     justify-content: start;
     gap: 52px;
-    width: 1294px;
+    width: 1413px;
     margin: 0 auto;
+    padding: 0 100px;
 }
 
 .mypage__list__link {

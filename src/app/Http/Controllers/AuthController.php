@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Condition;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ProfileRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -83,7 +84,7 @@ class AuthController extends Controller
     }
 
     // プロフィールの更新
-    public function mypage_update(Request $request)
+    public function mypage_update(ProfileRequest $request)
     {
         $userId = Auth::id(); // ログインユーザーID
         $user = User::findOrFail($userId);

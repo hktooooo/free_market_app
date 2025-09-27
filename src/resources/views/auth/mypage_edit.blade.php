@@ -10,23 +10,30 @@
   <div class="mypage__edit-form__inner">
     <form class="mypage__edit-form__form" action="{{ route('mypage.update') }}" method="post" enctype="multipart/form-data">
       @csrf
-      <div class="mypage__edit-form__img-box">
-        <div class="mypage__edit-form__img">
-          @if($auth_user->img_url ===null)
-            <div class="mypage__edit-form__img-default"> </div>
-          @else
-            <img class="mypage__edit-form__img-selected" src="{{ asset('storage/' . $auth_user->img_url) }}" alt="{{ $auth_user->name }}">
-          @endif
-        </div>
-        <div class="mypage__edit-form__button-area">
-          <label for="img_url" class="custom-file-label">
-            画像を選択する
-          </label>
-          <input type="file" name="img_url" id="img_url">
+      <div class="mypage__edit-form__img-box-wrap">
+        <div class="mypage__edit-form__img-box">
+          <div class="mypage__edit-form__img">
+            @if($auth_user->img_url ===null)
+              <div class="mypage__edit-form__img-default"> </div>
+            @else
+              <img class="mypage__edit-form__img-selected" src="{{ asset('storage/' . $auth_user->img_url) }}" alt="{{ $auth_user->name }}">
+            @endif
+          </div>
+          <div class="mypage__edit-form__button-area">
+            <label for="img_url" class="custom-file-label">
+              画像を選択する
+            </label>
+            <input type="file" name="img_url" id="img_url">
 
-          <!-- 選択ファイル名表示 -->
-          <div id="file-name" class="file-name"></div>
-        </div>    
+            <!-- 選択ファイル名表示 -->
+            <div id="file-name" class="file-name"></div>
+          </div>
+        </div>
+        <p class="mypage__edit-form__error-message">
+          @error('img_url')
+          {{ $message }}
+          @enderror
+        </p>
       </div>
       <div class="mypage__edit-form__group">
         <label class="mypage__edit-form__label" for="name">ユーザ名</label>
@@ -49,15 +56,15 @@
       <div class="mypage__edit-form__group">
         <label class="mypage__edit-form__label" for="address">住所</label>
         <input class="mypage__edit-form__input" type="text" name="address" id="address" value= {{ $auth_user->address }}>
+        <p class="mypage__edit-form__error-message">
+          @error('address')
+          {{ $message }}
+          @enderror
+        </p>
       </div>
       <div class="mypage__edit-form__group">
         <label class="mypage__edit-form__label" for="building">建物名</label>
         <input class="mypage__edit-form__input" type="text" name="building" id="building" value= {{ $auth_user->building }}>
-        <p class="mypage__edit-form__error-message">
-          @error('building')
-          {{ $message }}
-          @enderror
-        </p>
       </div>
       <button class="mypage__edit-form__btn btn">更新する</button>
     </form>
