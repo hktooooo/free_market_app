@@ -17,7 +17,8 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $tab = $request->query('tab', 'recommend');
+        $tab = $request->query('tab');
+        $tab = empty($tab) ? 'recommend' : $tab;    // tabが空の場合は 'recommend'
         $userId = Auth::id();
         $conditions = Condition::all();
         $q = $request->input('q');
@@ -25,9 +26,7 @@ class ItemController extends Controller
         if ($tab === 'mylist') {
             if ($userId) {
                 // お気に入り商品
-                $query = Auth::user()->favoriteProducts()
-                                    ->wherePivot('favorite', true)
-                                    ->with('condition');
+                $query = Auth::user()->favoriteProducts()->with('condition');
             } else {
                 // ログインしていない場合は空のコレクション
                 $products = collect();
