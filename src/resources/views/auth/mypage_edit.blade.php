@@ -18,42 +18,42 @@
             <img class="mypage__edit-form__img-selected" src="{{ asset('storage/' . $auth_user->img_url) }}" alt="{{ $auth_user->name }}">
           @endif
         </div>
-        <div>
+        <div class="mypage__edit-form__button-area">
           <label for="img_url" class="custom-file-label">
             画像を選択する
           </label>
-          <input type="file" name="img_url" id="img_url" style="display:none;">
+          <input type="file" name="img_url" id="img_url">
 
           <!-- 選択ファイル名表示 -->
           <div id="file-name" class="file-name"></div>
         </div>    
       </div>
-      <div class="register-form__group">
-        <label class="register-form__label" for="name">ユーザ名</label>
-        <input class="register-form__input" type="text" name="name" id="name" value= {{ $auth_user->name }}>
-        <p class="register-form__error-message">
+      <div class="mypage__edit-form__group">
+        <label class="mypage__edit-form__label" for="name">ユーザ名</label>
+        <input class="mypage__edit-form__input" type="text" name="name" id="name" value= {{ $auth_user->name }}>
+        <p class="mypage__edit-form__error-message">
           @error('name')
           {{ $message }}
           @enderror
         </p>
       </div>
-      <div class="register-form__group">
-        <label class="register-form__label" for="zipcode">郵便番号</label>
-        <input class="register-form__input" type="text" name="zipcode" id="zipcode" value= {{ $auth_user->zipcode }}>
-        <p class="register-form__error-message">
+      <div class="mypage__edit-form__group">
+        <label class="mypage__edit-form__label" for="zipcode">郵便番号</label>
+        <input class="mypage__edit-form__input" type="text" name="zipcode" id="zipcode" value= {{ $auth_user->zipcode }}>
+        <p class="mypage__edit-form__error-message">
           @error('zipcode')
           {{ $message }}
           @enderror
         </p>
       </div>
-      <div class="register-form__group">
-        <label class="register-form__label" for="address">住所</label>
-        <input class="register-form__input" type="text" name="address" id="address" value= {{ $auth_user->address }}>
+      <div class="mypage__edit-form__group">
+        <label class="mypage__edit-form__label" for="address">住所</label>
+        <input class="mypage__edit-form__input" type="text" name="address" id="address" value= {{ $auth_user->address }}>
       </div>
-      <div class="register-form__group">
-        <label class="register-form__label" for="building">建物名</label>
-        <input class="register-form__input" type="text" name="building" id="building" value= {{ $auth_user->building }}>
-        <p class="register-form__error-message">
+      <div class="mypage__edit-form__group">
+        <label class="mypage__edit-form__label" for="building">建物名</label>
+        <input class="mypage__edit-form__input" type="text" name="building" id="building" value= {{ $auth_user->building }}>
+        <p class="mypage__edit-form__error-message">
           @error('building')
           {{ $message }}
           @enderror

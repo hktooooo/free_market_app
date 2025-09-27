@@ -11,18 +11,25 @@
     font-weight: bold;
 }
 
+.mypage__edit-form {
+    padding-bottom: 127px;
+}
+
 .mypage__edit-form__heading {
     margin-top: 59px;
     margin-bottom: 55px;
 }
 
 .mypage__edit-form__inner {
-    max-width: 680px;
+    max-width: 720px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .mypage__edit-form__img-box {
     display: flex;
+    gap: 40px;
+    margin-bottom: 76px;
 }
 
 .mypage__edit-form__img {
@@ -49,17 +56,36 @@
     /* 縦横比を維持しつつ切り取り */
 }
 
+.mypage__edit-form__button-area input {
+    display: none;
+}
 
-.register-form__group {
+.custom-file-label {
+    display: block;
+    width: 179px;
+    height: 49px;
+    line-height: 46px;
+    border: 2px solid #FF5555;
+    border-radius: 10px;
+    color: #FF5555;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.mypage__edit-form__group {
     margin-bottom: 38px;
 }
 
-.register-form__label {
+.mypage__edit-form__label {
     font-size: 24px;
     font-weight: bold;
 }
 
-.register-form__input {
+.mypage__edit-form__input {
     margin-top: 4px;
     width: 100%;
     height: 59px;

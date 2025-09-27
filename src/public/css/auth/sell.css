@@ -123,6 +123,7 @@ p {
     color: #FF5655;
     border: 2px solid #FF5655;
     border-radius: 200px;
+    cursor: pointer;
 }
 
 .sell-form__detail-title__condition {
@@ -160,6 +161,7 @@ p {
     display: block;
     width: 100%;
     height: 100%;
+    cursor: pointer;
 }
 
 .sell-form__detail-second {
