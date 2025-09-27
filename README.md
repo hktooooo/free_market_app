@@ -19,6 +19,12 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
+
+サンプルイメージのコピー
+mkdir src/storage/app/public/product_images
+cp src/public/images/sample_images/* src/storage/app/public/product_images
+
+
 5. アプリケーションキーの作成
 ``` bash
 php artisan key:generate
@@ -33,6 +39,21 @@ php artisan migrate
 ``` bash
 php artisan db:seed
 ```
+
+ストレージフォルダのリンク作成
+php artisan storage:link
+
+
+mailHogの.env
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="test@example.com"
+MAIL_FROM_NAME="Test"
+
 
 ## 使用技術(実行環境)
 - PHP8.1.0

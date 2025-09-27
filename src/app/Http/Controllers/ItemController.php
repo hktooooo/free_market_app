@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Purchase;
 use App\Models\Payment;
 use App\Models\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\AddressRequest;
-use App\Http\Requests\PurchaseRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +17,8 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $tab = $request->query('tab', 'recommend');
+        $tab = $request->query('tab');
+        $tab = empty($tab) ? 'recommend' : $tab;    // tabが空の場合は 'recommend'
         $userId = Auth::id();
         $conditions = Condition::all();
         $q = $request->input('q');
@@ -25,9 +26,7 @@ class ItemController extends Controller
         if ($tab === 'mylist') {
             if ($userId) {
                 // お気に入り商品
-                $query = Auth::user()->favoriteProducts()
-                                    ->wherePivot('favorite', true)
-                                    ->with('condition');
+                $query = Auth::user()->favoriteProducts()->with('condition');
             } else {
                 // ログインしていない場合は空のコレクション
                 $products = collect();
@@ -58,9 +57,6 @@ class ItemController extends Controller
         // カテゴリ名の配列を取得
         $categories = $product->categories->pluck('content')->toArray();
 
-        // いいねの数をカウント
-        $favorite_count = $product->favoritedByUsers()->count();
-
         // コメント一覧を取得（商品IDで絞り込み）
         $comments = Comment::with('user')
             ->where('product_id', $id)
@@ -70,7 +66,30 @@ class ItemController extends Controller
         // コメント総数
         $comments_count = $comments->count();
 
-        return view('item', compact('product', 'categories', 'favorite_count', 'comments', 'comments_count'));
+        return view('item', compact('product', 'categories', 'comments', 'comments_count'));
+    }
+
+    // いいね機能
+    public function favorite_toggle($item_id)
+    {
+        $user = Auth::user();
+        $product = Product::findOrFail($item_id);
+
+        $isFavorited = $user->favoriteProducts()->where('product_id', $item_id)->exists();
+
+        if ($isFavorited) {
+            $user->favoriteProducts()->detach($item_id);
+        } else {
+            $user->favoriteProducts()->attach($item_id);
+        }
+
+        // 最新のいいね数を返す
+        $favoriteCount = $product->favoritedByUsers()->count();
+
+        return response()->json([
+            'favorited' => !$isFavorited,
+            'count' => $favoriteCount,
+        ]);
     }
 
     // 商品詳細ページ表示 コメント投稿
@@ -201,21 +220,40 @@ class ItemController extends Controller
         return redirect()->route('purchase.confirm', ['item_id' => $productId]);
     }
 
-    // 商品購入時のデータ登録    
-    public function purchase_exec(PurchaseRequest $request){
+    // 商品出品時のページ表示
+    public function sell_show(){
+    
+        $categories = Category::all();
+        $conditions = Condition::all();
+    
+        return view('auth.sell', compact('categories', 'conditions'));
+    }
 
-        $productId = $request->input('product_id');  // 商品のID
+    // 商品出品時のデータ登録
+    public function sell_exec(Request $request){
+    
         $userId = Auth::id(); // ログインユーザーID
 
-        $product = Product::with('condition')->findOrFail($productId);
+        // 画像アップロード処理
+        $file     = $request->file('img_url');
+        $filename = $file->hashName();    // 自動的にユニークなファイル名を生成
+        $path     = $file->storeAs('product_images', $filename, 'public');
 
-        $product->buyer_id = $userId;
-        $product->buyer_zipcode = $request->input('zipcode');
-        $product->buyer_address = $request->input('address');
-        $product->buyer_building = $request->input('building');
-        $product->buyer_payment_method = $request->input('payment_method');
+        // 商品を作成
+        $product = Product::create([
+            'product_name'         => $request->product_name,
+            'price'                => $request->price,
+            'brand'                => $request->brand,
+            'detail'               => $request->detail,
+            'img_url'              => $path,
+            'condition_id'         => $request->condition_id,
+            'seller_id'            => $userId,
+        ]);
 
-        $product->save();
+        // チェックボックスで選ばれた categories_id を中間テーブルに保存
+        if ($request->has('categories')) {
+            $product->categories()->attach($request->categories);
+        }
 
         return redirect('/');
     }

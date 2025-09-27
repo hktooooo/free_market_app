@@ -14,7 +14,7 @@
   <div class="app">
     <header class="header">
       <h1 class="header__heading">
-        <img src="{{ asset('storage/logo.svg') }}" alt="COACHTECH">
+        <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
       </h1>
       <form class="search-form" action="{{ route('index.show') }}" method="get">
         <input class="search-form__input" type="text" name="q" id="" value="{{ $q ?? '' }}" placeholder="なにをお探しですか？">
@@ -33,14 +33,14 @@
             @endif
           </li>
           <li class="header-nav__item">
-            <form action="{{ route('mypage') }}" method="get">
+            <form action="{{ route('mypage.show') }}" method="get">
               <button type="submit" class="header-nav__link-mypage">
                 マイページ
               </button>
             </form>
           </li>
           <li class="header-nav__item__button">
-            <a class="" href="">出品</a>
+            <a class="" href="{{ route('sell.show') }}">出品</a>
           </li>
         </ul>
       </nav>

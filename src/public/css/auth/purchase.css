@@ -1,14 +1,25 @@
+h2 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
 .purchase-container {
     display: flex;
     justify-content: space-between;
-    width: 1170px;
+    width: 1347px;
     margin: 93px auto;
-    padding: 20px;
-    gap: 30px;
+    padding: 0 20px 174px 20px;
 }
 
 .purchase-left {
-    flex: 805px;
+    width: 805px;
 }
 
 .item-info {
@@ -29,10 +40,7 @@
 }
 
 .item-detail h2 {
-    font-size: 30px;
-    font-weight: bold;
     margin-bottom: 10px;
-    color: #000;
 }
 
 .item-price {
@@ -46,57 +54,124 @@
     margin-right: 8px;
 }
 
-.payment-section,
-.address-section {
+.payment-section {
+    padding-left: 35px;
     margin-top: 20px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 63px;
+}
+
+.payment-section-title,
+.addredd-section-title {
+    margin-bottom: 40px;
+}
+
+.payment-select-wrap {
+    position: relative;
+    display: inline-block;
+    width: 265px;
+    margin-left: 61px;
+}
+
+.payment-select-wrap::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    /* 矢印の位置調整 */
+    transform: translateY(-50%);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 13px solid #5F5F5F;
+    pointer-events: none;
+    /* クリックを邪魔しない */
 }
 
 .payment-select {
-    margin-top: 10px;
     padding: 5px;
+    border: solid 1px #5F5F5F;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5F5F5F;
+}
+
+.address-section {
+    margin-top: 20px;
+    padding-left: 35px;
+    padding-bottom: 59px;
+    border-bottom: 1px solid #000;
+    display: flex;
+    justify-content: space-between;
+}
+
+.address-section-left__text-container {
+    margin-left: 61px;
+}
+
+.address-section-left__text {
+    font-size: 20px;
+    padding-bottom: 6px;
+    font-weight: bold;
+}
+
+.address-section-right {
+    margin-right: 25px;
 }
 
 .change-link {
-    font-size: 14px;
-    color: #007bff;
-    margin-left: 10px;
+    font-size: 20px;
+    color: #0073CC;
     text-decoration: none;
 }
 
+.purchase-right {
+    width: 440px;
+}
+
 .purchase__form__summary-box {
-    border: 1px solid #333;
-    width: 250px;
+    border: 1px solid #000;
+    width: 100%;
 }
 
 .summary-row {
     display: flex;
+    height: 115px;
     justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #000;
+    align-items: center;
+    text-align: center;
 }
 
 .summary-row:last-child {
     border-bottom: none;
 }
 
-.purchase-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+.summary-title {
+    width: 50%;
+    font-size: 20px;
+}
+
+.summary-value {
+    width: 50%;
+    font-size: 24px;
+}
+
+.summary-value span {
+    font-size: 20px;
 }
 
 .purchase-button {
-    background-color: #ff5c5c;
+    background-color: #FF5555;
     color: #fff;
-    font-size: 16px;
-    padding: 12px 30px;
+    font-size: 26px;
+    font-size: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.purchase-button:hover {
-    opacity: 0.9;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    margin-top: 66px;
 }

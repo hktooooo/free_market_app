@@ -21,6 +21,13 @@ li {
     list-style: none;
 }
 
+select option {
+    background-color: #636769;
+    color: #EAEAEA;
+    font-size: 12px;
+    font-weight: 600;
+}
+
 .header {
     height: 80px;
     background-color: #000;

@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->string('buyer_address')->nullable();
             $table->string('buyer_building')->nullable();
             $table->string('buyer_payment_method')->nullable();
+            $table->string('buyer_payment_status')->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

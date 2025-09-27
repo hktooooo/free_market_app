@@ -22,14 +22,13 @@ class Product extends Model
         'buyer_address',
         'buyer_building',
         'buyer_payment_method',
+        'buyer_payment_status',
     ];
 
     // お気に入りされたユーザー
     public function favoritedByUsers()
     {
-        return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id')
-                    ->withPivot('favorite')
-                    ->withTimestamps();
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
 
     // 商品に付いたコメント一覧

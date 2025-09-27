@@ -1,0 +1,133 @@
+h2 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #000;
+}
+
+.mypage__profile-section {
+    margin: 78px auto 77px auto;
+    padding: 0 20px;
+    width: 1057px;
+    height: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mypage__profile-section-inner {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 57px;
+}
+
+.mypage__profile__img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    /* はみ出た部分を切り取る */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mypage__profile__img-default {
+    background-color: #D9D9D9;
+    width: 100%;
+    height: 100%;
+}
+
+.mypage__profile__img-selected {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 縦横比を維持しつつ切り取り */
+}
+
+.mypage__edit-profile-btn {
+    width: 310px;
+    height: 59px;
+    border-radius: 10px;
+    border: solid 2px #FF5555;
+    font-size: 26px;
+    font-weight: bold;
+    color: #FF5555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mypage__list {
+    height: 47px;
+    padding: 0 20px 10px 20px;
+    border-bottom: solid 2px #5F5F5F;
+    margin-bottom: 59px;
+}
+
+.mypage__list__inner {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 52px;
+    width: 1294px;
+    margin: 0 auto;
+}
+
+.mypage__list__link {
+    color: #5F5F5F;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.mypage__list__link.active {
+    color: #FF0000;
+}
+
+.mypage__inner {
+    width: 1413px;
+    padding: 0 20px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.toppage__product-container {
+    width: 290px;
+    height: 320px;
+    margin-right: 71px;
+    margin-bottom: 77px;
+}
+
+.toppage__product-container:nth-child(4n) {
+    margin-right: 0;
+}
+
+.toppage__product-image {
+    display: block;
+    width: 100%;
+    height: 281px;
+    background-color: #D9D9D9;
+    border-radius: 4px;
+}
+
+.toppage__product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background-color: #fff;
+}
+
+.toppage__product-name {
+    margin-top: 2px;
+    font-size: 25px;
+    color: #000000;
+}
+
+.toppage__product-sold {
+    margin-top: 0;
+    font-size: 25px;
+    color: #FF0000;
+}
