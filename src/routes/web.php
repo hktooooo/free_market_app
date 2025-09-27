@@ -36,7 +36,7 @@ Route::post('/item/toggle/{item_id}', [ItemController::class, 'favorite_toggle']
 
 
 // Route::get('/sell', function () {
-//      return view('auth.sell');
+//     return view('auth.sell');
 // });
 
 // Route::get('/purchase/address', function () {

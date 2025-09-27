@@ -6,58 +6,64 @@
 
 @section('content')
 <div class="sell-form-content">
-    <h2 class="sell-form__heading content__heading">商品の出品</h2>
-    <form class="sell-form__form" action="{{ route('sell.exec') }}" method="post" enctype="multipart/form-data">
-        @csrf
-        <div class="sell-form__image-container">
-            <h3>商品画像</h3>
-            <div class="sell-form__image__upload-area">
-                <label for="img_url" class="custom-file-label">
-                    画像を選択する
-                </label>
-                <input type="file" name="img_url" id="img_url">
-            </div>
-
-        <div class="sell-form__detail">
-            <p class="sell-form__detail-title">
-                商品の詳細    
-            </p>
-            <h3>カテゴリー</h3>
-            <div>
-                @foreach($categories as $category)
-                    <input type="checkbox" id="cat_{{ $category->id }}" name="categories[]" value="{{ $category->id }}">
-                    <label for="cat_{{ $category->id }}" class="category-label">
-                        {{ $category->content }}
+    <div class="sell-form-content__inner">
+        <h2 class="sell-form__heading content__heading">商品の出品</h2>
+        <form class="sell-form__form" action="{{ route('sell.exec') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="sell-form__image-container">
+                <h3>商品画像</h3>
+                <div class="sell-form__image__upload-area">
+                    <label for="img_url" class="custom-file-label">
+                        画像を選択する
                     </label>
-                @endforeach
+                    <input type="file" name="img_url" id="img_url">
+                </div>
+
+            <div class="sell-form__detail-first">
+                <p class="sell-form__detail-title">
+                    商品の詳細
+                </p>
+                <h3 class="sell-form__detail-title__category">カテゴリー</h3>
+                <div class="sell-form__detail__category-selects">
+                    @foreach($categories as $category)
+                        <input type="checkbox" id="cat_{{ $category->id }}" name="categories[]" value="{{ $category->id }}">
+                        <label for="cat_{{ $category->id }}" class="category-label">
+                            {{ $category->content }}
+                        </label>
+                    @endforeach
+                </div>
+
+                <label class="sell-form__detail-title__condition">商品の状態</label>
+                <div class="sell-form__detail__condition-selects">
+                    <select name="condition_id" class="condition" id="conditionSelect">
+                        <option value="">選択してください</option>
+                        @foreach($conditions as $condition)
+                            <option value="{{ $condition->id }}"> {{ $condition->content }} </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
-            <label>商品の状態</label>
-            <select name="condition_id" class="condition" id="conditionSelect">
-                <option value="">選択してください</option>
-                @foreach($conditions as $condition)
-                    <option value="{{ $condition->id }}"> {{ $condition->content }} </option>
-                @endforeach
-            </select>
+            <div class="sell-form__detail-second">
+                <p class="sell-form__detail-title">
+                    商品名と説明
+                </p>
 
-            <p class="sell-form__detail-title">
-                商品名と説明
-            </p>
+                <label>商品名</label>
+                <input class="sell-form__input" type="text" name="product_name" id="product_name">
 
-            <label>商品名</label>
-            <input class="sell-form__input" type="text" name="product_name" id="product_name">
+                <label>ブランド名</label>
+                <input class="sell-form__input" type="text" name="brand" id="brand">
 
-            <label>ブランド名</label>
-            <input class="sell-form__input" type="text" name="brand" id="brand">
+                <label>商品の説明</label>
+                <textarea name="detail" rows="4" cols="50"></textarea>
 
-            <label>商品の説明</label>
-            <textarea name="detail" rows="4" cols="50"></textarea>
+                <label>販売価格</label>
+                <input class="sell-form__input" type="text" name="price" id="price">
+            </div>
 
-            <label>販売価格</label>
-            <input class="sell-form__input" type="text" name="price" id="price">
-        </div>
-
-        <button class="sell-form__button btn">出品する</button>
-    </form>
+            <button class="sell-form__button btn">出品する</button>
+        </form>
+    </div>
 </div>
 @endsection('content')
