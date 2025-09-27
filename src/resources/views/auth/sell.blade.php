@@ -7,17 +7,20 @@
 @section('content')
 <div class="sell-form-content">
     <div class="sell-form-content__inner">
-        <h2 class="sell-form__heading content__heading">商品の出品</h2>
+        <h2 class="sell-form__heading">商品の出品</h2>
         <form class="sell-form__form" action="{{ route('sell.exec') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="sell-form__image-container">
-                <h3>商品画像</h3>
+                <h3 class="sell-form__image-title">商品画像</h3>
                 <div class="sell-form__image__upload-area">
                     <label for="img_url" class="custom-file-label">
                         画像を選択する
                     </label>
                     <input type="file" name="img_url" id="img_url">
+                    <!-- 選択ファイル名表示 -->
+                    <div id="file-name" class="file-name"></div>
                 </div>
+            </div>
 
             <div class="sell-form__detail-first">
                 <p class="sell-form__detail-title">
@@ -36,7 +39,7 @@
                 <h3 class="sell-form__detail-title__condition">商品の状態</h3>
                 <div class="sell-form__detail__condition-selects">
                     <select name="condition_id" class="condition" id="conditionSelect">
-                        <option value="">選択してください</option>
+                        <option value="" disabled selected hidden>選択してください</option>
                         @foreach($conditions as $condition)
                             <option value="{{ $condition->id }}"> {{ $condition->content }} </option>
                         @endforeach
@@ -74,4 +77,19 @@
         </form>
     </div>
 </div>
+
+<script>
+  const input = document.getElementById('img_url');
+  const fileNameDisplay = document.getElementById('file-name');
+
+  input.addEventListener('change', function() {
+      const file = input.files[0];
+      if (file) {
+          fileNameDisplay.textContent = file.name;
+      } else {
+          fileNameDisplay.textContent = '';
+      }
+  });
+</script>
+
 @endsection('content')
