@@ -22,14 +22,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/mypage/profile/update', [AuthController::class, 'mypage_update'])->name('mypage.update');
     Route::post('/item/comments', [ItemController::class, 'comments_store'])->name('comments.store');
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_confirm'])->name('purchase.confirm');
+    Route::post('/purchase/exec', [PurchaseProductController::class, 'purchase_exec'])->name('purchase.exec');
+    Route::get('/success/{item_id}', [PurchaseProductController::class, 'success'])->name('product.success');
+    Route::get('/cancel', [PurchaseProductController::class, 'cancel'])->name('product.cancel');
     Route::get('/purchase/address/{item_id}', [ItemController::class, 'purchase_address'])->name('purchase.address');
     Route::post('/address_update', [ItemController::class, 'address_update'])->name('address.update');
     Route::get('/sell', [ItemController::class, 'sell_show'])->name('sell.show');
     Route::post('/sell/exec', [ItemController::class, 'sell_exec'])->name('sell.exec');
-
-    Route::post('/purchase/exec', [PurchaseProductController::class, 'purchase_exec'])->name('purchase.exec');
-    Route::get('/success/{item_id}', [PurchaseProductController::class, 'success'])->name('product.success');
-    Route::get('/cancel', [PurchaseProductController::class, 'cancel'])->name('product.cancel');
 });
 
 Route::post('/item/toggle/{item_id}', [ItemController::class, 'favorite_toggle'])->name('favorite.toggle');

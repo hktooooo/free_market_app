@@ -23,14 +23,6 @@ h4 {
     font-weight: bold;
 }
 
-p {
-    font-size: 30px;
-    font-weight: bold;
-    color: #5F5F5F;
-    padding-bottom: 12px;
-    border-bottom: #5F5F5F solid 1px;
-}
-
 .btn {
     background-color: #FF5555;
     border-radius: 5px;
@@ -94,6 +86,11 @@ p {
 }
 
 .sell-form__detail-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #5F5F5F;
+    padding-bottom: 12px;
+    border-bottom: #5F5F5F solid 1px;
     margin-bottom: 36px;
 }
 
@@ -229,4 +226,10 @@ p {
     height: 60px;
     line-height: 60px;
     font-size: 26px;
+}
+
+.sell-form__error-message {
+    margin-top: 2px;
+    font-size: 16px;
+    color: #000;
 }
