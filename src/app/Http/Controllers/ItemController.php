@@ -99,7 +99,7 @@ class ItemController extends Controller
         Comment::create([
             'comment' => $request->comment,
             'product_id' => $request->product_id,
-            'user_id' => $request->user_id,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->back();

@@ -15,7 +15,6 @@ class Purchase extends Model
         'zipcode_purchase',
         'address_purchase',
         'building_purchase',
-        'payments_id',
     ];
 
     // 購入したユーザー
@@ -28,11 +27,5 @@ class Purchase extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
-    }
-
-    // 支払い方法
-    public function paymentMethod()
-    {
-        return $this->belongsTo(Payment::class);
     }
 }

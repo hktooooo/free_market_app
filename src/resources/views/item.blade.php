@@ -49,7 +49,7 @@
             <!-- 吹き出しマーク -->
             <div class="item__detail-favorites-comments__icon-box">
                 <img src="{{ asset('images/comment.png') }}" alt="comment">
-                <p>{{ $comments_count }}</p>
+                <p id="comment-count">{{ $comments_count }}</p>
             </div>
         </div>
         <a href="{{ route('purchase.confirm', $product->id) }}" class="item__detail-purchase__btn btn">購入手続きへ</a>
@@ -107,7 +107,6 @@
                     </p>
                 </div>
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 <input class="item__detail-comment__btn btn" type="submit" value="コメントを送信する">
             </form>
         </div>

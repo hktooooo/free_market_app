@@ -114,7 +114,7 @@ class AuthController extends Controller
     {
         $page = $request->query('page', 'sell');
         $userId = Auth::id();
-        $auth_user = Auth::user();
+        $auth_user = Auth::user()->refresh();
 
         if ($page === 'sell') {
             // 出品した商品

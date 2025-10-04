@@ -26,7 +26,6 @@ class CommentRequest extends FormRequest
         return [
             'comment' => 'required|string|max:255', // コメント必須・文字列・255文字以内
             'product_id' => 'required|integer|exists:products,id',
-            'user_id' => 'required|integer|exists:users,id',
         ];
     }
 

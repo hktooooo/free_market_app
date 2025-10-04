@@ -20,7 +20,6 @@ class CreatePurchasesTable extends Migration
             $table->string('zipcode_purchase')->nullable();
             $table->string('address_purchase')->nullable();
             $table->string('building_purchase')->nullable();
-            $table->foreignId('payments_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
 
