@@ -11,16 +11,19 @@
 2. `composer install`
 3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
 4. .envに以下の環境変数を追加
+- SQLデータベース
 ``` text
-#SQLデータベース
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+```
 
-#Mail Hog
+
+- Mail Hog
+``` text
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
 MAIL_PORT=1025
@@ -29,50 +32,88 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS="test@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
+```
 
-#Stripe
+- Stripe
+``` text
 STRIPE_KEY=(各自のSTRIPE_KEYを記入)
 STRIPE_SECRET=(各自のSTRIPE_SECRETを記入)
 ```
 
-サンプルイメージのコピー
-mkdir src/storage/app/public/product_images
-cp src/public/images/sample_images/* src/storage/app/public/product_images
-
-
-5. アプリケーションキーの作成
+5. アプリケーションキーの作成（phpコンテナ内で実行）
 ``` bash
 php artisan key:generate
 ```
 
-6. マイグレーションの実行
+6. Fortifyの導入（phpコンテナ内で実行）
+``` bash
+composer require laravel/fortify
+php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
+```
+
+- 日本語ファイルのインストール（多分不要）
+``` bash
+composer require laravel-lang/lang:~7.0 --dev
+cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
+```
+
+7. stripeの導入（phpコンテナ内で実行）
+``` bash
+composer require stripe/stripe-php
+```
+
+8. イメージデータのセットアップ
+- 保存先の作成
+``` bash
+mkdir src/storage/app/public/product_images
+mkdir src/storage/app/public/profile_images
+```
+- サンプルイメージコピー
+``` bash
+cp src/public/images/sample_images/* src/storage/app/public/product_images
+```
+- ストレージフォルダのリンク作成（phpコンテナ内で実行）
+``` bash
+php artisan storage:link
+```
+
+8. マイグレーションの実行（phpコンテナ内で実行）
 ``` bash
 php artisan migrate
 ```
 
-7. シーディングの実行
+9. シーディングの実行（phpコンテナ内で実行）
 ``` bash
 php artisan db:seed
 ```
 
-ストレージフォルダのリンク作成
-php artisan storage:link
+10. テスト環境の作成
+``` bash
+cp .env .env.testing
+```
+- .env.testの以下の環境変数を変更
+``` text
+APP_ENV=test
+APP_KEY= 
+(APP_KEYは空にする)
 
-
-mailHogの.env
-MAIL_MAILER=smtp
-MAIL_HOST=mailhog
-MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS="test@example.com"
-MAIL_FROM_NAME="Test"
-
+DB_CONNECTION=mysql_test
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=demo_test
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+- キーの作成とマイグレーションの実行（phpコンテナ内で実行）
+``` bash
+php artisan key:generate --env=testing
+php artisan config:clear
+php artisan migrate --env=testing
+```
 
 ## 使用技術(実行環境)
-- PHP8.1.0
-- Laravel8.83.27
+- PHP8.2.29
+- Laravel8.83.29
 - MySQL8.0.26
 
 ## ER図
@@ -81,3 +122,4 @@ MAIL_FROM_NAME="Test"
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/
+- MailHog:：http://localhost:8025/
