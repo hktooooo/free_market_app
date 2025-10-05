@@ -21,6 +21,7 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 
+
 - Mail Hog
 ``` text
 MAIL_MAILER=smtp
