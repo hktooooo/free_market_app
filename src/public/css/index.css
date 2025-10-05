@@ -4,10 +4,16 @@
     margin-top: 47px;
     margin-bottom: 76px;
     border-bottom: #5F5F5F 2px solid;
+}
+
+.toppage__list__inner {
     display: flex;
     justify-content: start;
+    align-items: center;
+    width: 1413px;
+    margin: 0 auto;
+    padding: 0 150px;
     gap: 75px;
-    padding-left: 180px;
 }
 
 .toppage__list__link {
@@ -21,7 +27,8 @@
 }
 
 .toppage__inner {
-    width: 1373px;
+    width: 1413px;
+    padding: 0 20px;
     margin: 0 auto;
     display: flex;
     justify-content: flex-start;

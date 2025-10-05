@@ -176,7 +176,6 @@ h4 {
     height: 70px;
     border-radius: 50%;
     box-sizing: border-box;
-    border: solid 3px #D9D9D9;
     background-color: #D9D9D9;
     overflow: hidden;
     /* はみ出た部分を切り取る */

@@ -26,10 +26,13 @@
     padding: 0 20px;
 }
 
+.mypage__edit-form__img-box-wrap {
+    height: 226px;
+}
+
 .mypage__edit-form__img-box {
     display: flex;
     gap: 40px;
-    margin-bottom: 76px;
 }
 
 .mypage__edit-form__img {
@@ -41,6 +44,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 6px;
 }
 
 .mypage__edit-form__img-default {

@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\ExhibitionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -98,7 +99,7 @@ class ItemController extends Controller
         Comment::create([
             'comment' => $request->comment,
             'product_id' => $request->product_id,
-            'user_id' => $request->user_id,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->back();
@@ -139,7 +140,7 @@ class ItemController extends Controller
                 $purchase->building_purchase = $user->building;
             }
         }
-            
+    
         return view('auth.purchase', compact('product', 'paymentMethods', 'purchase'));
     }
 
@@ -230,7 +231,7 @@ class ItemController extends Controller
     }
 
     // 商品出品時のデータ登録
-    public function sell_exec(Request $request){
+    public function sell_exec(ExhibitionRequest $request){
     
         $userId = Auth::id(); // ログインユーザーID
 
