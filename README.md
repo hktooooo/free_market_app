@@ -51,12 +51,6 @@ composer require laravel/fortify
 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 ```
 
-- 日本語ファイルのインストール（多分不要）
-``` bash
-composer require laravel-lang/lang:~7.0 --dev
-cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
-```
-
 7. stripeの導入（phpコンテナ内で実行）
 ``` bash
 composer require stripe/stripe-php
