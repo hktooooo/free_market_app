@@ -22,7 +22,7 @@ class AuthController extends Controller
     {
         return view('auth.register');  
     }
-    
+
     // 登録時の処理
     public function store_user(RegisterRequest $request)
     {

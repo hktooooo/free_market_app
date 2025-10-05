@@ -32,19 +32,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::post('/item/toggle/{item_id}', [ItemController::class, 'favorite_toggle'])->name('favorite.toggle');
-
-
-// Route::get('/sell', function () {
-//     return view('auth.sell');
-// });
-
-// Route::get('/purchase/address', function () {
-//     return view('auth.address');
-// });
-
-// Route::get('/item', function () {
-//     return view('item');
-// });
-
-
-
