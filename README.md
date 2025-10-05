@@ -11,7 +11,7 @@
 2. `composer install`
 3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
 4. .envに以下の環境変数を追加
-#### SQLデータベース
+SQLデータベース
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -21,7 +21,7 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 
-#### Mail Hog
+Mail Hog
 ``` text
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
@@ -33,7 +33,7 @@ MAIL_FROM_ADDRESS="test@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-#### Stripe
+Stripe
 ``` text
 STRIPE_KEY=(各自のSTRIPE_KEYを記入)
 STRIPE_SECRET=(各自のSTRIPE_SECRETを記入)
@@ -50,7 +50,7 @@ composer require laravel/fortify
 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 ```
 
-#### 日本語ファイルのインストール（多分不要）
+日本語ファイルのインストール（多分不要）
 ``` bash
 composer require laravel-lang/lang:~7.0 --dev
 cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
@@ -62,16 +62,16 @@ composer require stripe/stripe-php
 ```
 
 8. イメージデータのセットアップ
-#### 保存先の作成
+保存先の作成
 ``` bash
 mkdir src/storage/app/public/product_images
 mkdir src/storage/app/public/profile_images
 ```
-#### サンプルイメージコピー
+サンプルイメージコピー
 ``` bash
 cp src/public/images/sample_images/* src/storage/app/public/product_images
 ```
-#### ストレージフォルダのリンク作成（phpコンテナ内で実行）
+ストレージフォルダのリンク作成（phpコンテナ内で実行）
 ``` bash
 php artisan storage:link
 ```
@@ -90,7 +90,7 @@ php artisan db:seed
 ``` bash
 cp .env .env.testing
 ```
-#### .env.testの以下の環境変数を変更
+.env.testの以下の環境変数を変更
 ``` text
 APP_ENV=test
 APP_KEY= 
@@ -103,7 +103,7 @@ DB_DATABASE=demo_test
 DB_USERNAME=root
 DB_PASSWORD=root
 ```
-#### キーの作成とマイグレーションの実行（phpコンテナ内で実行）
+キーの作成とマイグレーションの実行（phpコンテナ内で実行）
 ``` bash
 php artisan key:generate --env=testing
 php artisan config:clear
