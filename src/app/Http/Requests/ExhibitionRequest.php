@@ -32,7 +32,7 @@ class ExhibitionRequest extends FormRequest
             'categories' => 'required|array|min:1',
             'categories.*' => 'integer|exists:categories,id',
             'condition_id' => 'required|integer',
-            'price' => 'required|integer|min:0',
+            'price' => 'required|integer|min:0|max:300000',
         ];
     }
 
@@ -53,6 +53,7 @@ class ExhibitionRequest extends FormRequest
             'price.required' => '販売価格を入力してください',
             'price.integer' => '販売価格は数値で入力してください',
             'price.min' => '販売価格は :min円以上で入力してください',
+            'price.max' => '販売価格は :max円以下で入力してください',
         ];
     }
 }
