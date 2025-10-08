@@ -116,6 +116,13 @@ class ItemController extends Controller
                             }])->findOrFail($id);
         $paymentMethods = Payment::all();
 
+        $alreadyPurchased = !is_null($product->buyer_id);
+        $isSeller = $user->id === $product->seller_id;
+
+        if ($alreadyPurchased || $isSeller){
+            return redirect("/item/{$id}");
+        }
+
         // ログインユーザーの purchase があるかチェック
         $purchase = $product->purchases->first();
 

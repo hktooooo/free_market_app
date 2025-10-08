@@ -52,7 +52,9 @@
                 <p id="comment-count">{{ $comments_count }}</p>
             </div>
         </div>
-        <a href="{{ route('purchase.confirm', $product->id) }}" class="item__detail-purchase__btn btn">購入手続きへ</a>
+        @if(is_null($product->buyer_id) && $product->seller_id !== Auth::id())
+            <a href="{{ route('purchase.confirm', $product->id) }}" class="item__detail-purchase__btn btn">購入手続きへ</a>
+        @endif
         <div class="item__detail-inner">
             <h3 class="item__detail-inner-title">商品説明</h3>
             <div class="item__detail-inner-text">

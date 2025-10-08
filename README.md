@@ -104,6 +104,9 @@ php artisan key:generate --env=testing
 php artisan config:clear
 php artisan migrate --env=testing
 ```
+## 注
+- PaymethodTest.phpに関しては Laravel Duskのインストール設定ができていないため、実行することができません
+- Soldとなった商品および、自分が出品した商品に関しては、"購入手続きへ"のボタンの非表示化とルーティングの条件設定により再購入ができない仕様を追加しています（元々の要件からの独自追加点）
 
 ## 使用技術(実行環境)
 - PHP8.2.29
