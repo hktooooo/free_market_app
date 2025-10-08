@@ -53,7 +53,7 @@ class ExhibitionRequest extends FormRequest
             'price.required' => '販売価格を入力してください',
             'price.integer' => '販売価格は数値で入力してください',
             'price.min' => '販売価格は :min円以上で入力してください',
-            'price.max' => '販売価格は :max円以下で入力してください',
+            'price.max' => '販売価格は 30万円以下で入力してください',
         ];
     }
 }
