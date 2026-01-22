@@ -21,7 +21,7 @@ class ProductsTableSeeder extends Seeder
             'detail' => 'スタイリッシュなデザインのメンズ腕時計',
             'img_url' => 'product_images/Armani+Mens+Clock.jpg',
             'condition_id' => 1,
-            'seller_id' => 2,
+            'seller_id' => 1,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -31,7 +31,7 @@ class ProductsTableSeeder extends Seeder
             'detail' => '高速で信頼性の高いハードディスク',
             'img_url' => 'product_images/HDD+Hard+Disk.jpg',
             'condition_id' => 2,
-            'seller_id' => 2,
+            'seller_id' => 1,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -41,7 +41,7 @@ class ProductsTableSeeder extends Seeder
             'detail' => '新鮮な玉ねぎ3束のセット',
             'img_url' => 'product_images/iLoveIMG+d.jpg',
             'condition_id' => 3,
-            'seller_id' => 2,
+            'seller_id' => 1,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -51,7 +51,7 @@ class ProductsTableSeeder extends Seeder
             'detail' => 'クラシックなデザインの革靴',
             'img_url' => 'product_images/Leather+Shoes+Product+Photo.jpg',
             'condition_id' => 4,
-            'seller_id' => 2,
+            'seller_id' => 1,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -61,7 +61,7 @@ class ProductsTableSeeder extends Seeder
             'detail' => '高性能なノートパソコン',
             'img_url' => 'product_images/Living+Room+Laptop.jpg',
             'condition_id' => 1,
-            'seller_id' => 2,
+            'seller_id' => 1,
         ];
         DB::table('products')->insert($param);
         $param = [

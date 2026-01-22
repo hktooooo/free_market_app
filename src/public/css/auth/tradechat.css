@@ -1,0 +1,148 @@
+.trade-chat-container {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.trade-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.complete-btn {
+    background: #ff7b7b;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+.product-info {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.message-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.my-message {
+    justify-content: flex-end;
+    /* 右寄せ */
+}
+
+.other-message {
+    justify-content: flex-start;
+    /* 左寄せ */
+}
+
+.message-bubble {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    background: #eee;
+}
+
+.my-message .message-bubble {
+    background: #d4f1ff;
+}
+
+.chat-image {
+    max-width: 200px;
+    margin-top: 5px;
+}
+
+.chat-form {
+    display: flex;
+    gap: 5px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-form input[type="text"] {
+    flex: 1;
+}
+
+.image-btn {
+    background: #eee;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send-btn {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 0 15px;
+}
+
+
+
+
+
+/* 背景 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* モーダル */
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    width: 350px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* ボタンエリア */
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* キャンセル */
+.modal-cancel {
+    background: #ccc;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+/* 完了 */
+.modal-confirm {
+    background: #ff7b7b;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
