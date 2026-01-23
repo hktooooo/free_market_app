@@ -16,8 +16,11 @@ class ChatRoom extends Model
         'product_id',
         'buyer_id',
         'seller_id',
+        'is_buyer_completed',
         'is_completed',
         'completed_at',
+        'seller_rating',
+        'buyer_rating',
     ];
 
     /**

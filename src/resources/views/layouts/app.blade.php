@@ -7,6 +7,7 @@
   <title>coachtechフリマ</title>
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
   <link rel="stylesheet" href="{{ asset('css/common.css')}}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   @yield('css')
 </head>
 

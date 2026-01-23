@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ChatRoom;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class TradeChatController extends Controller
 {
@@ -115,4 +117,63 @@ class TradeChatController extends Controller
 
         return redirect()->route('tradechat.show', $roomId);
     }
+
+    /**
+     * 出品者を評価（購入者が行う）
+     */
+    public function rating_store(Request $request, ChatRoom $room)
+    {
+        $request->validate([
+            'seller_rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        if (auth()->id() !== $room->buyer_id) {
+            abort(403);
+        }
+
+        if ($room->seller_rating !== null) {
+            abort(400, 'すでに評価済みです');
+        }
+
+        DB::transaction(function () use ($room, $request) {
+            $room->update([
+                'seller_rating' => (int) $request->seller_rating,
+            ]);
+
+            // 🔥 総合評価を再計算
+            $room->seller->recalcAvgRating();
+        });
+
+        return back();
+    }
+
+    /**
+     * 購入者を評価（購入者が行う）
+     */
+    public function rateBuyer(Request $request, ChatRoom $room)
+    {
+        $request->validate([
+            'buyer_rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        if (auth()->id() !== $room->seller_id) {
+            abort(403);
+        }
+
+        if ($room->buyer_rating !== null) {
+            abort(400, 'すでに評価済みです');
+        }
+
+        DB::transaction(function () use ($room, $request) {
+            $room->update([
+                'buyer_rating' => $request->buyer_rating,
+            ]);
+
+            // 🔥 総合評価を再計算
+            $room->buyer->recalcAvgRating();
+        });
+
+        return back();
+    }
+
 }

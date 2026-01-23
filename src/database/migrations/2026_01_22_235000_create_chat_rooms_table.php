@@ -27,12 +27,16 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             // 取引完了管理
+            $table->boolean('is_buyer_completed')->default(false);
             $table->boolean('is_completed')->default(false);
             $table->timestamp('completed_at')->nullable();
 
-            $table->timestamp('created_at')->useCurrent()->nullable();
-            $table->timestamp('updated_at')->useCurrent()->nullable();
+            // 評価点
+            $table->unsignedTinyInteger('seller_rating')->nullable();
+            $table->unsignedTinyInteger('buyer_rating')->nullable();
 
+            $table->timestamps();
+            
             // 同一商品 × 同一購入者の重複防止
             $table->unique(['product_id', 'buyer_id']);
         });

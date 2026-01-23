@@ -80,22 +80,22 @@
     {{-- モーダル --}}
     <div id="modalOverlay" class="modal-overlay">
         <div class="modal-content">
-            <h3>取引を完了しますか？</h3>
+            <h3>取引が完了しました。</h3>
 
-            <p>
-                取引を完了すると、<br>
-                このチャットは編集できなくなります。
-            </p>
+            <p>今回の取引相手はどうでしたか？</p>
+
+            <div class="rating" data-user-id="{{ $room->seller_id }}">
+                @for ($i = 1; $i <= 5; $i++)
+                    <span class="star" data-score="{{ $i }}">★</span>
+                @endfor
+            </div>
 
             <div class="modal-actions">
-                <button id="closeModal" class="modal-cancel">
-                    キャンセル
-                </button>
-
-                <form method="POST" action="">
+                <form method="POST" action="{{ route('rating.store', $room) }}">
                     @csrf
+                    <input type="hidden" name="seller_rating" id="seller_rating">
                     <button type="submit" class="modal-confirm">
-                        完了する
+                        送信する
                     </button>
                 </form>
             </div>
@@ -105,15 +105,11 @@
 
 <script>
     const openBtn = document.getElementById('openModal');
-    const closeBtn = document.getElementById('closeModal');
     const modal = document.getElementById('modalOverlay');
+    const hiddenInput = document.getElementById('seller_rating');
 
     openBtn.addEventListener('click', () => {
         modal.style.display = 'flex';
-    });
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
     });
 
     // 背景クリックで閉じる
@@ -121,6 +117,28 @@
         if (e.target === modal) {
             modal.style.display = 'none';
         }
+    });
+
+    // ⭐ 評価処理
+    document.querySelectorAll('.rating').forEach(rating => {
+        const stars = rating.querySelectorAll('.star');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const score = star.dataset.score;
+
+                // hidden に値をセット
+                hiddenInput.value = score;
+
+                // ★の色変更
+                stars.forEach(s => {
+                    s.classList.toggle('active', s.dataset.score <= score);
+                });
+
+                // 送信ボタン有効化
+                submitBtn.disabled = false;
+            });
+        });
     });
 </script>
 
