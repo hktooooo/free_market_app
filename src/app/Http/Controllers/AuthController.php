@@ -120,13 +120,48 @@ class AuthController extends Controller
             // 出品した商品
             $products = Product::with('condition')
                 ->where('seller_id', $userId)->get();
-        } else {
+        } elseif ($page === 'buy') {
             // 購入した商品
             $products = Product::with('condition')
                 ->where('buyer_id', $userId)->get();
+        } else {
+            // 出品 or 購入した商品 ＋ 取引未完了のルームがあるもの
+            $products = Product::with('condition')
+                ->where(function ($query) use ($userId) {
+                    $query->where('buyer_id', $userId)
+                        ->orWhere('seller_id', $userId);
+                })
+                ->whereHas('rooms', function ($query) {
+                    $query->where('is_completed', false);
+                })
+
+                // 未読件数（表示用）
+                ->withCount([
+                    'rooms as unread_count' => function ($query) use ($userId) {
+                        $query->join('messages', 'chat_rooms.id', '=', 'messages.chat_room_id')
+                            ->whereNull('messages.read_at')
+                            ->where('messages.user_id', '!=', $userId);
+                    }
+                ])
+
+                // 最新の未読メッセージ時刻（ソート用）
+                ->withMax([
+                    'rooms as latest_unread_at' => function ($query) use ($userId) {
+                        $query->join('messages', 'chat_rooms.id', '=', 'messages.chat_room_id')
+                            ->whereNull('messages.read_at')
+                            ->where('messages.user_id', '!=', $userId);
+                    }
+                ], 'messages.created_at')
+
+                // 並び替え
+                ->orderByDesc('latest_unread_at')
+                ->get();
         }
 
-        return view('auth.mypage', compact('products', 'page', 'auth_user'));
+        // 未読合計値を計算
+        $totalUnreadCount = $products->sum('unread_count');
+
+        return view('auth.mypage', compact('products', 'page', 'auth_user', 'totalUnreadCount'));
     }
 
     // ログイン時の処理

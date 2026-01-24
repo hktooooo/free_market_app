@@ -132,3 +132,40 @@ h2 {
     font-size: 25px;
     color: #FF0000;
 }
+
+/* 評価点 */
+.star-rating {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.star {
+    font-size: 20px;
+    color: #ccc;
+    /* 未評価（灰色） */
+}
+
+.star.rating-active {
+    color: #f5c518;
+    /* 評価あり（黄色） */
+}
+
+.product-image-wrapper {
+    position: relative;
+}
+
+.product-unread-counter {
+    background-color: #FF0000;
+    color: #FFF;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    line-height: 19px;
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    z-index: 10;
+}
