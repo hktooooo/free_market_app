@@ -6,7 +6,7 @@
 
 @section('content')
 @php
-    $rating = $auth_user->avg_rating ?? 0;
+    $rating = round($auth_user->avg_rating) ?? 0;
 @endphp
 
 <div class="mypage-container">
@@ -19,15 +19,18 @@
                 <img class="mypage__profile__img-selected" src="{{ asset('storage/' . $auth_user->img_url) }}" alt="{{ $auth_user->name }}">
             @endif
             </div>
-            <h2 class="mypage__profile-name">{{ $auth_user->name }}</h2>
 
-            @if (!is_null($auth_user->avg_rating))
-                <div class="star-rating">
-                    @for ($i = 1; $i <= 5; $i++)
-                        <span class="star {{ $i <= $rating ? 'rating-active' : '' }}">★</span>
-                    @endfor
-                </div>
-            @endif
+            <div class="mypage__profile-name-star">
+                <h2 class="mypage__profile-name">{{ $auth_user->name }}</h2>
+
+                @if (!is_null($auth_user->avg_rating))
+                    <div class="star-rating">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <span class="star {{ $i <= $rating ? 'rating-active' : '' }}">★</span>
+                        @endfor
+                    </div>
+                @endif
+            </div>
         </div>
         <div>
             <a href="{{ route('mypage.edit') }}" class="mypage__edit-profile-btn">プロフィールを編集</a>
@@ -46,7 +49,9 @@
                 <a class="mypage__list__link {{ $page === 'trading' ? 'active' : '' }}" href="{{ route('mypage.show', ['page' => 'trading']) }}">
                     取引中の商品
                 </a>
-                <p class="total-unread-counter">{{ $totalUnreadCount }}</p>
+                @if ($totalUnreadCount > 0)
+                    <p class="total-unread-counter">{{ $totalUnreadCount }}</p>
+                @endif
             </div>
         </div>
     </div>

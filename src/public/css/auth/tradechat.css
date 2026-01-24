@@ -1,7 +1,7 @@
 .trade-chat-container {
     width: 100%;
     display: flex;
-    min-height: 902px;
+    height: calc(100vh - 80px);
 }
 
 .trade-sidebar {
@@ -42,17 +42,16 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .trade-header {
     width: 100%;
-    height: 105px;
     border-bottom: 2px solid #5F5F5F;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 37px;
-    padding-right: 41px;
+    padding: 13px 41px 13px 37px;
 }
 
 .partner {
@@ -97,15 +96,14 @@
     font-size: 20px;
     font-weight: 700;
     border-radius: 30px;
-    padding: 14px 16px 18px 20px;
+    padding: 13px 16px 15px 20px;
 }
 
 .product-info {
     display: flex;
     align-items: center;
-    height: 232px;
     gap: 40px;
-    padding-left: 40px;
+    padding: 14px 0 13px 40px;
     border-bottom: 2px solid #5F5F5F;
 }
 
@@ -129,19 +127,25 @@
 }
 
 .chat-messages {
-    flex: 1;
-    padding: 10px;
+    flex: 1 1 auto;
+    padding: 26px 27px 20px 25px;
     overflow-y: auto;
+    min-height: 0;
 }
 
 .message-row {
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .my-message {
     justify-content: flex-end;
     /* 右寄せ */
+}
+
+.my-message-user {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
 }
 
 .other-message {
@@ -150,14 +154,60 @@
 }
 
 .message-bubble {
-    max-width: 60%;
-    padding: 10px;
-    border-radius: 10px;
-    background: #eee;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }
 
-.my-message .message-bubble {
-    background: #d4f1ff;
+.my-message-bubble {
+    justify-content: flex-start;
+}
+
+.user-info-wrapper {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 24px;
+    margin-bottom: 8px;
+}
+
+.user-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    /* はみ出た部分を切り取る */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-img-default {
+    background-color: #D9D9D9;
+    width: 100%;
+    height: 100%;
+}
+
+.user-img-selected {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 縦横比を維持しつつ切り取り */
+}
+
+.user-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.message-text {
+    display: inline-block;
+    max-width: 461px;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 12px;
+    background-color: #D9D9D9;
+    border-radius: 4px;
 }
 
 .chat-image {
@@ -165,43 +215,87 @@
     margin-top: 5px;
 }
 
+.my-message-editer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 21px;
+    margin-top: 6px;
+    margin-right: 15px;
+}
+
+.my-message-editer button {
+    color: #5F5F5F;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 .chat-form {
     display: flex;
-    gap: 5px;
-    padding: 10px;
-    border-top: 1px solid #ddd;
+    padding: 0 47px 10px 27px;
+    flex-shrink: 0;
+    align-items: center;
 }
 
 .chat-form input[type="text"] {
+    border: #5F5F5F 1px solid;
+    border-radius: 4px;
     flex: 1;
+    height: 44px;
+    font-size: 20px;
+    font-weight: 700;
+    padding-left: 19px;
+    margin-right: 19px;
 }
 
 .image-btn {
-    background: #eee;
+    width: 143px;
+    text-align: center;
+    height: 44px;
     padding: 5px 10px;
-    border-radius: 5px;
+    color: #FF5555;
+    border: #FF5555 2px solid;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.image-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .send-btn {
-    background: #4caf50;
-    color: #fff;
+    width: 80px;
+    height: 61px;
     border: none;
-    padding: 0 15px;
+    cursor: pointer;
+    padding: 0;
+    background-color: #D9D9D9;
+    /* 背景色（画像読み込まれない場合の代替色） */
+
+    /* 背景画像 */
+    background-image: url('/images/inputbuttun.png');
+    /* 画像パス */
+    background-size: 100% 100%;
+    /* 画像サイズ（ボタンの50%） */
+    background-repeat: no-repeat;
+    background-position: center;
+    /* 中央に配置 */
+
+    transition: background-color 0.2s;
 }
 
-
-
+.send-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 
 /* 背景 */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
     display: none;
     justify-content: center;
     align-items: center;
@@ -210,43 +304,74 @@
 
 /* モーダル */
 .modal-content {
-    background: #fff;
-    padding: 20px;
-    width: 350px;
-    border-radius: 10px;
+    background: #FDFCE6;
+    width: 598px;
+    height: 367px;
+    border-radius: 15px;
+    border: #000 solid 1px;
+    /* 画面中央に配置 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateX(130px);
+    /* X方向に100pxずらす */
+}
+
+.modal-content-title {
+    height: 88px;
+    line-height: 88px;
+    font-size: 35px;
+    font-weight: 400px;
+    padding-left: 23px;
+    border-bottom: #000 solid 1px;
+}
+
+.rating-main {
+    padding-top: 20px;
+    padding-left: 23px;
+    height: 198px;
+    border-bottom: #000 solid 1px;
+}
+
+.rating-main p {
+    color: #868686;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.rating {
     text-align: center;
+    margin-top: 18px;
+    line-height: 1;
+    padding: 0;
+    letter-spacing: 3px;
 }
 
 /* ボタンエリア */
 .modal-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-/* キャンセル */
-.modal-cancel {
-    background: #ccc;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding-right: 14px;
+    margin-top: 14px;
+    text-align: right;
 }
 
 /* 完了 */
 .modal-confirm {
-    background: #ff7b7b;
+    background: #FF8282;
     color: #fff;
     border: none;
-    padding: 8px 15px;
+    padding: 6px 16px 8px 16px;
     border-radius: 5px;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
 }
 
 .star {
-    font-size: 60px;
-    color: #ccc;
+    font-size: 100px;
+    color: #D9D9D9;
     cursor: pointer;
 }
 
 .star.active {
-    color: gold;
+    color: #FFF048;
 }

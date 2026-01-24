@@ -33,7 +33,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tradechat/{room}', [TradeChatController::class, 'tradechat_show'])->name('tradechat.show');
     Route::post('/tradechat/{room}/message', [TradeChatController::class, 'tradechat_store'])->name('tradechat.message.store');
     Route::delete('/tradechat/message/{message}', [TradeChatController::class, 'tradechat_destroy'])->name('tradechat.message.destroy');
-    Route::post('/tradechat/{room}/rating', [TradeChatController::class, 'rating_store'])->name('rating.store');
+    Route::post('/tradechat/{room}/rating/seller', [TradeChatController::class, 'rating_seller_store'])->name('rating.seller.store');
+    Route::post('/tradechat/{room}/rating/buyer', [TradeChatController::class, 'rating_buyer_store'])->name('rating.buyer.store');
 });
 
 Route::post('/item/toggle/{item_id}', [ItemController::class, 'favorite_toggle'])->name('favorite.toggle');

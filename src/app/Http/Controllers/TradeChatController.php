@@ -53,12 +53,18 @@ class TradeChatController extends Controller
             })
             ->get();
 
+        // ルーティング分岐用
+        $ratingRoute = $isBuyer
+            ? route('rating.seller.store', $room)
+            : route('rating.buyer.store', $room);
+
         return view('auth.tradechat', compact(
             'room',
             'messages',
             'isBuyer',
             'isSeller',
-            'otherRooms'
+            'otherRooms',
+            'ratingRoute'
         ));
     }
 
@@ -132,7 +138,7 @@ class TradeChatController extends Controller
     /**
      * 出品者を評価（購入者が行う）
      */
-    public function rating_store(Request $request, ChatRoom $room)
+    public function rating_seller_store(Request $request, ChatRoom $room)
     {
         $request->validate([
             'seller_rating' => 'required|integer|min:1|max:5',
@@ -149,9 +155,10 @@ class TradeChatController extends Controller
         DB::transaction(function () use ($room, $request) {
             $room->update([
                 'seller_rating' => (int) $request->seller_rating,
+                'is_buyer_completed'  => true,
             ]);
 
-            // 🔥 総合評価を再計算
+            // 総合評価を再計算
             $room->seller->recalcAvgRating();
         });
 
@@ -159,9 +166,9 @@ class TradeChatController extends Controller
     }
 
     /**
-     * 購入者を評価（購入者が行う）
+     * 購入者を評価（出品者が行う）
      */
-    public function rateBuyer(Request $request, ChatRoom $room)
+    public function rating_buyer_store(Request $request, ChatRoom $room)
     {
         $request->validate([
             'buyer_rating' => 'required|integer|min:1|max:5',
@@ -178,13 +185,14 @@ class TradeChatController extends Controller
         DB::transaction(function () use ($room, $request) {
             $room->update([
                 'buyer_rating' => $request->buyer_rating,
+                'is_completed'  => true,
             ]);
 
             // 🔥 総合評価を再計算
             $room->buyer->recalcAvgRating();
         });
 
-        return back();
+        return redirect()->route('mypage.show');
     }
 
 }

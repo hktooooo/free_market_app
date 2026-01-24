@@ -112,18 +112,22 @@ class AuthController extends Controller
     // プロフィール画面表示
     public function mypage(Request $request)
     {
-        $page = $request->query('page', 'sell');
+        $page = $request->query('page', 'sell', 'trading');
         $userId = Auth::id();
         $auth_user = Auth::user()->refresh();
 
         if ($page === 'sell') {
             // 出品した商品
             $products = Product::with('condition')
-                ->where('seller_id', $userId)->get();
+                ->where('seller_id', $userId)
+                ->get();
+
         } elseif ($page === 'buy') {
             // 購入した商品
             $products = Product::with('condition')
-                ->where('buyer_id', $userId)->get();
+                ->where('buyer_id', $userId)
+                ->get();
+
         } else {
             // 出品 or 購入した商品 ＋ 取引未完了のルームがあるもの
             $products = Product::with('condition')
@@ -159,7 +163,16 @@ class AuthController extends Controller
         }
 
         // 未読合計値を計算
-        $totalUnreadCount = $products->sum('unread_count');
+        $totalUnreadCount = \DB::table('messages')
+            ->join('chat_rooms', 'messages.chat_room_id', '=', 'chat_rooms.id')
+            ->join('products', 'chat_rooms.product_id', '=', 'products.id')
+            ->whereNull('messages.read_at')
+            ->where('messages.user_id', '!=', $userId)
+            ->where(function ($query) use ($userId) {
+                $query->where('products.buyer_id', $userId)
+                    ->orWhere('products.seller_id', $userId);
+            })
+            ->count();
 
         return view('auth.mypage', compact('products', 'page', 'auth_user', 'totalUnreadCount'));
     }

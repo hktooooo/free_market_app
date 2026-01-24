@@ -12,8 +12,6 @@
 
 <body>
   <div class="app">
-    {{-- debug --}}
-    {{ View::hasSection('hide_search_form') ? 'YES' : 'NO' }}
     <header class="header">
       <a class="header__heading" href="/">
         <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH">

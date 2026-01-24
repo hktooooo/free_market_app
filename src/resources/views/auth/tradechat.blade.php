@@ -7,6 +7,10 @@
 @section('hide_search_form')
 @endsection
 
+@php
+    $completed_flag = $room->is_buyer_completed;
+@endphp
+
 @section('content')
 <div class="trade-chat-container">
     {{-- サイドバー --}}
@@ -29,10 +33,18 @@
         <div class="trade-header">
             <div class="partner">
                 <div class="partner-img">
-                    @if($room->seller->img_url === null)
-                        <div class="partner-img-default"> </div>
+                    @if($isBuyer)
+                        @if($room->seller->img_url === null)
+                            <div class="partner-img-default"> </div>
+                        @else
+                            <img class="partner-img-selected" src="{{ asset('storage/' . $room->seller->img_url) }}">
+                        @endif
                     @else
-                        <img class="partner-img-selected" src="">
+                        @if($room->buyer->img_url === null)
+                            <div class="partner-img-default"> </div>
+                        @else
+                            <img class="partner-img-selected" src="{{ asset('storage/' . $room->buyer->img_url) }}">
+                        @endif
                     @endif
                 </div>
                 <p class="partner-name">
@@ -40,9 +52,11 @@
                 </p>
             </div>
             {{-- 取引完了ボタン --}}
-            <button id="openModal" class="complete-btn">
-                取引を完了する
-            </button>
+            @if ($isBuyer && !$completed_flag)
+                <button id="openModal" class="complete-btn">
+                    取引を完了する
+                </button>
+            @endif
         </div>
 
         {{-- 商品情報 --}}
@@ -59,14 +73,22 @@
             @foreach($messages as $message)
                 <div class="message-row 
                     {{ $message->user_id === auth()->id() ? 'my-message' : 'other-message' }}">
-                    
-                    <div class="message-bubble">
-                        <div class="user-name">
-                            {{ $message->sender->name }}
+                    <div class="message-bubble {{ $message->user_id === auth()->id() ? 'my-message-bubble' : '' }}">
+                        <div class="user-info-wrapper {{ $message->user_id === auth()->id() ? 'my-message-user' : '' }}">
+                            <div class="user-img">
+                                @if($message->sender->img_url === null)
+                                    <div class="user-img-default"> </div>
+                                @else
+                                    <img class="user-img-selected" src="{{ asset('storage/' . $message->sender->img_url) }}" alt="{{ $message->sender->name }}">
+                                @endif
+                            </div>
+                            <div class="user-name">
+                                {{ $message->sender->name }}
+                            </div>
                         </div>
 
                         @if($message->message)
-                            <p>{{ $message->message }}</p>
+                            <p class="message-text">{{ $message->message }}</p>
                         @endif
 
                         @if($message->image)
@@ -75,15 +97,25 @@
 
                         {{-- 自分のメッセージのみ削除可能 --}}
                         @if ($message->isMine(auth()->id()))
-                            <form
-                                action="{{ route('tradechat.message.destroy', $message) }}"
-                                method="POST"
-                                onsubmit="return confirm('このメッセージを削除しますか？');"
-                            >
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">削除</button>
-                            </form>
+                            <div class="my-message-editer">
+                                <form
+                                    action=""
+                                    method="POST"
+                                >
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" @if($completed_flag) disabled @endif>編集</button>
+                                </form>
+                                <form
+                                    action="{{ route('tradechat.message.destroy', $message) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('このメッセージを削除しますか？');"
+                                >
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" @if($completed_flag) disabled @endif>削除</button>
+                                </form>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -96,49 +128,65 @@
 
             <input type="text" name="message" placeholder="取引メッセージを記入してください">
 
-            <label class="image-btn">
+            <label class="image-btn" @if($completed_flag) disabled @endif>
                 画像を追加
-                <input type="file" name="image" hidden>
+                <input type="file" name="image" hidden @if($completed_flag) disabled @endif>
             </label>
 
-            <button type="submit" class="send-btn">▶</button>
+            <button type="submit" class="send-btn" @if($completed_flag) disabled @endif></button>
         </form>
-    </div>
-</div>
 
-{{-- モーダル --}}
-<div id="modalOverlay" class="modal-overlay">
-    <div class="modal-content">
-        <h3>取引が完了しました。</h3>
+        {{-- モーダル --}}
+        <div id="modalOverlay" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-content-title">取引が完了しました。</div>
 
-        <p>今回の取引相手はどうでしたか？</p>
+                <div class="rating-main">
+                    <p>今回の取引相手はどうでしたか？</p>
+                    <div class="rating" data-user-id="{{ $room->seller_id }}">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <span class="star" data-score="{{ $i }}">★</span>
+                        @endfor
+                    </div>
+                </div>
 
-        <div class="rating" data-user-id="{{ $room->seller_id }}">
-            @for ($i = 1; $i <= 5; $i++)
-                <span class="star" data-score="{{ $i }}">★</span>
-            @endfor
-        </div>
-
-        <div class="modal-actions">
-            <form method="POST" action="{{ route('rating.store', $room) }}">
-                @csrf
-                <input type="hidden" name="seller_rating" id="seller_rating">
-                <button type="submit" class="modal-confirm">
-                    送信する
-                </button>
-            </form>
+                <div class="modal-actions">
+                    <form method="POST" action="{{ $ratingRoute }}">
+                        @csrf
+                        <input type="hidden" name="{{ $isBuyer ? 'seller_rating' : 'buyer_rating' }}" id="rating">
+                        <button type="submit" class="modal-confirm">
+                            送信する
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
+    const shouldOpenModal = @json(
+        $room->is_buyer_completed === 1 && $isSeller === true
+    );
+</script>
+
+<script>
     const openBtn = document.getElementById('openModal');
     const modal = document.getElementById('modalOverlay');
-    const hiddenInput = document.getElementById('seller_rating');
+    const hiddenInput = document.getElementById('rating');
+    const submitBtn = document.querySelector('.modal-confirm');
 
-    openBtn.addEventListener('click', () => {
+    // 🔥 初期表示判定
+    if (typeof shouldOpenModal !== 'undefined' && shouldOpenModal) {
         modal.style.display = 'flex';
-    });
+    }
+
+    // ボタンクリック時
+    if (openBtn) {
+        openBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+    }
 
     // 背景クリックで閉じる
     modal.addEventListener('click', (e) => {
@@ -155,15 +203,12 @@
             star.addEventListener('click', () => {
                 const score = star.dataset.score;
 
-                // hidden に値をセット
                 hiddenInput.value = score;
 
-                // ★の色変更
                 stars.forEach(s => {
                     s.classList.toggle('active', s.dataset.score <= score);
                 });
 
-                // 送信ボタン有効化
                 submitBtn.disabled = false;
             });
         });
