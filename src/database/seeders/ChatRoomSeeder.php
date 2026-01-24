@@ -33,5 +33,24 @@ class ChatRoomSeeder extends Seeder
                 ],
             ]);
         }
+        
+        $room = ChatRoom::firstOrCreate(
+            [
+                'product_id' => 2,
+                'buyer_id'   => 2,
+            ],
+            [
+                'seller_id'  => 1,
+            ]
+        );
+        $room = ChatRoom::firstOrCreate(
+            [
+                'product_id' => 3,
+                'buyer_id'   => 2,
+            ],
+            [
+                'seller_id'  => 1,
+            ]
+        );
     }
 }

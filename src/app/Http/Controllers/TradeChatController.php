@@ -43,11 +43,22 @@ class TradeChatController extends Controller
             ->whereNull('read_at')
             ->update(['read_at' => now()]);
 
+        // その他の取引取得
+        $otherRooms = ChatRoom::with('product')
+            ->where('is_completed', false)
+            ->where('id', '!=', $room->id)
+            ->where(function ($q) use ($userId) {
+                $q->where('buyer_id', $userId)
+                ->orWhere('seller_id', $userId);
+            })
+            ->get();
+
         return view('auth.tradechat', compact(
             'room',
             'messages',
             'isBuyer',
-            'isSeller'
+            'isSeller',
+            'otherRooms'
         ));
     }
 
