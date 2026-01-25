@@ -32,6 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/sell/exec', [ItemController::class, 'sell_exec'])->name('sell.exec');
     Route::get('/tradechat/{room}', [TradeChatController::class, 'tradechat_show'])->name('tradechat.show');
     Route::post('/tradechat/{room}/message', [TradeChatController::class, 'tradechat_store'])->name('tradechat.message.store');
+    Route::get('/tradechat/message/{message}/edit', [TradeChatController::class, 'tradechat_edit'])->name('tradechat.message.edit');
+    Route::put('/tradechat/message/{message}', [TradeChatController::class, 'tradechat_update'])->name('tradechat.message.update');
     Route::delete('/tradechat/message/{message}', [TradeChatController::class, 'tradechat_destroy'])->name('tradechat.message.destroy');
     Route::post('/tradechat/{room}/rating/seller', [TradeChatController::class, 'rating_seller_store'])->name('rating.seller.store');
     Route::post('/tradechat/{room}/rating/buyer', [TradeChatController::class, 'rating_buyer_store'])->name('rating.buyer.store');

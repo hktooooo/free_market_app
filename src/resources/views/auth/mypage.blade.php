@@ -61,13 +61,13 @@
         {{-- 出品・購入 --}}
             @foreach ($products as $product)
                 <div class="toppage__product-container">
-                    <a href="{{ route('item.show', $product['id']) }}" class="toppage__product-image">
-                        <img src="{{ asset('storage/' . $product['img_url']) }}" alt="{{ $product['product_name'] }}">
+                    <a href="{{ route('item.show', $product->id) }}" class="toppage__product-image">
+                        <img src="{{ asset('storage/' . $product->img_url) }}" alt="{{ $product->product_name }}">
                     </a>
                     <p class="toppage__product-name">
-                        {{ $product['product_name'] }}
+                        {{ $product->product_name }}
                     </p>
-                    @if ($product['buyer_id'] !== null) 
+                    @if ($product->buyer_id !== null) 
                         <p class="toppage__product-sold">Sold</p>
                     @endif
                 </div>
@@ -75,10 +75,13 @@
         @else
         {{-- 取引中 --}}
             @foreach ($products as $product)
+                @php
+                    $room = $product->rooms->first();
+                @endphp
                 <div class="toppage__product-container">
                     <div class="product-image-wrapper">
-                        <a href="{{ route('tradechat.show', $product['id']) }}" class="toppage__product-image">
-                            <img src="{{ asset('storage/' . $product['img_url']) }}" alt="{{ $product['product_name'] }}">
+                        <a href="{{ route('tradechat.show', $room->id) }}" class="toppage__product-image">
+                            <img src="{{ asset('storage/' . $product->img_url) }}" alt="{{ $product->product_name }}">
                         </a>
                         @if ($product->unread_count > 0)
                             <p class="product-unread-counter">

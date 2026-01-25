@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ChatRoom;
 use App\Models\Message;
 use App\Models\User;
+use App\Http\Requests\StoreMessageRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -71,7 +72,7 @@ class TradeChatController extends Controller
     /**
      * メッセージ投稿
      */
-    public function tradechat_store(Request $request, ChatRoom $room)
+    public function tradechat_store(StoreMessageRequest $request, ChatRoom $room)
     {
         $userId = Auth::id();
 
@@ -80,11 +81,7 @@ class TradeChatController extends Controller
             abort(403);
         }
 
-        // バリデーション *****要件確認、あとで******
-        $validated = $request->validate([
-            'message' => 'nullable|string|max:1000',
-            'image'   => 'nullable|image|max:2048', // 2MB
-        ]);
+        $validated = $request->validated();
 
         // メッセージと画像が両方空はNG
         if (empty($validated['message']) && ! $request->hasFile('image')) {
@@ -136,6 +133,35 @@ class TradeChatController extends Controller
     }
 
     /**
+     * メッセージ編集画面表示（自分の投稿のみ）
+     */
+    public function tradechat_edit(Message $message)
+    {
+        // 自分のメッセージ以外は編集不可
+        if ($message->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        return view('auth.tradechat_edit', compact('message'));
+    }
+
+    /**
+     * メッセージ更新（自分の投稿のみ）
+     */
+    public function tradechat_update(StoreMessageRequest $request, Message $message)
+    {
+        if ($message->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $message->update([
+            'message' => $request->message,
+        ]);
+
+        return redirect()->route('tradechat.show', $message->chat_room_id);
+    }
+
+    /**
      * 出品者を評価（購入者が行う）
      */
     public function rating_seller_store(Request $request, ChatRoom $room)
@@ -162,7 +188,7 @@ class TradeChatController extends Controller
             $room->seller->recalcAvgRating();
         });
 
-        return back();
+        return redirect()->route('index.show');
     }
 
     /**
@@ -192,7 +218,7 @@ class TradeChatController extends Controller
             $room->buyer->recalcAvgRating();
         });
 
-        return redirect()->route('mypage.show');
+        return redirect()->route('index.show');
     }
 
 }

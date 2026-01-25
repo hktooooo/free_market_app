@@ -87,25 +87,30 @@
                             </div>
                         </div>
 
-                        @if($message->message)
-                            <p class="message-text">{{ $message->message }}</p>
-                        @endif
+                        <div>
+                            @if($message->message)
+                                <p class="message-text">{{ $message->message }}</p>
+                            @endif
+                        </div>
 
-                        @if($message->image)
-                            <img src="{{ asset('storage/' . $message->image) }}" class="chat-image">
-                        @endif
+                        <div>
+                            @if($message->image)
+                                <img src="{{ asset('storage/' . $message->image) }}" class="chat-image">
+                            @endif
+                        </div>
 
                         {{-- 自分のメッセージのみ削除可能 --}}
                         @if ($message->isMine(auth()->id()))
                             <div class="my-message-editer">
-                                <form
-                                    action=""
-                                    method="POST"
+                                <button
+                                    class="edit-btn"
+                                    data-message-id="{{ $message->id }}"
+                                    data-message-text="{{ $message->message }}"
+                                    data-action="{{ route('tradechat.message.update', $message) }}"
+                                    @if($completed_flag) disabled @endif
                                 >
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" @if($completed_flag) disabled @endif>編集</button>
-                                </form>
+                                    編集
+                                </button>
                                 <form
                                     action="{{ route('tradechat.message.destroy', $message) }}"
                                     method="POST"
@@ -123,46 +128,102 @@
         </div>
 
         {{-- 入力フォーム --}}
-        <form class="chat-form" method="POST" action="{{ route('tradechat.message.store', $room) }}" enctype="multipart/form-data">
-            @csrf
+        <div class="chat-form-wrapper">
+            <p class="chat-form__error-message">
+                @error('message')
+                    {{ $message }}
+                @enderror
+            </p>
+            <p class="chat-form__error-message">
+                @error('image')
+                    {{ $message }}
+                @enderror
+            </p>
+            <form class="chat-form" method="POST" action="{{ route('tradechat.message.store', $room) }}" enctype="multipart/form-data">
+                @csrf
 
-            <input type="text" name="message" placeholder="取引メッセージを記入してください">
+                <input
+                    type="text"
+                    name="message"
+                    id="message-input"
+                    placeholder="取引メッセージを記入してください"
+                    maxlength="400"
+                    value="{{ old('message') }}"
+                >
 
-            <label class="image-btn" @if($completed_flag) disabled @endif>
-                画像を追加
-                <input type="file" name="image" hidden @if($completed_flag) disabled @endif>
-            </label>
+                <label class="image-btn" @if($completed_flag) disabled @endif>
+                    画像を追加
+                    <input
+                        type="file"
+                        name="image"
+                        id="image-input"
+                        accept="image/png,image/jpeg"
+                        hidden
+                        @if($completed_flag) disabled @endif
+                    >
+                </label>
 
-            <button type="submit" class="send-btn" @if($completed_flag) disabled @endif></button>
-        </form>
-
-        {{-- モーダル --}}
-        <div id="modalOverlay" class="modal-overlay">
-            <div class="modal-content">
-                <div class="modal-content-title">取引が完了しました。</div>
-
-                <div class="rating-main">
-                    <p>今回の取引相手はどうでしたか？</p>
-                    <div class="rating" data-user-id="{{ $room->seller_id }}">
-                        @for ($i = 1; $i <= 5; $i++)
-                            <span class="star" data-score="{{ $i }}">★</span>
-                        @endfor
-                    </div>
-                </div>
-
-                <div class="modal-actions">
-                    <form method="POST" action="{{ $ratingRoute }}">
-                        @csrf
-                        <input type="hidden" name="{{ $isBuyer ? 'seller_rating' : 'buyer_rating' }}" id="rating">
-                        <button type="submit" class="modal-confirm">
-                            送信する
-                        </button>
-                    </form>
-                </div>
-            </div>
+                <button type="submit"
+                     class="send-btn"
+                     @if($completed_flag) disabled @endif>
+                </button>
+            </form>
         </div>
     </div>
 </div>
+
+
+{{-- モーダル --}}
+<div id="modalOverlay" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-content-title">取引が完了しました。</div>
+
+        <div class="rating-main">
+            <p>今回の取引相手はどうでしたか？</p>
+            <div class="rating" data-user-id="{{ $room->seller_id }}">
+                @for ($i = 1; $i <= 5; $i++)
+                    <span class="star" data-score="{{ $i }}">★</span>
+                @endfor
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <form method="POST" action="{{ $ratingRoute }}">
+                @csrf
+                <input type="hidden" name="{{ $isBuyer ? 'seller_rating' : 'buyer_rating' }}" id="rating">
+                <button type="submit" class="modal-confirm">
+                    送信する
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="modal-overlay-edit">
+    <div class="modal-content-edit">
+        <div class="modal-content-edit-title">メッセージを編集</div>
+
+        <form class="chat-form-edit" id="editForm" method="POST">
+            @csrf
+            @method('PUT')
+
+            <input
+                type="text"
+                maxlength="400"
+                name="message"
+                id="editMessage"
+                required
+            >
+
+            <div class="modal-edit-actions">
+                <button type="submit">更新</button>
+                <button type="button" id="closeEditModal">キャンセル</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 
 <script>
     const shouldOpenModal = @json(
@@ -171,38 +232,44 @@
 </script>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* =====================
+       枠外クリックで閉じる
+    ===================== */
+    document.querySelectorAll('.modal-overlay')
+        .forEach(overlay => {
+            overlay.addEventListener('click', e => {
+                if (e.target === overlay) {
+                    overlay.style.display = 'none';
+                }
+            });
+        });
+
+    /* =====================
+       評価モーダル
+    ===================== */
     const openBtn = document.getElementById('openModal');
     const modal = document.getElementById('modalOverlay');
     const hiddenInput = document.getElementById('rating');
     const submitBtn = document.querySelector('.modal-confirm');
 
-    // 🔥 初期表示判定
-    if (typeof shouldOpenModal !== 'undefined' && shouldOpenModal) {
+    if (modal && typeof shouldOpenModal !== 'undefined' && shouldOpenModal) {
         modal.style.display = 'flex';
     }
 
-    // ボタンクリック時
-    if (openBtn) {
+    if (openBtn && modal) {
         openBtn.addEventListener('click', () => {
             modal.style.display = 'flex';
         });
     }
 
-    // 背景クリックで閉じる
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // ⭐ 評価処理
     document.querySelectorAll('.rating').forEach(rating => {
         const stars = rating.querySelectorAll('.star');
 
         stars.forEach(star => {
             star.addEventListener('click', () => {
                 const score = star.dataset.score;
-
                 hiddenInput.value = score;
 
                 stars.forEach(s => {
@@ -213,6 +280,54 @@
             });
         });
     });
+
+    /* =====================
+       編集モーダル
+    ===================== */
+    const editModal = document.getElementById('editModal');
+    const editForm = document.getElementById('editForm');
+    const editMessage = document.getElementById('editMessage');
+    const closeBtn = document.getElementById('closeEditModal');
+
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            editModal.style.display = 'flex';
+            editMessage.value = btn.dataset.messageText;
+            editForm.action = btn.dataset.action;
+        });
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            editModal.style.display = 'none';
+        });
+    }
+});
+</script>
+ 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const roomId = {{ $room->id }};
+    const storageKey = `chat_draft_${roomId}`;
+
+    const input = document.getElementById('message-input');
+    const form = document.getElementById('chat-form');
+
+    // localStorage → input 復元（old() 優先）
+    if (!input.value) {
+        input.value = localStorage.getItem(storageKey) || '';
+    }
+
+    // 入力時に保存
+    input.addEventListener('input', () => {
+        localStorage.setItem(storageKey, input.value);
+    });
+
+    // 送信時に下書き削除
+    form.addEventListener('submit', () => {
+        localStorage.removeItem(storageKey);
+    });
+});
 </script>
 
 @endsection

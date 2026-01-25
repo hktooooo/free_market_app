@@ -66,7 +66,7 @@ class PurchaseProductController extends Controller
                     'buyer_id'   => $userId,
                 ],
                 [
-                    'seller_id'  => $product->user_id,
+                    'seller_id'  => $product->seller_id,
                 ]
             );
         }
@@ -103,7 +103,7 @@ class PurchaseProductController extends Controller
                     'buyer_id'   => $product->buyer_id,
                 ],
                 [
-                    'seller_id'  => $product->user_id,
+                    'seller_id'  => $product->seller_id,
                 ]
             );
         }

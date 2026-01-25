@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Condition;
+use App\Models\ChatRoom;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ProfileRequest;
@@ -112,7 +113,7 @@ class AuthController extends Controller
     // プロフィール画面表示
     public function mypage(Request $request)
     {
-        $page = $request->query('page', 'sell', 'trading');
+        $page = $request->query('page', 'sell');
         $userId = Auth::id();
         $auth_user = Auth::user()->refresh();
 
