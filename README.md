@@ -3,7 +3,7 @@
 ## 環境構築
 **Dockerビルド**
 1. `git clone git@github.com:hktooooo/free_market_app.git`
-2.  DockerDesktopアプリを立ち上げる
+2. DockerDesktopアプリを立ち上げる
 3. プロジェクト直下で、以下のコマンドを実行する
 
 ```
@@ -171,20 +171,20 @@ STRIPE_SECRET=(各自のSTRIPE_SECRETを記入)
 ![alt](erd.png)
 
 ## テストユーザーアカウント
-name: seller1
-email: seller1@test.com 
-password: 12345678
-*C01~C05の商品を出品したユーザ
+name: seller1  
+email: seller1@test.com  
+password: 12345678  
+*C01~C05の商品を出品したユーザ  
 -------------------------
-name: seller2
-email: seller2@test.com 
-password: 12345678
-*C06~C10の商品を出品したユーザ
+name: seller2  
+email: seller2@test.com  
+password: 12345678  
+*C06~C10の商品を出品したユーザ  
 -------------------------
-name: test_user
-email: test@test.com
-password: 12345678
-*テストユーザ（商品に紐づけなし）
+name: test_user  
+email: test@test.com  
+password: 12345678  
+*テストユーザ（商品に紐づけなし）  
 -------------------------
 
 ## PHPUnitを利用したテストに関して
