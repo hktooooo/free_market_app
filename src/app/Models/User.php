@@ -75,4 +75,26 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Product::class, 'seller_id');
     }
 
+    // 評価点平均値計算用
+    public function recalcAvgRating(): void
+    {
+        // 出品者として受けた評価
+        $sellerAvg = ChatRoom::where('seller_id', $this->id)
+            ->whereNotNull('seller_rating')
+            ->avg('seller_rating');
+
+        // 購入者として受けた評価
+        $buyerAvg = ChatRoom::where('buyer_id', $this->id)
+            ->whereNotNull('buyer_rating')
+            ->avg('buyer_rating');
+
+        // null を除外して平均
+        $ratings = collect([$sellerAvg, $buyerAvg])->filter();
+
+        $this->avg_rating = $ratings->isNotEmpty()
+            ? round($ratings->avg(), 2)
+            : null;
+
+        $this->save();
+    }
 }

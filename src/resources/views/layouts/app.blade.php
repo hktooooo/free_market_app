@@ -16,34 +16,36 @@
       <a class="header__heading" href="/">
         <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
       </a>
-      <form class="search-form" action="{{ route('index.show') }}" method="get">
-        <input class="search-form__input" type="text" name="q" id="" value="{{ $q ?? '' }}" placeholder="なにをお探しですか？">
-        <input type="hidden" name="tab" value="{{ $tab ?? '' }}">
-      </form>
-      <nav>
-        <ul class="header-nav">
-          <li class="header-nav__item">
-            @if (Auth::check())
-              <form action="/logout" method="post">
-                @csrf
-                <button class="header-nav__link-logout">ログアウト</button>
+      @if (!View::hasSection('hide_search_form'))
+        <form class="search-form" action="{{ route('index.show') }}" method="get">
+          <input class="search-form__input" type="text" name="q" id="" value="{{ $q ?? '' }}" placeholder="なにをお探しですか？">
+          <input type="hidden" name="tab" value="{{ $tab ?? '' }}">
+        </form>
+        <nav>
+          <ul class="header-nav">
+            <li class="header-nav__item">
+              @if (Auth::check())
+                <form action="/logout" method="post">
+                  @csrf
+                  <button class="header-nav__link-logout" id="logout-btn">ログアウト</button>
+                </form>
+              @else
+                <a class="header-nav__link-login" href="/login">ログイン</a>
+              @endif
+            </li>
+            <li class="header-nav__item">
+              <form action="{{ route('mypage.show') }}" method="get">
+                <button type="submit" class="header-nav__link-mypage">
+                  マイページ
+                </button>
               </form>
-            @else
-              <a class="header-nav__link-login" href="/login">ログイン</a>
-            @endif
-          </li>
-          <li class="header-nav__item">
-            <form action="{{ route('mypage.show') }}" method="get">
-              <button type="submit" class="header-nav__link-mypage">
-                マイページ
-              </button>
-            </form>
-          </li>
-          <li class="header-nav__item__button">
-            <a class="" href="{{ route('sell.show') }}">出品</a>
-          </li>
-        </ul>
-      </nav>
+            </li>
+            <li class="header-nav__item__button">
+              <a class="" href="{{ route('sell.show') }}">出品</a>
+            </li>
+          </ul>
+        </nav>
+      @endif
     </header>
     <div class="content">
       @yield('content')

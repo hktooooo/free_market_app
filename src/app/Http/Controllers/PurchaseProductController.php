@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ChatRoom;
 use App\Http\Requests\PurchaseRequest;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
@@ -57,6 +58,17 @@ class PurchaseProductController extends Controller
             $product->buyer_payment_method = $paymentMethod;
             $product->buyer_payment_status = 'pending';
             $product->save();
+
+            // チャットルーム作成
+            ChatRoom::firstOrCreate(
+                [
+                    'product_id' => $product->id,
+                    'buyer_id'   => $userId,
+                ],
+                [
+                    'seller_id'  => $product->seller_id,
+                ]
+            );
         }
 
         return redirect($session->url);
@@ -83,6 +95,17 @@ class PurchaseProductController extends Controller
             $product->buyer_payment_method = $paymentMethod;
             $product->buyer_payment_status = 'succeeded';
             $product->save();
+
+            // チャットルーム作成
+            ChatRoom::firstOrCreate(
+                [
+                    'product_id' => $product->id,
+                    'buyer_id'   => $product->buyer_id,
+                ],
+                [
+                    'seller_id'  => $product->seller_id,
+                ]
+            );
         }
 
         return view('success', compact('product'));

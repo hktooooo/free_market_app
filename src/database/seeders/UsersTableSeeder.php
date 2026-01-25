@@ -15,21 +15,32 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $param = [
+            'name' => 'seller1',
+            'email' => 'seller1@test.com',
+            'password' => bcrypt('12345678'),
+            'zipcode' => '123-4567',
+            'address' => '東京都',
+            'building' => '東京タワー',
+        ];
+        DB::table('users')->insert($param);
+
+        $param = [
+            'name' => 'seller2',
+            'email' => 'seller2@test.com',
+            'password' => bcrypt('12345678'),
+            'zipcode' => '123-4567',
+            'address' => '東京都',
+            'building' => '東京タワー',
+        ];
+        DB::table('users')->insert($param);
+
+        $param = [
             'name' => 'test_user',
             'email' => 'test@test.com',
             'password' => bcrypt('12345678'),
             'zipcode' => '123-4567',
             'address' => '東京都',
-            'building' => '東京タワー'
-        ];
-        DB::table('users')->insert($param);
-        $param = [
-            'name' => 'seller',
-            'email' => 'test1@test.com',
-            'password' => bcrypt('12345678'),
-            'zipcode' => '123-4567',
-            'address' => '東京都',
-            'building' => '東京タワー'
+            'building' => '東京タワー',
         ];
         DB::table('users')->insert($param);
     }

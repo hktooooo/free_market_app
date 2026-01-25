@@ -17,7 +17,6 @@ h2 {
 .mypage__profile-section-inner {
     display: flex;
     justify-content: start;
-    align-items: center;
     gap: 57px;
 }
 
@@ -45,6 +44,15 @@ h2 {
     /* 縦横比を維持しつつ切り取り */
 }
 
+.mypage__profile-name-star {
+    text-align: center;
+}
+
+.mypage__profile-name {
+    margin-top: 32px;
+    margin-bottom: 12px;
+}
+
 .mypage__edit-profile-btn {
     width: 310px;
     height: 59px;
@@ -69,10 +77,10 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 52px;
+    gap: 91px;
     width: 1413px;
     margin: 0 auto;
-    padding: 0 100px;
+    padding: 0 50px;
 }
 
 .mypage__list__link {
@@ -83,6 +91,26 @@ h2 {
 
 .mypage__list__link.active {
     color: #FF0000;
+}
+
+.mypage__list__link-trading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.total-unread-counter {
+    display: block;
+    margin-top: 4px;
+    width: 27px;
+    height: 26px;
+    line-height: 1;
+    border-radius: 10px;
+    color: #FFF;
+    background-color: #FF0000;
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
 }
 
 .mypage__inner {
@@ -131,4 +159,42 @@ h2 {
     margin-top: 0;
     font-size: 25px;
     color: #FF0000;
+}
+
+/* 評価点 */
+.star-rating {
+    display: inline-flex;
+    gap: 2px;
+}
+
+.star {
+    font-size: 40px;
+    color: #D9D9D9;
+    line-height: 1;
+    /* 未評価（灰色） */
+}
+
+.star.rating-active {
+    color: #FFF048;
+    /* 評価あり（黄色） */
+}
+
+.product-image-wrapper {
+    position: relative;
+}
+
+.product-unread-counter {
+    background-color: #FF0000;
+    color: #FFF;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    line-height: 19px;
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    z-index: 10;
 }

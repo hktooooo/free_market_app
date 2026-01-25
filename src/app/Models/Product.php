@@ -66,4 +66,10 @@ class Product extends Model
     {
         return $this->belongsTo(User::class); 
     }
+
+    // チャットルーム
+    public function rooms()
+    {
+        return $this->hasMany(ChatRoom::class);
+    }
 }
