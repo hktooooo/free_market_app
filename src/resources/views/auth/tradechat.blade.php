@@ -87,15 +87,15 @@
                             </div>
                         </div>
 
-                        <div>
+                        <div class="message-text-box {{ $message->user_id === auth()->id() ? 'my-message' : 'other-message' }}">
                             @if($message->message)
                                 <p class="message-text">{{ $message->message }}</p>
                             @endif
-                        </div>
 
-                        <div>
                             @if($message->image)
-                                <img src="{{ asset('storage/' . $message->image) }}" class="chat-image">
+                                <p class="message-img">
+                                    <img src="{{ asset('storage/' . $message->image) }}" class="chat-image">
+                                </p>
                             @endif
                         </div>
 
@@ -355,6 +355,21 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', () => {
         localStorage.removeItem(storageKey);
     });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const roomId = {{ $room->id }};
+    const storageKey = `chat_draft_${roomId}`;
+
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem(storageKey);
+        });
+    }
 });
 </script>
 

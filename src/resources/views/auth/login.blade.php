@@ -33,4 +33,12 @@
     <a class="login-form__link-register" href="/register">会員登録はこちら</a>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    Object.keys(localStorage)
+        .filter(key => key.startsWith('chat_draft_'))
+        .forEach(key => localStorage.removeItem(key));
+});
+</script>
 @endsection('content')

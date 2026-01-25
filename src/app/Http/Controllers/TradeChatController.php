@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Models\User;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
+use App\Notifications\ChatPostedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -165,6 +166,8 @@ class TradeChatController extends Controller
      */
     public function rating_seller_store(Request $request, ChatRoom $room)
     {
+        $userId = Auth::id();
+
         $request->validate([
             'seller_rating' => 'required|integer|min:1|max:5',
         ]);
@@ -187,6 +190,31 @@ class TradeChatController extends Controller
             $room->seller->recalcAvgRating();
         });
 
+        // 通知メールの送信
+        // 相手ユーザーIDを判定
+        if ($room->buyer_id === $userId) {
+            // 自分がbuyer → sellerに送信
+            $targetUserId = $room->seller_id;
+        } elseif ($room->seller_id === $userId) {
+            // 自分がseller → buyerに送信
+            $targetUserId = $room->buyer_id;
+        } else {
+            // ルームに無関係なユーザーの場合は送らない
+            return;
+        }
+
+        // 通知送信
+        $targetUser = User::find($targetUserId);
+
+        if ($targetUser) {
+            $targetUser->notify(
+                new ChatPostedNotification(
+                    "取引を完了しました",
+                    Auth::user()
+                )
+            );
+        }
+
         return redirect()->route('index.show');
     }
 
@@ -195,6 +223,8 @@ class TradeChatController extends Controller
      */
     public function rating_buyer_store(Request $request, ChatRoom $room)
     {
+        $userId = Auth::id();
+
         $request->validate([
             'buyer_rating' => 'required|integer|min:1|max:5',
         ]);
@@ -219,5 +249,4 @@ class TradeChatController extends Controller
 
         return redirect()->route('index.show');
     }
-
 }
