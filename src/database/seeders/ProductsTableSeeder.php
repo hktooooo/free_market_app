@@ -22,7 +22,6 @@ class ProductsTableSeeder extends Seeder
             'img_url' => 'product_images/Armani+Mens+Clock.jpg',
             'condition_id' => 1,
             'seller_id' => 1,
-            'buyer_id' => 3,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -33,7 +32,6 @@ class ProductsTableSeeder extends Seeder
             'img_url' => 'product_images/HDD+Hard+Disk.jpg',
             'condition_id' => 2,
             'seller_id' => 1,
-            'buyer_id' => 2,
         ];
         DB::table('products')->insert($param);
         $param = [
@@ -44,7 +42,6 @@ class ProductsTableSeeder extends Seeder
             'img_url' => 'product_images/iLoveIMG+d.jpg',
             'condition_id' => 3,
             'seller_id' => 1,
-            'buyer_id' => 2,
         ];
         DB::table('products')->insert($param);
         $param = [

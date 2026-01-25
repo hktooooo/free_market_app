@@ -21,7 +21,6 @@ class UsersTableSeeder extends Seeder
             'zipcode' => '123-4567',
             'address' => '東京都',
             'building' => '東京タワー',
-            'avg_rating' => '3',
         ];
         DB::table('users')->insert($param);
 
@@ -32,7 +31,6 @@ class UsersTableSeeder extends Seeder
             'zipcode' => '123-4567',
             'address' => '東京都',
             'building' => '東京タワー',
-            'avg_rating' => '3',
         ];
         DB::table('users')->insert($param);
 
@@ -43,7 +41,6 @@ class UsersTableSeeder extends Seeder
             'zipcode' => '123-4567',
             'address' => '東京都',
             'building' => '東京タワー',
-            'avg_rating' => '3',
         ];
         DB::table('users')->insert($param);
     }
