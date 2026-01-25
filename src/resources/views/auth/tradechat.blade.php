@@ -99,7 +99,7 @@
                             @endif
                         </div>
 
-                        {{-- 自分のメッセージのみ削除可能 --}}
+                        {{-- 自分のメッセージのみ編集、削除可能 --}}
                         @if ($message->isMine(auth()->id()))
                             <div class="my-message-editer">
                                 <button
@@ -139,7 +139,7 @@
                     {{ $message }}
                 @enderror
             </p>
-            <form class="chat-form" method="POST" action="{{ route('tradechat.message.store', $room) }}" enctype="multipart/form-data">
+            <form class="chat-form" id="chat-form" method="POST" action="{{ route('tradechat.message.store', $room) }}" enctype="multipart/form-data">
                 @csrf
 
                 <input
@@ -147,8 +147,7 @@
                     name="message"
                     id="message-input"
                     placeholder="取引メッセージを記入してください"
-                    maxlength="400"
-                    value="{{ old('message') }}"
+                    value="{{ $errors->any() ? old('message') : '' }}"
                 >
 
                 <label class="image-btn" @if($completed_flag) disabled @endif>
@@ -164,8 +163,8 @@
                 </label>
 
                 <button type="submit"
-                     class="send-btn"
-                     @if($completed_flag) disabled @endif>
+                    class="send-btn"
+                    @if($completed_flag) disabled @endif>
                 </button>
             </form>
         </div>
@@ -203,16 +202,28 @@
     <div class="modal-content-edit">
         <div class="modal-content-edit-title">メッセージを編集</div>
 
-        <form class="chat-form-edit" id="editForm" method="POST">
+        <form
+            class="chat-form-edit"
+            id="editForm"
+            method="POST"
+            action="{{ old('editing_message_id')
+                ? route('tradechat.message.update', old('editing_message_id'))
+                : '' }}"
+        >
             @csrf
             @method('PUT')
 
             <input
                 type="text"
-                maxlength="400"
-                name="message"
+                name="messageEdit"
                 id="editMessage"
-                required
+                value="{{ old('messageEdit') }}"
+            >
+
+            <input
+                type="hidden"
+                name="editing_message_id"
+                value="{{ old('editing_message_id') }}"
             >
 
             <div class="modal-edit-actions">
@@ -220,9 +231,14 @@
                 <button type="button" id="closeEditModal">キャンセル</button>
             </div>
         </form>
+
+        <p class="chat-form__error-message-edit">
+            @error('messageEdit', 'edit')
+                {{ $message }}
+            @enderror
+        </p>
     </div>
 </div>
-
 
 
 <script>
@@ -294,6 +310,9 @@ document.addEventListener('DOMContentLoaded', () => {
             editModal.style.display = 'flex';
             editMessage.value = btn.dataset.messageText;
             editForm.action = btn.dataset.action;
+
+            editForm.querySelector('input[name="editing_message_id"]').value
+                = btn.dataset.messageId;
         });
     });
 
@@ -302,7 +321,16 @@ document.addEventListener('DOMContentLoaded', () => {
             editModal.style.display = 'none';
         });
     }
+
+    // エラーの場合開き直し
+    if (window.hasEditError) {
+    editModal.style.display = 'flex';
+    }
 });
+</script>
+
+<script>
+    window.hasEditError = {{ $errors->hasBag('edit') ? 'true' : 'false' }};
 </script>
  
 <script>

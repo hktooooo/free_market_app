@@ -6,6 +6,7 @@ use App\Models\ChatRoom;
 use App\Models\Message;
 use App\Models\User;
 use App\Http\Requests\StoreMessageRequest;
+use App\Http\Requests\UpdateMessageRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -148,14 +149,12 @@ class TradeChatController extends Controller
     /**
      * メッセージ更新（自分の投稿のみ）
      */
-    public function tradechat_update(StoreMessageRequest $request, Message $message)
+    public function tradechat_update(UpdateMessageRequest $request, Message $message)
     {
-        if ($message->user_id !== Auth::id()) {
-            abort(403);
-        }
+        $request->validateWithBag('edit', $request->rules(), $request->messages());
 
         $message->update([
-            'message' => $request->message,
+            'message' => $request->messageEdit,
         ]);
 
         return redirect()->route('tradechat.show', $message->chat_room_id);
