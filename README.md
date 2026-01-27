@@ -2,7 +2,10 @@
 
 ## 環境構築
 **Dockerビルド**
-1. `git clone git@github.com:hktooooo/free_market_app.git`
+1. git cloneを実行
+```
+git clone git@github.com:hktooooo/free_market_app.git
+```
 2. DockerDesktopアプリを立ち上げる
 3. プロジェクト直下で、以下のコマンドを実行する
 
@@ -188,54 +191,70 @@ password: 12345678
 -------------------------
 
 ## PHPUnitを利用したテストに関して
-以下のコマンドを順に実行:  
-```text
-//MySQLコンテナ上でテスト用データベースの作成
+以下のコマンドを順に実行:<br>
+
+MySQLコンテナ上でテスト用データベースの作成<br>
+```
 docker-compose exec mysql bash
+```
 
-//MySQLコンテナ上
+MySQLコンテナ上<br>
+```
 mysql -u root -p
-
-//パスワードはrootと入力
+```
+パスワードはrootと入力<br>
+```
 CREATE DATABASE demo_test;
+```
+```
 SHOW DATABASES;
+```
 
-SHOW DATABASES;入力後、demo_testが作成されていれば成功
-exitでコンテナを抜ける
+SHOW DATABASES;入力後、demo_testが作成されていれば成功<br>
+exitでコンテナを抜ける<br>
 
-//テスト用の.envファイル作成
+テスト用の.envファイル作成<br>
+```
 docker-compose exec php bash
+```
+```
 cp .env .env.testing
-
-//※Windows WSL環境下では、PHPコンテナ抜けてから下記コマンドでファイル権限を与える必要がある
+```
+//※Windows WSL環境下では、PHPコンテナ抜けてから下記コマンドでファイル権限を与える必要がある<br>
+```
 sudo chown -R $USER:$USER src/
+```
 
-.env.testingの以下の環境変数を書き換える
+.env.testingの以下の環境変数を書き換える<br>
+``` text
+APP_NAME=Laravel
+APP_ENV=test
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
 
-    APP_NAME=Laravel
-    APP_ENV=test
-    APP_KEY=
-    APP_DEBUG=true
-    APP_URL=http://localhost
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=demo_test
+DB_USERNAME=root
+DB_PASSWORD=root
+```
 
-    DB_CONNECTION=mysql
-    DB_HOST=mysql
-    DB_PORT=3306
-    DB_DATABASE=demo_test
-    DB_USERNAME=root
-    DB_PASSWORD=root
-
-// 以下を PHPコンテナ内で実行 (docker-compose exec php bashでコンテナに入る)
-// 「空」にしたAPP_KEYに新たなテスト用のアプリケーションキーを加える
+以下を PHPコンテナ内で実行 (docker-compose exec php bashでコンテナに入る)<br>
+空」にしたAPP_KEYに新たなテスト用のアプリケーションキーを加える<br>
+```
 php artisan key:generate --env=testing
+```
 
-// キャッシュのクリアとマイグレーションコマンドの実行
+キャッシュのクリアとマイグレーションコマンドの実行<br>
+```
 php artisan config:clear
 php artisan migrate:fresh --env=testing
-
-./vendor/bin/phpunit tests/Feature/ファイル名.php
-で各テスト実行ができます
 ```
+./vendor/bin/phpunit tests/Feature/ファイル名.php<br>
+で各テスト実行ができます<br>
+
 ## 使用技術(実行環境)
 - PHP8.2.29
 - Laravel8.83.29
