@@ -12,6 +12,10 @@ git clone git@github.com:hktooooo/free_market_app.git
 ```
 make init
 ```
+※ 権限エラーが出る場合は以下を実行してください。<br>
+```
+sudo chmod -R 777 src/*
+```
 
 ## SQLデータ
 .envファイルの環境変数は以下となっています。<br>
@@ -59,7 +63,7 @@ STRIPE_SECRET=(各自のSTRIPE_SECRETを記入)
 | address | varchar(255) |  |  |  |  |
 | building | varchar(255) |  |  |  |  |
 | img_url | varchar(255) |  |  |  |  |
-| rating | decimal |  |  |  |  |
+| avg_rating | decimal |  |  |  |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
 
@@ -155,6 +159,11 @@ STRIPE_SECRET=(各自のSTRIPE_SECRETを記入)
 | product_id | bigint |  |  | ◯ | products(id) |
 | buyer_id | bigint |  |  | ◯ | users(id) |
 | seller_id | bigint |  |  | ◯ | users(id) |
+| is_buyer_completed | boolean |  |  |  |  |
+| is_completed | boolean |  |  |  |  |
+| completed_at | timestamp |  |  |  |  |
+| buyer_rating | bigint |  |  |  |  |
+| seller_rating | bigint |  |  |  |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
 
@@ -242,7 +251,7 @@ DB_PASSWORD=root
 ```
 
 以下を PHPコンテナ内で実行 (docker-compose exec php bashでコンテナに入る)<br>
-空」にしたAPP_KEYに新たなテスト用のアプリケーションキーを加える<br>
+「空」にしたAPP_KEYに新たなテスト用のアプリケーションキーを加える<br>
 ```
 php artisan key:generate --env=testing
 ```
