@@ -220,7 +220,7 @@ docker-compose exec php bash
 ```
 cp .env .env.testing
 ```
-//※Windows WSL環境下では、PHPコンテナ抜けてから下記コマンドでファイル権限を与える必要がある<br>
+※Windows WSL環境下では、PHPコンテナ抜けてから下記コマンドでファイル権限を与える必要がある<br>
 ```
 sudo chown -R $USER:$USER src/
 ```
