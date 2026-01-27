@@ -11,7 +11,7 @@ init:
 	cp src/public/images/sample_images/*.jpg src/storage/app/public/product_images
 	docker compose exec php php artisan key:generate
 	docker compose exec php php artisan storage:link
-	docker compose exec php chmod -R 775 storage bootstrap/cache
+	docker compose exec php chmod -R 777 storage bootstrap/cache
 	@make fresh
 
 fresh:
