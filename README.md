@@ -180,7 +180,7 @@ STRIPE_SECRET=(各自のSTRIPE_SECRETを記入)
 | updated_at | timestamp |  |  |  |  |
 
 ## ER図
-![alt](erd.png)
+![alt text](erd.png)
 
 ## テストユーザーアカウント
 name: seller1  
