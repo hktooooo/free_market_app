@@ -156,7 +156,6 @@
                         type="file"
                         name="image"
                         id="image-input"
-                        accept="image/png,image/jpeg"
                         hidden
                         @if($completed_flag) disabled @endif
                     >

@@ -10,10 +10,11 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    width: 1413px;
+    max-width: 1413px;
     margin: 0 auto;
     padding: 0 150px;
     gap: 75px;
+    border: #FF0000 solid 1px;
 }
 
 .toppage__list__link {
@@ -27,7 +28,7 @@
 }
 
 .toppage__inner {
-    width: 1413px;
+    max-width: 1413px;
     padding: 0 20px;
     margin: 0 auto;
     display: flex;
@@ -40,6 +41,7 @@
     height: 320px;
     margin-right: 71px;
     margin-bottom: 77px;
+    border: #000000 solid 1px;
 }
 
 .toppage__product-container:nth-child(4n) {
