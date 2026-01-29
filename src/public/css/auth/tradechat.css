@@ -1,41 +1,41 @@
 .trade-chat-container {
     width: 100%;
     display: flex;
-    height: calc(100vh - 80px);
+    height: calc(100vh - calc(80vw / 15.12));
 }
 
 .trade-sidebar {
-    width: 259px;
-    padding-top: 13px;
+    width: calc(259vw / 15.12);
+    padding-top: calc(13vw / 15.12);
     background-color: #868686;
 }
 
 .trade-sidebar h4 {
     color: #fff;
-    width: 195px;
+    width: calc(195vw / 15.12);
     margin: 0 auto;
-    font-size: 30px;
+    font-size: calc(30vw / 15.12);
     font-weight: 400;
 }
 
 .other-trade-item-list {
-    margin-top: 56px;
+    margin-top: calc(56vw / 15.12);
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 46px;
+    gap: calc(46vw / 15.12);
 }
 
 .other-trade-item {
     display: block;
-    width: 197px;
-    height: 40px;
+    width: calc(197vw / 15.12);
+    height: calc(40vw / 15.12);
     background-color: #EEEFEB;
     color: #000;
-    font-size: 24px;
+    font-size: calc(24vw / 15.12);
 }
 
 .trade-main-contents {
@@ -47,22 +47,22 @@
 
 .trade-header {
     width: 100%;
-    border-bottom: 2px solid #5F5F5F;
+    border-bottom: calc(2vw / 15.12) solid #5F5F5F;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 13px 41px 13px 37px;
+    padding: calc(13vw / 15.12) calc(41vw / 15.12) calc(13vw / 15.12) calc(37vw / 15.12);
 }
 
 .partner {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: calc(20vw / 15.12);
 }
 
 .partner-img {
-    width: 79px;
-    height: 79px;
+    width: calc(79vw / 15.12);
+    height: calc(79vw / 15.12);
     border-radius: 50%;
     overflow: hidden;
     /* はみ出た部分を切り取る */
@@ -85,7 +85,7 @@
 }
 
 .partner-name {
-    font-size: 36px;
+    font-size: calc(36vw / 15.12);
     font-weight: 700;
 }
 
@@ -93,56 +93,56 @@
     background: #FF8282;
     color: #FFF;
     border: none;
-    font-size: 20px;
+    font-size: calc(20vw / 15.12);
     font-weight: 700;
-    border-radius: 30px;
-    padding: 13px 16px 15px 20px;
+    border-radius: calc(30vw / 15.12);
+    padding: calc(13vw / 15.12) calc(16vw / 15.12) calc(15vw / 15.12) calc(20vw / 15.12);
 }
 
 .product-info {
     display: flex;
     align-items: center;
-    gap: 40px;
-    padding: 14px 0 13px 40px;
-    border-bottom: 2px solid #5F5F5F;
+    gap: calc(40vw / 15.12);
+    padding: calc(14vw / 15.12) 0 calc(13vw / 15.12) calc(40vw / 15.12);
+    border-bottom: calc(2vw / 15.12) solid #5F5F5F;
 }
 
 .product-image {
-    width: 203px;
-    height: 206px;
+    width: calc(203vw / 15.12);
+    height: calc(206vw / 15.12);
     object-fit: cover;
 }
 
 .product-text h3 {
     color: #000;
-    font-size: 48px;
+    font-size: calc(48vw / 15.12);
     font-weight: 700;
-    padding-bottom: 18px;
+    padding-bottom: calc(18vw / 15.12);
 }
 
 .product-text p {
     color: #000;
-    font-size: 36px;
+    font-size: calc(36vw / 15.12);
     font-weight: 400;
 }
 
 .chat-messages {
     flex: 1 1 auto;
-    padding: 26px 27px 20px 25px;
+    padding: calc(26vw / 15.12) calc(27vw / 15.12) calc(20vw / 15.12) calc(25vw / 15.12);
     overflow-y: auto;
     min-height: 0;
 }
 
 .message-row {
     display: flex;
-    margin-bottom: 16px;
+    margin-bottom: calc(20vw / 15.12);
 }
 
 .message-bubble {
     display: flex;
     flex-direction: column;
     text-align: left;
-    gap: 6px;
+    gap: calc(6vw / 15.12);
     align-items: flex-start;
 }
 
@@ -153,13 +153,13 @@
 .user-info-wrapper {
     display: flex;
     align-items: center;
-    height: 60px;
-    gap: 24px;
+    height: calc(60vw / 15.12);
+    gap: calc(24vw / 15.12);
 }
 
 .user-img {
-    width: 60px;
-    height: 60px;
+    width: calc(60vw / 15.12);
+    height: calc(60vw / 15.12);
     border-radius: 50%;
     overflow: hidden;
     /* はみ出た部分を切り取る */
@@ -182,44 +182,48 @@
 }
 
 .user-name {
-    font-size: 20px;
+    font-size: calc(20vw / 15.12);
     font-weight: 700;
 }
 
 .message-text-box {
-    margin-top: 4px;
+    margin-top: calc(4vw / 15.12);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: calc(8vw / 15.12);
     align-items: flex-start;
 }
 
 .message-text {
     display: inline-block;
-    max-width: 600px;
-    font-size: 18px;
+    max-width: calc(600vw / 15.12);
+    font-size: calc(18vw / 15.12);
     font-weight: 400;
-    padding: 12px;
+    padding: calc(12vw / 15.12);
     background-color: #D9D9D9;
-    border-radius: 4px;
+    border-radius: calc(4vw / 15.12);
     overflow-wrap: break-word;
     word-break: break-word;
 }
 
 .chat-image {
-    max-width: 200px;
+    max-width: calc(200vw / 15.12);
 }
 
 .my-message-editer {
     display: flex;
     justify-content: flex-end;
-    gap: 21px;
-    margin-right: 15px;
+    gap: calc(21vw / 15.12);
+    margin-right: calc(15vw / 15.12);
+    margin-top: calc(4vw / 15.12);
 }
 
 .my-message-editer button {
     color: #5F5F5F;
-    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 calc(4vw / 15.12) calc(4vw / 15.12) rgba(0, 0, 0, 0.25);
+    font-size: calc(15vw / 15.12);
+    font-weight: 400;
+    display: block;
 }
 
 /* ユーザーは右寄せ */
@@ -241,32 +245,32 @@
 
 .chat-form {
     display: flex;
-    padding: 0 47px 10px 27px;
+    padding: 0 calc(47vw / 15.12) calc(10vw / 15.12) calc(27vw / 15.12);
     flex-shrink: 0;
     align-items: center;
 }
 
 .chat-form input[type="text"] {
-    border: #5F5F5F 1px solid;
-    border-radius: 4px;
+    border: #5F5F5F calc(1vw / 15.12) solid;
+    border-radius: calc(4vw / 15.12);
     flex: 1;
-    height: 44px;
-    font-size: 20px;
+    height: calc(44vw / 15.12);
+    font-size: calc(20vw / 15.12);
     font-weight: 700;
-    padding-left: 19px;
-    margin-right: 19px;
+    padding-left: calc(19vw / 15.12);
+    margin-right: calc(19vw / 15.12);
 }
 
 .image-btn {
-    width: 143px;
+    width: calc(143vw / 15.12);
     text-align: center;
-    height: 44px;
-    padding: 5px 10px;
+    height: calc(44vw / 15.12);
+    padding: calc(5vw / 15.12) calc(10vw / 15.12);
     color: #FF5555;
-    border: #FF5555 2px solid;
-    border-radius: 10px;
+    border: #FF5555 calc(2vw / 15.12) solid;
+    border-radius: calc(10vw / 15.12);
     cursor: pointer;
-    font-size: 20px;
+    font-size: calc(20vw / 15.12);
     font-weight: 700;
 }
 
@@ -276,8 +280,8 @@
 }
 
 .send-btn {
-    width: 80px;
-    height: 61px;
+    width: calc(80vw / 15.12);
+    height: calc(61vw / 15.12);
     border: none;
     cursor: pointer;
     padding: 0;
@@ -302,10 +306,10 @@
 }
 
 .chat-form__error-message {
-    margin-bottom: 2px;
-    font-size: 16px;
+    margin-bottom: calc(2vw / 15.12);
+    font-size: calc(16vw / 15.12);
     color: #FF5555;
-    padding-left: 27px;
+    padding-left: calc(27vw / 15.12);
     font-weight: 700;
 }
 
@@ -338,52 +342,52 @@
 /* モーダル */
 .modal-content {
     background: #FDFCE6;
-    width: 598px;
-    height: 367px;
-    border-radius: 15px;
-    border: #000 solid 1px;
+    width: calc(598vw / 15.12);
+    height: calc(367vw / 15.12);
+    border-radius: calc(15vw / 15.12);
+    border: #000 solid calc(1vw / 15.12);
     /* 画面中央に配置 */
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) translateX(130px);
+    transform: translate(-50%, -50%) translateX(calc(130vw / 15.12));
     /* X方向に130pxずらす */
 }
 
 .modal-content-title {
-    height: 88px;
-    line-height: 88px;
-    font-size: 35px;
-    font-weight: 400px;
-    padding-left: 23px;
-    border-bottom: #000 solid 1px;
+    height: calc(88vw / 15.12);
+    line-height: calc(88vw / 15.12);
+    font-size: calc(35vw / 15.12);
+    font-weight: calc(400vw / 15.12);
+    padding-left: calc(23vw / 15.12);
+    border-bottom: #000 solid calc(1vw / 15.12);
 }
 
 .rating-main {
-    padding-top: 20px;
-    padding-left: 23px;
-    height: 198px;
-    border-bottom: #000 solid 1px;
+    padding-top: calc(20vw / 15.12);
+    padding-left: calc(23vw / 15.12);
+    height: calc(198vw / 15.12);
+    border-bottom: #000 solid calc(1vw / 15.12);
 }
 
 .rating-main p {
     color: #868686;
-    font-size: 20px;
+    font-size: calc(20vw / 15.12);
     font-weight: 400;
 }
 
 .rating {
     text-align: center;
-    margin-top: 18px;
+    margin-top: calc(18vw / 15.12);
     line-height: 1;
     padding: 0;
-    letter-spacing: 3px;
+    letter-spacing: calc(3vw / 15.12);
 }
 
 /* ボタンエリア */
 .modal-actions {
-    padding-right: 14px;
-    margin-top: 14px;
+    padding-right: calc(14vw / 15.12);
+    margin-top: calc(14vw / 15.12);
     text-align: right;
 }
 
@@ -392,15 +396,17 @@
     background: #FF8282;
     color: #fff;
     border: none;
-    padding: 6px 16px 8px 16px;
-    border-radius: 5px;
-    font-size: 24px;
+    padding: calc(6vw / 15.12) calc(16vw / 15.12) calc(8vw / 15.12) calc(16vw / 15.12);
+    border-radius: calc(5vw / 15.12);
+    font-size: calc(24vw / 15.12);
     font-weight: 400;
     text-align: center;
+    display: block;
+    margin-left: auto;
 }
 
 .star {
-    font-size: 100px;
+    font-size: calc(100vw / 15.12);
     color: #D9D9D9;
     cursor: pointer;
 }
@@ -412,25 +418,25 @@
 /* メッセージ編集用のモーダル */
 .modal-content-edit {
     background: #FFF;
-    width: 800px;
-    height: 210px;
-    border-radius: 5px;
-    border: #000 solid 1px;
+    width: calc(800vw / 15.12);
+    height: calc(210vw / 15.12);
+    border-radius: calc(5vw / 15.12);
+    border: #000 solid calc(1vw / 15.12);
     /* 画面中央に配置 */
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) translateX(130px);
+    transform: translate(-50%, -50%) translateX(calc(130vw / 15.12));
     /* X方向に130pxずらす */
-    padding: 15px;
+    padding: calc(15vw / 15.12);
     display: flex;
     flex-direction: column;
     /* 縦に並べる */
-    gap: 10px;
+    gap: calc(10vw / 15.12);
 }
 
 .modal-content-edit-title {
-    font-size: 24px;
+    font-size: calc(24vw / 15.12);
     font-weight: 700;
 }
 
@@ -440,38 +446,38 @@
 
 .chat-form-edit input[type="text"] {
     width: 100%;
-    border: #5F5F5F 1px solid;
-    border-radius: 4px;
-    font-size: 18px;
+    border: #5F5F5F calc(1vw / 15.12) solid;
+    border-radius: calc(4vw / 15.12);
+    font-size: calc(18vw / 15.12);
     color: #000;
     font-weight: 400;
-    padding-left: 6px;
-    height: 40px;
+    padding-left: calc(6vw / 15.12);
+    height: calc(40vw / 15.12);
 }
 
 .modal-edit-actions {
     display: flex;
-    gap: 10px;
+    gap: calc(10vw / 15.12);
     justify-content: end;
-    padding-right: 10px;
-    margin-top: 12px;
+    padding-right: calc(10vw / 15.12);
+    margin-top: calc(12vw / 15.12);
 }
 
 .modal-edit-actions button {
-    width: 110px;
+    width: calc(110vw / 15.12);
     display: block;
     color: #000;
     background-color: #D9D9D9;
     border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    padding: 5px 0 8px 0;
+    border-radius: calc(5vw / 15.12);
+    font-size: calc(18vw / 15.12);
+    padding: calc(5vw / 15.12) 0 calc(8vw / 15.12) 0;
 }
 
 .chat-form__error-message-edit {
-    margin-bottom: 2px;
-    font-size: 16px;
+    margin-bottom: calc(2vw / 15.12);
+    font-size: calc(16vw / 15.12);
     color: #FF5555;
-    padding-left: 4px;
+    padding-left: calc(4vw / 15.12);
     font-weight: 700;
 }
