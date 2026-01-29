@@ -98,7 +98,6 @@
                                 </p>
                             @endif
                         </div>
-
                         {{-- 自分のメッセージのみ編集、削除可能 --}}
                         @if ($message->isMine(auth()->id()))
                             <div class="my-message-editer">

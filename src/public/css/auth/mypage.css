@@ -1,14 +1,15 @@
 h2 {
-    font-size: 36px;
+    font-size: calc(36vw / 15.12);
+    ;
     font-weight: bold;
     color: #000;
 }
 
 .mypage__profile-section {
-    margin: 78px auto 77px auto;
-    padding: 0 20px;
-    width: 1057px;
-    height: 150px;
+    margin: calc(78vw / 15.12) auto calc(77vw / 15.12) auto;
+    padding: 0 calc(20vw / 15.12);
+    width: calc(1057vw / 15.12);
+    height: calc(150vw / 15.12);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,12 +18,12 @@ h2 {
 .mypage__profile-section-inner {
     display: flex;
     justify-content: start;
-    gap: 57px;
+    gap: calc(57vw / 15.12);
 }
 
 .mypage__profile__img {
-    width: 150px;
-    height: 150px;
+    width: calc(150vw / 15.12);
+    height: calc(150vw / 15.12);
     border-radius: 50%;
     overflow: hidden;
     /* はみ出た部分を切り取る */
@@ -49,16 +50,16 @@ h2 {
 }
 
 .mypage__profile-name {
-    margin-top: 32px;
-    margin-bottom: 12px;
+    margin-top: calc(32vw / 15.12);
+    margin-bottom: calc(12vw / 15.12);
 }
 
 .mypage__edit-profile-btn {
-    width: 310px;
-    height: 59px;
-    border-radius: 10px;
-    border: solid 2px #FF5555;
-    font-size: 26px;
+    width: calc(310vw / 15.12);
+    height: calc(59vw / 15.12);
+    border-radius: calc(10vw / 15.12);
+    border: solid calc(2vw / 15.12) #FF5555;
+    font-size: calc(26vw / 15.12);
     font-weight: bold;
     color: #FF5555;
     display: flex;
@@ -67,25 +68,25 @@ h2 {
 }
 
 .mypage__list {
-    height: 47px;
-    padding: 0 20px 10px 20px;
-    border-bottom: solid 2px #5F5F5F;
-    margin-bottom: 59px;
+    height: calc(47vw / 15.12);
+    padding: 0 calc(20vw / 15.12) calc(10vw / 15.12) calc(20vw / 15.12);
+    border-bottom: solid calc(2vw / 15.12) #5F5F5F;
+    margin-bottom: calc(70vw / 15.12);
 }
 
 .mypage__list__inner {
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 91px;
-    width: 1413px;
+    gap: calc(91vw / 15.12);
+    width: calc(1413vw / 15.12);
     margin: 0 auto;
-    padding: 0 50px;
+    padding: 0 calc(50vw / 15.12);
 }
 
 .mypage__list__link {
     color: #5F5F5F;
-    font-size: 24px;
+    font-size: calc(24vw / 15.12);
     font-weight: bold;
 }
 
@@ -96,26 +97,26 @@ h2 {
 .mypage__list__link-trading {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: calc(12vw / 15.12);
 }
 
 .total-unread-counter {
     display: block;
-    margin-top: 4px;
-    width: 27px;
-    height: 26px;
+    margin-top: calc(4vw / 15.12);
+    width: calc(27vw / 15.12);
+    height: calc(26vw / 15.12);
     line-height: 1;
-    border-radius: 10px;
+    border-radius: calc(10vw / 15.12);
     color: #FFF;
     background-color: #FF0000;
     text-align: center;
     font-weight: 700;
-    font-size: 24px;
+    font-size: calc(24vw / 15.12);
 }
 
 .mypage__inner {
-    width: 1413px;
-    padding: 0 20px;
+    width: calc(1413vw / 15.12);
+    padding: 0 calc(20vw / 15.12);
     margin: 0 auto;
     display: flex;
     justify-content: flex-start;
@@ -123,10 +124,10 @@ h2 {
 }
 
 .toppage__product-container {
-    width: 290px;
-    height: 320px;
-    margin-right: 71px;
-    margin-bottom: 77px;
+    width: calc(290vw / 15.12);
+    height: calc(320vw / 15.12);
+    margin-right: calc(71vw / 15.12);
+    margin-bottom: calc(77vw / 15.12);
 }
 
 .toppage__product-container:nth-child(4n) {
@@ -136,9 +137,9 @@ h2 {
 .toppage__product-image {
     display: block;
     width: 100%;
-    height: 281px;
+    height: 87.8%;
     background-color: #D9D9D9;
-    border-radius: 4px;
+    border-radius: calc(4vw / 15.12);
 }
 
 .toppage__product-image img {
@@ -150,25 +151,25 @@ h2 {
 }
 
 .toppage__product-name {
-    margin-top: 2px;
-    font-size: 25px;
+    margin-top: calc(2vw / 15.12);
+    font-size: calc(25vw / 15.12);
     color: #000000;
 }
 
 .toppage__product-sold {
     margin-top: 0;
-    font-size: 25px;
+    font-size: calc(25vw / 15.12);
     color: #FF0000;
 }
 
 /* 評価点 */
 .star-rating {
     display: inline-flex;
-    gap: 2px;
+    gap: calc(2vw / 15.12);
 }
 
 .star {
-    font-size: 40px;
+    font-size: calc(40vw / 15.12);
     color: #D9D9D9;
     line-height: 1;
     /* 未評価（灰色） */
@@ -186,15 +187,15 @@ h2 {
 .product-unread-counter {
     background-color: #FF0000;
     color: #FFF;
-    font-size: 10px;
+    font-size: calc(10vw / 15.12);
     font-weight: 700;
     text-align: center;
-    height: 20px;
-    width: 20px;
-    line-height: 19px;
+    height: calc(20vw / 15.12);
+    width: calc(20vw / 15.12);
+    line-height: calc(19vw / 15.12);
     border-radius: 50%;
     position: absolute;
-    top: 4px;
-    left: 8px;
+    top: calc(4vw / 15.12);
+    left: calc(8vw / 15.12);
     z-index: 10;
 }
